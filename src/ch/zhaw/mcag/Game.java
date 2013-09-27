@@ -15,7 +15,7 @@ public class Game extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(400, 300);
 		setLocationRelativeTo(null);
-		setTitle("R - Type");
+		setTitle("MCAG");
 		setResizable(false);
 		setVisible(true);
 	}
