@@ -2,19 +2,15 @@ package ch.zhaw.mcag.model;
 
 import java.awt.Image;
 
-import javax.swing.ImageIcon;
-
 public class Item implements Drawable {
 	private Dimension dimension;
 	protected Position position;
 	protected Image image;
-	protected String imagePath = "arr.png";
+	protected String imagePath = "rocket.gif";
 
 	public Item(int x, int y, int h, int l) {
 		this.position = new Position(x, y);
 		this.dimension = new Dimension(h, l);
-		ImageIcon ii = new ImageIcon(this.getClass().getResource(this.imagePath));
-		this.setImage(ii.getImage());
 	}
 
 	public Dimension getDimension() {

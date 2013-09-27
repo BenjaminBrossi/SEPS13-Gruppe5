@@ -3,14 +3,19 @@ package ch.zhaw.mcag.model.creature;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
+
 import ch.zhaw.mcag.model.Shot;
 
 public class Player extends Creature {
 	private ArrayList<Shot> shots;
+	protected String imagePath = "alien.gif";
 
 	public Player(int x, int y, int h, int l) {
 		super(x, y, h, l);
 		shots = new ArrayList<Shot>();
+		ImageIcon ii = new ImageIcon(this.getClass().getResource(this.imagePath));
+		this.setImage(ii.getImage());
 	}
 
 	public void shoot() {
