@@ -1,5 +1,7 @@
 package ch.zhaw.mcag;
 
+import java.awt.*;
+
 import javax.swing.JFrame;
 
 import ch.zhaw.mcag.model.*;
@@ -10,14 +12,19 @@ public class Game extends JFrame {
 
 	public Game() {
 
-		add(new Board());
-
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(400, 300);
-		setLocationRelativeTo(null);
-		setTitle("MCAG");
-		setResizable(false);
-		setVisible(true);
+		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		
+		this.add(new Board());
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle("MCAG");
+		this.setUndecorated(true);
+		
+		if (gd.isFullScreenSupported()) {
+	        gd.setFullScreenWindow(this);
+	    } else {
+	    	this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+	    }
+		this.setVisible(true);
 	}
 
 	public static void main(String[] args) {
