@@ -22,7 +22,7 @@ public class Game extends JFrame {
 		if (gd.isFullScreenSupported()) {
 	        gd.setFullScreenWindow(this);
 	    } else {
-	    	this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+	    	this.setExtendedState(JFrame.NORMAL);
 	    }
 		this.setVisible(true);
 	}

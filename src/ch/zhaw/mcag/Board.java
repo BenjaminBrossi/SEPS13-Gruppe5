@@ -12,12 +12,19 @@ import javax.swing.Timer;
 
 import ch.zhaw.mcag.model.Shot;
 import ch.zhaw.mcag.model.creature.*;
+import ch.zhaw.mcag.sensor.SensorListener;
+import ch.zhaw.mcag.sensor.ShootListener;
+import com.leapmotion.leap.Controller;
+import com.leapmotion.leap.Listener;
 
-public class Board extends JPanel implements ActionListener {
+public class Board extends JPanel implements ActionListener, WindowListener {
 
 	private static final long serialVersionUID = 6466804428038769553L;
 	private Timer timer;
-	private Player player;
+	public Player player;
+        Controller controller;
+        Listener sensorListener;
+        Listener shootListener;
 
 	public Board() {
 
@@ -27,6 +34,12 @@ public class Board extends JPanel implements ActionListener {
 		setDoubleBuffered(true);
 
 		player = new Player(40, 60 , 0, 0);
+                
+                controller = new Controller();
+                sensorListener = new SensorListener(this);
+                controller.addListener(sensorListener);
+                shootListener = new ShootListener(player);
+                controller.addListener(shootListener);
 
 		timer = new Timer(Config.GAME_SPEED, this);
 		timer.start();
@@ -61,6 +74,41 @@ public class Board extends JPanel implements ActionListener {
 		player.move();
 		repaint();
 	}
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+        
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        
+    }
 
 	private class TAdapter extends KeyAdapter {
 
