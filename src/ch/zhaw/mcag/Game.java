@@ -1,65 +1,37 @@
 package ch.zhaw.mcag;
 
-import ch.zhaw.mcag.view.Board;
-import ch.zhaw.mcag.thread.EnemyCreator;
-import ch.zhaw.mcag.thread.ShotCreator;
-import ch.zhaw.mcag.thread.ExtraCreator;
-import ch.zhaw.mcag.thread.Engine;
-import ch.zhaw.mcag.thread.ObstacleCreator;
 import java.awt.*;
 
 import javax.swing.JFrame;
 
-import ch.zhaw.mcag.model.Dimension;
+import ch.zhaw.mcag.model.*;
 
 public class Game extends JFrame {
 
 	private static final long serialVersionUID = -6941538058687003272L;
 
 	public Game() {
-	}
 
-	private void start() {
-
-		java.awt.Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-		Config.setBoardDimension(new Dimension(dimension.height, dimension.width));
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-
-		GameContext c = new GameContext();
-		Board board = new Board(c);
-
-		// Threads
-		Engine engine = new Engine(c, board);
-		ObstacleCreator oCreator = new ObstacleCreator(c);
-		EnemyCreator eCreator = new EnemyCreator(c);
-		ShotCreator sCreator = new ShotCreator(c);
-		ExtraCreator xCreator = new ExtraCreator(c);
-
-		engine.start();
-		oCreator.start();
-		eCreator.start();
-		sCreator.start();
-		xCreator.start();
-
-		this.add(board);
+		
+		this.add(new Board());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle("MCAG");
 		this.setUndecorated(true);
-
+		
 		if (gd.isFullScreenSupported()) {
-			// gd.setFullScreenWindow(this);
-			this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		} else {
-			this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		}
-
+	        gd.setFullScreenWindow(this);
+	    } else {
+	    	this.setExtendedState(JFrame.NORMAL);
+	    }
 		this.setVisible(true);
 	}
 
-
-
 	public static void main(String[] args) {
-		Game game = new Game();
-		game.start();
+		new Game();
 	}
 
+	public static void destroyItem(Destroyable item) {
+		item = null;
+	}
 }
