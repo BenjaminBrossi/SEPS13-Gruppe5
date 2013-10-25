@@ -6,11 +6,11 @@ public class Item implements Drawable {
 	private Dimension dimension;
 	protected Position position;
 	protected Image image;
-	protected String imagePath = "rocket.gif";
 
-	public Item(int x, int y, int h, int l) {
-		this.position = new Position(x, y);
-		this.dimension = new Dimension(h, l);
+	public Item(Position position, Dimension dimension, Image image) {
+		this.position = position;
+		this.dimension = dimension;
+		this.image = image;
 	}
 
 	public Dimension getDimension() {

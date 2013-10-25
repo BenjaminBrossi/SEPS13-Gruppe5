@@ -1,14 +1,16 @@
 package ch.zhaw.mcag.model.creature;
 
+import java.awt.Image;
+
 import ch.zhaw.mcag.Game;
 import ch.zhaw.mcag.model.*;
 
-public class Creature extends Item implements Movable, Destroyable {
+public abstract class Creature extends Item implements Movable, Destroyable {
 	protected int dx = 0;
 	protected int dy = 0;
 
-	public Creature(int x, int y, int h, int l) {
-		super(x, y, h, l);
+	public Creature(Position position, Dimension dimension, Image image) {
+		super(position, dimension, image);
 	}
 
 	public void destroy() {
@@ -19,4 +21,6 @@ public class Creature extends Item implements Movable, Destroyable {
 		this.getPosition().setX(this.getPosition().getX() + dx);
 		this.getPosition().setY(this.getPosition().getY() + dy);
 	}
+	
+	abstract public boolean isGood();
 }

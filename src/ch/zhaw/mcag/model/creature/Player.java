@@ -1,27 +1,23 @@
 package ch.zhaw.mcag.model.creature;
 
+import java.awt.Image;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
+import java.util.*;
 
-import javax.swing.ImageIcon;
-
-import ch.zhaw.mcag.model.Shot;
+import ch.zhaw.mcag.ItemFactory;
+import ch.zhaw.mcag.model.*;
 
 public class Player extends Creature {
-	private ArrayList<Shot> shots;
-	protected String imagePath = "alien.gif";
+	private LinkedList<Shot> shots;
+	protected boolean good = true;
 
-	public Player(int x, int y, int h, int l) {
-		super(x, y, h, l);
-		shots = new ArrayList<Shot>();
-		ImageIcon ii = new ImageIcon(this.getClass().getResource(this.imagePath));
-		this.setImage(ii.getImage());
+	public Player(Position position, Dimension dimension, Image image) {
+		super(position, dimension, image);
+		shots = new LinkedList<Shot>();
 	}
 
 	public void shoot() {
-		int posX = this.getPosition().getX() + this.getDimension().getHeight();
-		int posY = this.getPosition().getY() + this.getDimension().getLength();
-		shots.add(new Shot(posX, posY, 0, 0));
+		shots.add(ItemFactory.createShot(this));
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -33,19 +29,19 @@ public class Player extends Creature {
 		}
 
 		if (key == KeyEvent.VK_LEFT) {
-			this.dx = -1;
+			this.dx = -2;
 		}
 
 		if (key == KeyEvent.VK_RIGHT) {
-			this.dx = 1;
+			this.dx = 2;
 		}
 
 		if (key == KeyEvent.VK_UP) {
-			this.dy = -1;
+			this.dy = -2;
 		}
 
 		if (key == KeyEvent.VK_DOWN) {
-			this.dy = 1;
+			this.dy = 2;
 		}
 	}
 
@@ -69,8 +65,11 @@ public class Player extends Creature {
 		}
 	}
 
-	public ArrayList<Shot> getShots() {
+	public LinkedList<Shot> getShots() {
 		return this.shots;
 	}
-
+	
+	public boolean isGood(){
+		return this.good;
+	}
 }

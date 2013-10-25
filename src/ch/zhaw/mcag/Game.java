@@ -5,13 +5,15 @@ import java.awt.*;
 import javax.swing.JFrame;
 
 import ch.zhaw.mcag.model.*;
+import ch.zhaw.mcag.model.Dimension;
 
 public class Game extends JFrame {
 
 	private static final long serialVersionUID = -6941538058687003272L;
 
 	public Game() {
-
+		java.awt.Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		Config.setBOARD_DIMESION(new Dimension(dimension.height, dimension.width));
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		
 		this.add(new Board());
@@ -24,6 +26,7 @@ public class Game extends JFrame {
 	    } else {
 	    	this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 	    }
+		
 		this.setVisible(true);
 	}
 
