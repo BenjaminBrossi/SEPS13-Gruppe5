@@ -19,7 +19,7 @@ public class Game extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setUndecorated(true);
 		
-		if (!gd.isFullScreenSupported()) {
+		if (gd.isFullScreenSupported()) {
 	        gd.setFullScreenWindow(this);
 	    } else {
 	    	this.setExtendedState(JFrame.MAXIMIZED_BOTH);

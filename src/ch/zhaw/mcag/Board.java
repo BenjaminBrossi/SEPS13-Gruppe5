@@ -94,17 +94,54 @@ public class Board extends JPanel implements ActionListener {
 		this.moveEnemies();
 		this.moveObstacles();
 		this.moveShots();
-		this.disposeItems();
+		this.disposeEnemies();
+		this.disposeObstacles();
+		this.disposeShots();
 		repaint();
 	}
 
-	private void disposeItems() {
+	private void disposeEnemies() {
+		LinkedList<Enemy> disposedEnememies = new LinkedList<Enemy>();
 		Iterator<Enemy> enemies = this.enemies.iterator();
 		while (enemies.hasNext()) {
 			Enemy enemy = enemies.next();
 			if (enemy.getPosition().getX() < 0 - enemy.getDimension().getLength()) {
-				//this.enemies.remove(enemy);
+				disposedEnememies.add(enemy);
 			}
+		}
+		enemies = disposedEnememies.iterator();
+		while (enemies.hasNext()) {
+			this.enemies.remove(enemies.next());
+		}
+	}
+	
+	private void disposeObstacles() {
+		LinkedList<Obstacle> disposedObstacles = new LinkedList<Obstacle>();
+		Iterator<Obstacle> obstacles= this.obstacles.iterator();
+		while (obstacles.hasNext()) {
+			Obstacle obstacle = obstacles.next();
+			if (obstacle.getPosition().getX() < 0 - obstacle.getDimension().getLength()) {
+				disposedObstacles.add(obstacle);
+			}
+		}
+		obstacles = disposedObstacles.iterator();
+		while (obstacles.hasNext()) {
+			this.obstacles.remove(obstacles.next());
+		}
+	}
+	
+	private void disposeShots() {
+		LinkedList<Shot> disposedEnememies = new LinkedList<Shot>();
+		Iterator<Shot> shots = this.shots.iterator();
+		while (shots.hasNext()) {
+			Shot shot = shots.next();
+			if (shot.getPosition().getX() < 0 - shot.getDimension().getLength()) {
+				disposedEnememies.add(shot);
+			}
+		}
+		shots = disposedEnememies.iterator();
+		while (shots.hasNext()) {
+			this.shots.remove(shots.next());
 		}
 	}
 
@@ -131,7 +168,7 @@ public class Board extends JPanel implements ActionListener {
 			this.delayEnemy++;
 		}
 
-		if (this.delayShots > Config.getGAME_SPEED() * 20 && this.enemies.size() > 1) {
+		if (this.delayShots > Config.getGAME_SPEED() * 10 && this.enemies.size() > 1) {
 			int choice = (int) (Math.random() * this.enemies.size());
 			this.shots.add(this.enemies.get(choice).shoot());
 			this.delayShots = 0;
