@@ -1,13 +1,10 @@
 package ch.zhaw.mcag;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.Timer;
 
 import ch.zhaw.mcag.model.*;
@@ -19,16 +16,20 @@ public class Board extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 6466804428038769553L;
 	private Timer timer;
 	private Player player;
-	private List<Creature> enemies = new LinkedList<Creature>();
-	private List<Obstacle> obstacles = new LinkedList<Obstacle>();
-	private int counter = 0;
+	private Background background;
+	private LinkedList<Enemy> enemies = new LinkedList<Enemy>();
+	private LinkedList<Obstacle> obstacles = new LinkedList<Obstacle>();
+	protected LinkedList<Shot> shots = new LinkedList<Shot>();
+	private int delayEnemy = 0;
+	private int delayObstacle = 0;
+	private int delayShots = 0;
 
 	public Board() {
-		addKeyListener(new TAdapter());
+		addKeyListener(new TAdapter(this));
 		setFocusable(true);
-		setBackground(Color.BLACK);
 		setDoubleBuffered(true);
-
+		
+		this.background = ItemFactory.createBackground();
 		this.player = ItemFactory.createPlayer();
 
 		timer = new Timer(Config.getGAME_SPEED(), this);
@@ -38,13 +39,24 @@ public class Board extends JPanel implements ActionListener {
 	public void paint(Graphics g) {
 		super.paint(g);
 
-		this.paintPlayer((Graphics2D) g);
-		this.paintEnemies((Graphics2D) g);
+		this.paintBackground((Graphics2D) g);
 		this.paintObstacles((Graphics2D) g);
+		this.paintEnemies((Graphics2D) g);
 		this.paintShots((Graphics2D) g);
+		this.paintPlayer((Graphics2D) g);
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
+	}
+
+	private void paintBackground(Graphics2D g2d){
+		int x = background.getPosition().getX();
+		int y = background.getPosition().getY();
+		g2d.drawImage(background.getImage(), x - background.getDimension().getLength(), y, Config.getBOARD_DIMESION().getLength(), Config.getBOARD_DIMESION().getHeight(), this);
+		g2d.drawImage(background.getImage(), x, y, Config.getBOARD_DIMESION().getLength(), Config.getBOARD_DIMESION().getHeight(), this);
+		g2d.drawImage(background.getImage(), x + background.getDimension().getLength(), y, Config.getBOARD_DIMESION().getLength(), Config.getBOARD_DIMESION().getHeight(), this);
+		ImageIcon foreground = new ImageIcon(this.getClass().getResource(Config.imagePath + Config.foreground));
+		g2d.drawImage(foreground.getImage(), 0, Config.getBOARD_DIMESION().getHeight() - foreground.getIconHeight(), Config.getBOARD_DIMESION().getLength(), foreground.getIconHeight(), this);
 	}
 
 	private void paintPlayer(Graphics2D g2d) {
@@ -60,78 +72,123 @@ public class Board extends JPanel implements ActionListener {
 	}
 
 	private void paintEnemies(Graphics2D g2d) {
-		Iterator<Creature> itr = this.enemies.iterator();
+		Iterator<Enemy> itr = this.enemies.iterator();
 		while (itr.hasNext()) {
-			Creature creature = itr.next();
-			g2d.drawImage(creature.getImage(), creature.getPosition().getX(), creature.getPosition().getY(), this);
+			Enemy enemy = itr.next();
+			g2d.drawImage(enemy.getImage(), enemy.getPosition().getX(), enemy.getPosition().getY(), this);
 		}
 	}
 
 	private void paintShots(Graphics2D g2d) {
-		Iterator<Shot> itr = player.getShots().iterator();
-		while (itr.hasNext()) {
-			Shot shot = itr.next();
+		Iterator<Shot> shots = this.shots.iterator();
+		while (shots.hasNext()) {
+			Shot shot = shots.next();
 			g2d.drawImage(shot.getImage(), shot.getPosition().getX(), shot.getPosition().getY(), this);
 		}
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if(this.counter  > Config.getGAME_SPEED() * 5){
-			int choice = (int)(Math.random() * 3);
-			switch(choice){
-				case 0:
-					this.enemies.add(ItemFactory.createEnemy());
-					break;
-				case 1:
-					this.obstacles.add(ItemFactory.createHardObstacle());
-					break;
-				case 2:
-					this.obstacles.add(ItemFactory.createSoftObstacle());
-					break;
-			}
-			counter = 0;
-		} else {
-			counter++;
-		}
-		
+		this.createItems();
+		this.moveBackground();
 		this.movePlayer();
 		this.moveEnemies();
 		this.moveObstacles();
+		this.moveShots();
+		this.disposeItems();
 		repaint();
 	}
+
+	private void disposeItems() {
+		Iterator<Enemy> enemies = this.enemies.iterator();
+		while (enemies.hasNext()) {
+			Enemy enemy = enemies.next();
+			if (enemy.getPosition().getX() < 0 - enemy.getDimension().getLength()) {
+				//this.enemies.remove(enemy);
+			}
+		}
+	}
+
+	private void createItems() {
+		if (this.delayObstacle > Config.getGAME_SPEED() * 80) {
+			int choice = (int) (Math.random() * 2);
+			switch (choice) {
+			case 0:
+				this.obstacles.add(ItemFactory.createHardObstacle());
+				break;
+			case 1:
+				this.obstacles.add(ItemFactory.createSoftObstacle());
+				break;
+			}
+			this.delayObstacle = 0;
+		} else {
+			this.delayObstacle++;
+		}
+
+		if (this.delayEnemy > Config.getGAME_SPEED() * 40) {
+			this.enemies.add(ItemFactory.createEnemy());
+			this.delayEnemy = 0;
+		} else {
+			this.delayEnemy++;
+		}
+
+		if (this.delayShots > Config.getGAME_SPEED() * 20 && this.enemies.size() > 1) {
+			int choice = (int) (Math.random() * this.enemies.size());
+			this.shots.add(this.enemies.get(choice).shoot());
+			this.delayShots = 0;
+		} else {
+			this.delayShots++;
+		}
+	}
 	
-	private void movePlayer(){
-		LinkedList<Shot> shots = player.getShots();
-		Iterator<Shot> itr = shots.iterator();
+	private void moveBackground(){
+		this.background.move();
+	}
+
+	private void movePlayer() {
+		this.player.move();
+	}
+
+	private void moveObstacles() {
+		Iterator<Obstacle> itr = this.obstacles.iterator();
 		while (itr.hasNext()) {
 			itr.next().move();
 		}
-		player.move();
 	}
-	private void moveObstacles(){
-		Iterator<Obstacle> itr = this.obstacles.iterator();
-		while(itr.hasNext()){
-			Obstacle obstacle = itr.next();
-			obstacle.move();
+
+	private void moveEnemies() {
+		Iterator<Enemy> itr = this.enemies.iterator();
+		while (itr.hasNext()) {
+			Enemy enemy = itr.next();
+			enemy.move();
 		}
 	}
-	private void moveEnemies(){
-		Iterator<Creature> itr = this.enemies.iterator();
-		while(itr.hasNext()){
-			Creature creature = itr.next();
-			creature.move();
+
+	private void moveShots() {
+		Iterator<Shot> itr = this.shots.iterator();
+		while (itr.hasNext()) {
+			itr.next().move();
 		}
 	}
 
 	private class TAdapter extends KeyAdapter {
+		Board board;
+
+		public TAdapter(Board board) {
+			this.board = board;
+		}
 
 		public void keyReleased(KeyEvent e) {
 			player.keyReleased(e);
 		}
 
 		public void keyPressed(KeyEvent e) {
-			player.keyPressed(e);
+			int key = e.getKeyCode();
+
+			if (key == KeyEvent.VK_SPACE) {
+				this.board.shots.addLast(this.board.player.shoot());
+			} else {
+				this.board.player.keyPressed(e);
+			}
 		}
 	}
-
 }

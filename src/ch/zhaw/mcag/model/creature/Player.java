@@ -2,26 +2,22 @@ package ch.zhaw.mcag.model.creature;
 
 import java.awt.Image;
 import java.awt.event.KeyEvent;
-import java.util.*;
 
 import ch.zhaw.mcag.ItemFactory;
 import ch.zhaw.mcag.model.*;
 
 public class Player extends Creature {
-	private LinkedList<Shot> shots;
 	protected boolean good = true;
 
 	public Player(Position position, Dimension dimension, Image image) {
 		super(position, dimension, image);
-		shots = new LinkedList<Shot>();
 	}
 
-	public void shoot() {
-		shots.add(ItemFactory.createShot(this));
+	public Shot shoot() {
+		return ItemFactory.createShot(this);
 	}
 
 	public void keyPressed(KeyEvent e) {
-
 		int key = e.getKeyCode();
 
 		if (key == KeyEvent.VK_SPACE) {
@@ -65,10 +61,6 @@ public class Player extends Creature {
 		}
 	}
 
-	public LinkedList<Shot> getShots() {
-		return this.shots;
-	}
-	
 	public boolean isGood(){
 		return this.good;
 	}

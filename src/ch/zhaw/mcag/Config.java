@@ -6,18 +6,20 @@ public final class Config {
 	private static Dimension BOARD_DIMESION;
 
 	// Speed settings
-	private static int GAME_SPEED = 10;
+	private static int GAME_SPEED = 3;
 
 	// Image path
 	public final static String imagePath = "/images/";
 
 	// Images
-	public final static String player = "alien.gif";
-	public final static String friendlyShot = "rocket.gif";
-	public final static String enemyShot = "bullet.png";
-	public final static String[] enemies = { "enemy.png" };
-	public final static String[] hardObstacles = { "brick.jpg" };
-	public final static String[] softObstacles = { "wood.jpg" };
+	public final static String player = "Player.png";
+	public final static String friendlyShot = "Shot.png";
+	public final static String enemyShot = "Shot_Opponent.png";
+	public final static String background = "Background.png";
+	public final static String foreground = "Earth.png";
+	public final static String[] enemies = { "Alien.png", "Alien2.png" };
+	public final static String[] hardObstacles = { "HRTA.png", "HRTA2.png", "HRTA3.png", "HRTA4.png" };
+	public final static String[] softObstacles = { "Satelite.png" };
 	public final static String[] extras = { "alien.gif" };
 
 	public static int getGAME_SPEED() {
@@ -37,10 +39,10 @@ public final class Config {
 	}
 
 	public static int getMISSILE_SPEED() {
-		return GAME_SPEED / 5;
+		return (int)(GAME_SPEED / 1.5);
 	}
 
 	public static int getBACKGROUND_SPEED() {
-		return GAME_SPEED / 10;
+		return (int)(GAME_SPEED / 2);
 	}
 }

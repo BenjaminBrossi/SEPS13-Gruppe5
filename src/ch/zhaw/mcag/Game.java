@@ -4,7 +4,6 @@ import java.awt.*;
 
 import javax.swing.JFrame;
 
-import ch.zhaw.mcag.model.*;
 import ch.zhaw.mcag.model.Dimension;
 
 public class Game extends JFrame {
@@ -18,10 +17,9 @@ public class Game extends JFrame {
 		
 		this.add(new Board());
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setTitle("MCAG");
 		this.setUndecorated(true);
 		
-		if (gd.isFullScreenSupported()) {
+		if (!gd.isFullScreenSupported()) {
 	        gd.setFullScreenWindow(this);
 	    } else {
 	    	this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -34,7 +32,4 @@ public class Game extends JFrame {
 		new Game();
 	}
 
-	public static void destroyItem(Destroyable item) {
-		item = null;
-	}
 }

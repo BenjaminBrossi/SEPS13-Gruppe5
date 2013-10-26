@@ -1,8 +1,6 @@
 package ch.zhaw.mcag.model.obstacle;
 
 import java.awt.Image;
-
-import ch.zhaw.mcag.Game;
 import ch.zhaw.mcag.model.*;
 
 public class Soft extends Obstacle implements Destroyable {
@@ -12,7 +10,6 @@ public class Soft extends Obstacle implements Destroyable {
 	}
 
 	public void destroy() {
-		Game.destroyItem(this);
 	}
 
 }
