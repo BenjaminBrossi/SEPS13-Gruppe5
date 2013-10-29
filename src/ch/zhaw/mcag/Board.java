@@ -15,6 +15,8 @@ public class Board extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 6466804428038769553L;
 	private Timer timer;
+	private GameContext gameContext;
+	
 	private Player player;
 	private Background background;
 	private LinkedList<Enemy> enemies = new LinkedList<Enemy>();
