@@ -15,7 +15,12 @@ public class Game extends JFrame {
 		Config.setBOARD_DIMESION(new Dimension(dimension.height, dimension.width));
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 		
-		this.add(new Board());
+		GameContext c = new GameContext();
+		Board board = new Board(c);		
+		Engine engine = new Engine(c, board);
+		engine.start();
+		
+		this.add(board);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setUndecorated(true);
 		
