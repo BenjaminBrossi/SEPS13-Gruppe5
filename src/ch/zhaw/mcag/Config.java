@@ -3,10 +3,15 @@ package ch.zhaw.mcag;
 import ch.zhaw.mcag.model.Dimension;
 
 public final class Config {
-	private static Dimension BOARD_DIMESION;
+	private static Dimension boardDimension;
 
 	// Speed settings
-	private static int GAME_SPEED = 3;
+	private static int gameSpeed = 15;
+	private static int movePixels = 2;
+
+	private static int enemyFactor = 100;
+	private static int obstacleFactor = 200;
+	private static int shotFactor = 40;
 
 	// Image path
 	public final static String imagePath = "/images/";
@@ -22,27 +27,51 @@ public final class Config {
 	public final static String[] softObstacles = { "Satelite.png" };
 	public final static String[] extras = { "alien.gif" };
 
-	public static int getGAME_SPEED() {
-		return GAME_SPEED;
+	public static int getGameSpeed() {
+		return gameSpeed;
 	}
 
-	public static void setGAME_SPEED(int speed) {
-		GAME_SPEED = speed;
+	public static void setGameSpeed(int speed) {
+		gameSpeed = speed;
 	}
 
-	public static Dimension getBOARD_DIMESION() {
-		return BOARD_DIMESION;
+	public static Dimension getBoardDimension() {
+		return boardDimension;
 	}
 
-	public static void setBOARD_DIMESION(Dimension dimension) {
-		BOARD_DIMESION = dimension;
+	public static void setBoardDimension(Dimension dimension) {
+		boardDimension = dimension;
 	}
 
-	public static int getMISSILE_SPEED() {
-		return (int)(GAME_SPEED / 1.5);
+	public static int getMovePixels() {
+		return movePixels;
 	}
 
-	public static int getBACKGROUND_SPEED() {
-		return (int)(GAME_SPEED / 2);
+	public static void setMovePixels(int movePixels) {
+		Config.movePixels = movePixels;
+	}
+
+	public static int getEnemyFactor() {
+		return enemyFactor;
+	}
+
+	public static void setEnemyFactor(int enemyFactor) {
+		Config.enemyFactor = enemyFactor;
+	}
+
+	public static int getObstacleFactor() {
+		return obstacleFactor;
+	}
+
+	public static void setObstacleFactor(int obstacleFactor) {
+		Config.obstacleFactor = obstacleFactor;
+	}
+
+	public static int getShotFactor() {
+		return shotFactor;
+	}
+
+	public static void setShotFactor(int shotFactor) {
+		Config.shotFactor = shotFactor;
 	}
 }

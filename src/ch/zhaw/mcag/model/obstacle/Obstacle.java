@@ -10,8 +10,8 @@ public class Obstacle extends Item implements Movable {
 	public Obstacle(Position position, Dimension dimension, Image image) {
 		super(position, dimension, image);
 	}
-	
-	public void move(){
-		this.getPosition().setX(this.getPosition().getX() - Config.getBACKGROUND_SPEED());
+
+	public void move() {
+		this.getPosition().setX(this.getPosition().getX() - Config.getMovePixels());
 	}
 }

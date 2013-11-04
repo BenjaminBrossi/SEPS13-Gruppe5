@@ -10,6 +10,7 @@ public class Soft extends Obstacle implements Destroyable {
 	}
 
 	public void destroy() {
+		this.setDisposed(true);
 	}
 
 }

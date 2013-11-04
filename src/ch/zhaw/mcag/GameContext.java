@@ -9,19 +9,19 @@ import ch.zhaw.mcag.model.obstacle.*;
 public class GameContext {
 	// Config
 	private Config config;
-	
+
 	// Player
 	private Player player;
-	
+
 	// Background
 	private Background background;
-	
+
 	// Items
 	private LinkedList<Enemy> enemies = new LinkedList<Enemy>();
-	private List<Obstacle> hardObstacles = new LinkedList<Obstacle>();
-	private List<Obstacle> softObstacles = new LinkedList<Obstacle>();
+	private List<Hard> hardObstacles = new LinkedList<Hard>();
+	private List<Soft> softObstacles = new LinkedList<Soft>();
 	private LinkedList<Shot> shots = new LinkedList<Shot>();
-	
+
 	// State
 	private boolean pause;
 
@@ -57,19 +57,19 @@ public class GameContext {
 		this.enemies = enemies;
 	}
 
-	public List<Obstacle> getHardObstacles() {
+	public List<Hard> getHardObstacles() {
 		return hardObstacles;
 	}
 
-	public void setHardObstacles(List<Obstacle> hardObstacles) {
+	public void setHardObstacles(List<Hard> hardObstacles) {
 		this.hardObstacles = hardObstacles;
 	}
 
-	public List<Obstacle> getSoftObstacles() {
+	public List<Soft> getSoftObstacles() {
 		return softObstacles;
 	}
 
-	public void setSoftObstacles(List<Obstacle> softObstacles) {
+	public void setSoftObstacles(List<Soft> softObstacles) {
 		this.softObstacles = softObstacles;
 	}
 
@@ -88,6 +88,5 @@ public class GameContext {
 	public void setPause(boolean pause) {
 		this.pause = pause;
 	}
-	
-	
+
 }

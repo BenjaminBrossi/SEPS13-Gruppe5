@@ -10,20 +10,26 @@ public class Shot extends Item implements Movable, Destroyable {
 
 	public Shot(Position position, Dimension dimension, Image image, boolean good) {
 		super(position, dimension, image);
-		if(!good){
+		if (!good) {
 			this.direction = -1;
-			this.good = false;
+			this.good = good;
 		}
 	}
 
 	public void move() {
-		this.getPosition().setX(this.getPosition().getX() + Config.getMISSILE_SPEED() * this.direction * 2);
-		if ((this.getPosition().getX() < 0 && !this.good) || 
-				(this.getPosition().getX() > Config.getBOARD_DIMESION().getLength() && this.good)) {
-			this.destroy();
-		}
+		this.getPosition().setX(this.getPosition().getX() + Config.getMovePixels() * this.direction * 2);
+	}
+
+	public void destroy() {
+		this.setDisposed(true);
+	}
+
+	public boolean isGood() {
+		return good;
+	}
+
+	public void setGood(boolean good) {
+		this.good = good;
 	}
 	
-	public void destroy() {
-	}
 }
