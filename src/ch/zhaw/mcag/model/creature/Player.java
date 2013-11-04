@@ -15,8 +15,8 @@ public class Player extends Creature {
 	public Shot shoot() {
 		return ItemFactory.createShot(this);
 	}
-	
-	public boolean isGood(){
+
+	public boolean isGood() {
 		return this.good;
 	}
 }

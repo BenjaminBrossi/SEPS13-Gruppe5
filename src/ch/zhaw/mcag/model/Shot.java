@@ -31,5 +31,5 @@ public class Shot extends Item implements Movable, Destroyable {
 	public void setGood(boolean good) {
 		this.good = good;
 	}
-	
+
 }

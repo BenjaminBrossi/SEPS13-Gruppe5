@@ -28,6 +28,6 @@ public class Enemy extends Creature implements Destroyable {
 	}
 
 	public void destroy() {
-		this.setDisposed(true);	
+		this.setDisposed(true);
 	}
 }

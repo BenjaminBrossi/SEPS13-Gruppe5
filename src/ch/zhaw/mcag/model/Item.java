@@ -10,6 +10,7 @@ public class Item implements Drawable {
 	protected Image image;
 	protected boolean good = false;
 	protected boolean disposed = false;
+	protected boolean hadCollision = false;
 
 	public Item(Position position, Dimension dimension, Image image) {
 		this.position = position;
@@ -41,7 +42,6 @@ public class Item implements Drawable {
 		this.image = image;
 	}
 
-
 	public boolean isOutside() {
 		int l = this.getDimension().getLength();
 		int x = this.getPosition().getX();
@@ -64,12 +64,12 @@ public class Item implements Drawable {
 		}
 		return false;
 	}
-	
-	public Rectangle getLimits(){
+
+	public Rectangle getLimits() {
 		return new Rectangle(position.getX(), position.getY(), dimension.getLength(), dimension.getHeight());
 	}
-	
-	public boolean hasCollision(Item i){
+
+	public boolean hasCollision(Item i) {
 		return this.getLimits().intersects(i.getLimits());
 	}
 
@@ -88,8 +88,16 @@ public class Item implements Drawable {
 	public void setDisposed(boolean disposed) {
 		this.disposed = disposed;
 	}
-	
-	public void destroy(){
-		
+
+	public void destroy() {
+
+	}
+
+	public boolean hadCollision() {
+		return hadCollision;
+	}
+
+	public void setCollision(boolean hadCollision) {
+		this.hadCollision = hadCollision;
 	}
 }

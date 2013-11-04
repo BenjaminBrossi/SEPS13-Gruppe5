@@ -5,13 +5,15 @@ import ch.zhaw.mcag.model.Dimension;
 public final class Config {
 	private static Dimension boardDimension;
 
+	private static int initialLifes = 5;
+
 	// Speed settings
 	private static int gameSpeed = 15;
 	private static int movePixels = 2;
 
-	private static int enemyFactor = 100;
-	private static int obstacleFactor = 200;
-	private static int shotFactor = 40;
+	private static int enemyFactor = 150;
+	private static int obstacleFactor = 150;
+	private static int shotFactor = 50;
 
 	// Image path
 	public final static String imagePath = "/images/";
@@ -73,5 +75,13 @@ public final class Config {
 
 	public static void setShotFactor(int shotFactor) {
 		Config.shotFactor = shotFactor;
+	}
+
+	public static int getInitialLifes() {
+		return initialLifes;
+	}
+
+	public static void setInitialLifes(int initialLifes) {
+		Config.initialLifes = initialLifes;
 	}
 }
