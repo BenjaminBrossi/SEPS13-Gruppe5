@@ -55,6 +55,7 @@ public class KeyboardAdapter extends KeyAdapter {
 			board.toggleMenu();
 		} else if (key == KeyEvent.VK_ESCAPE && board.getMenu().getState() != 1) {
 			board.getMenu().reset();
+			board.repaint();
 		} else if (board.showMenu()) {
 			board.getMenu().keyPressed(e);
 		}
