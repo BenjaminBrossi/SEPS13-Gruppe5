@@ -7,9 +7,9 @@ import java.util.*;
 import javax.swing.*;
 
 import ch.zhaw.mcag.levels.Level;
-import ch.zhaw.mcag.model.Shot;
+import ch.zhaw.mcag.model.*;
 import ch.zhaw.mcag.model.creature.Enemy;
-import ch.zhaw.mcag.model.obstacle.Obstacle;
+import ch.zhaw.mcag.model.obstacle.*;
 
 public class Board extends JPanel implements ActionListener {
 
@@ -34,6 +34,7 @@ public class Board extends JPanel implements ActionListener {
 		this.paintEnemies((Graphics2D) g);
 		this.paintShots((Graphics2D) g);
 		this.paintPlayer((Graphics2D) g);
+		this.paintExtras((Graphics2D) g);
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
@@ -54,28 +55,35 @@ public class Board extends JPanel implements ActionListener {
 	}
 
 	private synchronized void paintObstacles(Graphics2D g2d) {
-		LinkedList<Obstacle> tmp = new LinkedList<Obstacle>(c.getHardObstacles());
+		LinkedList<Hard> tmp = c.getHardObstacles();
 		for (Obstacle obstacle : tmp) {
 			g2d.drawImage(obstacle.getImage(), obstacle.getPosition().getX(), obstacle.getPosition().getY(), this);
 		}
 
-		tmp = new LinkedList<Obstacle>(c.getSoftObstacles());
-		for (Obstacle obstacle : tmp) {
+		LinkedList<Soft> tmp2 = c.getSoftObstacles();
+		for (Obstacle obstacle : tmp2) {
 			g2d.drawImage(obstacle.getImage(), obstacle.getPosition().getX(), obstacle.getPosition().getY(), this);
 		}
 	}
 
 	private synchronized void paintEnemies(Graphics2D g2d) {
-		LinkedList<Enemy> tmp = new LinkedList<Enemy>(c.getEnemies());
+		LinkedList<Enemy> tmp = c.getEnemies();
 		for (Enemy enemy : tmp) {
 			g2d.drawImage(enemy.getImage(), enemy.getPosition().getX(), enemy.getPosition().getY(), this);
 		}
 	}
 
 	private synchronized void paintShots(Graphics2D g2d) {
-		LinkedList<Shot> tmp = new LinkedList<Shot>(c.getShots());
+		LinkedList<Shot> tmp = c.getShots();
 		for (Shot shot : tmp) {
 			g2d.drawImage(shot.getImage(), shot.getPosition().getX(), shot.getPosition().getY(), this);
+		}
+	}
+	
+	private synchronized void paintExtras(Graphics2D g2d) {
+		LinkedList<Extra> tmp = c.getExtras();
+		for (Extra extra : tmp) {
+			g2d.drawImage(extra.getImage(), extra.getPosition().getX(), extra.getPosition().getY(), this);
 		}
 	}
 
