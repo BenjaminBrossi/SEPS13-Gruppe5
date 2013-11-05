@@ -45,7 +45,7 @@ public class KeyboardAdapter extends KeyAdapter {
 				c.getPlayer().setDy(-Config.getMovePixels() * 2);
 				break;
 			case KeyEvent.VK_SPACE:
-				c.getShots().add(c.getPlayer().shoot());
+				c.getPlayer().shoot(c.getShots());
 				break;
 			case KeyEvent.VK_ESCAPE:
 				board.getMenu().reset();

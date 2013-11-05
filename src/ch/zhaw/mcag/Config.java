@@ -1,19 +1,24 @@
 package ch.zhaw.mcag;
 
+import ch.zhaw.mcag.levels.Level;
 import ch.zhaw.mcag.model.Dimension;
 
 public final class Config {
+	private static int level = Level.LEVEL_DEEPSEA;
 	private static Dimension boardDimension;
 
 	private static int initialLifes = 5;
 
 	// Speed settings
 	private static int gameSpeed = 15;
+	private static int initialSpeed = 5;
 	private static int movePixels = 2;
 
 	private static int enemyFactor = 150;
 	private static int obstacleFactor = 150;
 	private static int shotFactor = 50;
+	private static int extraFactor = 200;
+        
         // interval in milliseconds
         private static long shotInterval = 200;
 
@@ -94,5 +99,30 @@ public final class Config {
         public static void setShotInterval(long shotInterval) {
             Config.shotInterval = shotInterval;
         }
+
+    public static int getLevel() {
+        return level;
+    }
+
+    public static void setLevel(int level) {
+        Config.level = level;
+    }
+
+    public static int getInitialSpeed() {
+        return initialSpeed;
+    }
+
+    public static void setInitialSpeed(int initialSpeed) {
+        Config.initialSpeed = initialSpeed;
+    }
+
+    public static int getExtraFactor() {
+        return extraFactor;
+    }
+
+    public static void setExtraFactor(int extraFactor) {
+        Config.extraFactor = extraFactor;
+    }
         
+    
 }

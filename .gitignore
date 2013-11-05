@@ -6,3 +6,6 @@
 *.project
 *.classpath
 bin/
+/nbproject/private/
+/build/
+/dist/
