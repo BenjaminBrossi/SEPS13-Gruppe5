@@ -37,8 +37,9 @@ public class Board extends JPanel implements ActionListener {
                 leapController.addListener(sensorListener);
                 leapController.addListener(shootListener);
                 
-                addKeyListener(new TAdapter(c));
+                addKeyListener(new KeyboardAdapter(c, this));
                 
+                this.menu = new Menu(this);
 		setFocusable(true);
 		setDoubleBuffered(true);
 		this.c = c;
