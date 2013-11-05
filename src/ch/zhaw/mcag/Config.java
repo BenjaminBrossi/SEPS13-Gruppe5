@@ -18,9 +18,9 @@ public final class Config {
 	private static int obstacleFactor = 150;
 	private static int shotFactor = 50;
 	private static int extraFactor = 200;
-        
-        // interval in milliseconds
-        private static long shotInterval = 200;
+
+	// interval in milliseconds
+	private static long shotInterval = 200;
 
 	// Image path
 	public final static String imagePath = "/images/";
@@ -92,37 +92,36 @@ public final class Config {
 		Config.initialLifes = initialLifes;
 	}
 
-        public static long getShotInterval() {
-            return shotInterval;
-        }
+	public static long getShotInterval() {
+		return shotInterval;
+	}
 
-        public static void setShotInterval(long shotInterval) {
-            Config.shotInterval = shotInterval;
-        }
+	public static void setShotInterval(long shotInterval) {
+		Config.shotInterval = shotInterval;
+	}
 
-    public static int getLevel() {
-        return level;
-    }
+	public static int getLevel() {
+		return level;
+	}
 
-    public static void setLevel(int level) {
-        Config.level = level;
-    }
+	public static void setLevel(int level) {
+		Config.level = level;
+	}
 
-    public static int getInitialSpeed() {
-        return initialSpeed;
-    }
+	public static int getInitialSpeed() {
+		return initialSpeed;
+	}
 
-    public static void setInitialSpeed(int initialSpeed) {
-        Config.initialSpeed = initialSpeed;
-    }
+	public static void setInitialSpeed(int initialSpeed) {
+		Config.initialSpeed = initialSpeed;
+	}
 
-    public static int getExtraFactor() {
-        return extraFactor;
-    }
+	public static int getExtraFactor() {
+		return extraFactor;
+	}
 
-    public static void setExtraFactor(int extraFactor) {
-        Config.extraFactor = extraFactor;
-    }
-        
-    
+	public static void setExtraFactor(int extraFactor) {
+		Config.extraFactor = extraFactor;
+	}
+
 }
