@@ -21,14 +21,14 @@ public class ItemFactory {
 		return new Enemy(position, dimension, imageIcon.getImage());
 	}
 
-	public static Enemy createExtra() {
+	public static Extra createExtra() {
 		int pick = (int) (Math.random() * Level.getLevel().getExtras().length);
 		ImageIcon imageIcon = new ImageIcon(ItemFactory.class.getResource(Config.imagePath + Level.getLevel().getExtras()[pick]));
 		int y = (int) (Math.random() * Config.getBoardDimension().getHeight()) - (imageIcon.getIconHeight() / 2);
 		int x = Config.getBoardDimension().getLength();
 		Position position = new Position(x, y);
 		Dimension dimension = new Dimension(imageIcon.getIconHeight(), imageIcon.getIconWidth());
-		return new Enemy(position, dimension, imageIcon.getImage());
+		return new Extra(position, dimension, imageIcon.getImage());
 	}
 
 	public static Hard createHardObstacle() {

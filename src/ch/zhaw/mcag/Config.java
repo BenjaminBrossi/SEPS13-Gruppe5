@@ -17,6 +17,7 @@ public final class Config {
 	private static int enemyFactor = 100;
 	private static int obstacleFactor = 200;
 	private static int shotFactor = 50;
+	private static int extraFactor = 200;
 
 	// Image path
 	public final static String imagePath = "/images/";
@@ -85,4 +86,13 @@ public final class Config {
 	public static void setInitialLifes(int initialLifes) {
 		Config.initialLifes = initialLifes;
 	}
+
+	public static int getExtraFactor() {
+		return extraFactor;
+	}
+
+	public static void setExtraFactor(int extraFactor) {
+		Config.extraFactor = extraFactor;
+	}
+	
 }
