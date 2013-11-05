@@ -14,6 +14,8 @@ public final class Config {
 	private static int enemyFactor = 150;
 	private static int obstacleFactor = 150;
 	private static int shotFactor = 50;
+        // interval in milliseconds
+        private static long shotInterval = 200;
 
 	// Image path
 	public final static String imagePath = "/images/";
@@ -84,4 +86,13 @@ public final class Config {
 	public static void setInitialLifes(int initialLifes) {
 		Config.initialLifes = initialLifes;
 	}
+
+        public static long getShotInterval() {
+            return shotInterval;
+        }
+
+        public static void setShotInterval(long shotInterval) {
+            Config.shotInterval = shotInterval;
+        }
+        
 }

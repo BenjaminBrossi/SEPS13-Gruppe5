@@ -9,14 +9,32 @@ import javax.swing.*;
 import ch.zhaw.mcag.model.Shot;
 import ch.zhaw.mcag.model.creature.Enemy;
 import ch.zhaw.mcag.model.obstacle.Obstacle;
+import ch.zhaw.mcag.sensor.IControlable;
+import ch.zhaw.mcag.sensor.SensorListener;
+import ch.zhaw.mcag.sensor.ShootListener;
+import com.leapmotion.leap.Controller;
+import com.leapmotion.leap.Listener;
 
 public class Board extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 6466804428038769553L;
 	private GameContext c;
+        private Controller leapController;
+        private Listener sensorListener;
+        private Listener shootListener;
+        private IControlable leapAdapter;
 
 	public Board(GameContext c) {
-		addKeyListener(new TAdapter(c));
+                // add leap motion controller
+                leapAdapter = new SensorAdapter(c);
+                sensorListener = new SensorListener(leapAdapter);
+                shootListener = new ShootListener(leapAdapter);
+                leapController = new Controller();
+                leapController.addListener(sensorListener);
+                leapController.addListener(shootListener);
+                
+                addKeyListener(new TAdapter(c));
+                
 		setFocusable(true);
 		setDoubleBuffered(true);
 		this.c = c;

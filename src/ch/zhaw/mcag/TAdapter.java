@@ -50,7 +50,7 @@ public class TAdapter extends KeyAdapter {
 		}
 
 		if (key == KeyEvent.VK_SPACE) {
-			c.getShots().add(c.getPlayer().shoot());
+			c.getPlayer().shoot(c.getShots());
 		}
 	}
 }
