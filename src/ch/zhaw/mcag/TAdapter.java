@@ -4,10 +4,12 @@ import java.awt.event.*;
 
 public class TAdapter extends KeyAdapter {
 	GameContext c;
+	Board board;
 
-	public TAdapter(GameContext c) {
+	public TAdapter(GameContext c, Board board) {
 		super();
 		this.c = c;
+		this.board = board;
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -28,6 +30,7 @@ public class TAdapter extends KeyAdapter {
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 
+		if (!board.showMenu()){
 		switch (key) {
 		case KeyEvent.VK_LEFT:
 			c.getPlayer().setDx(-Config.getMovePixels() * 2);
@@ -44,6 +47,25 @@ public class TAdapter extends KeyAdapter {
 		case KeyEvent.VK_SPACE:
 			c.getShots().add(c.getPlayer().shoot());
 			break;
+		case KeyEvent.VK_ESCAPE:
+			//game.pause();
+			board.getMenu().reset();
+			board.toggleMenu();
 		}
+		}
+		else if (key == KeyEvent.VK_ESCAPE && board.getMenu().getState() == 1){
+			//game.resume();
+			board.toggleMenu();
+		}
+		else if (key == KeyEvent.VK_ESCAPE && board.getMenu().getState() != 1){
+			board.getMenu().reset();
+		}
+		else if (board.showMenu()){
+			board.getMenu().keyPressed(e);
+		}
+			
+ 
+		
+		
 	}
 }

@@ -19,10 +19,10 @@ public class GameContext {
 
 	// Items
 	private LinkedList<Enemy> enemies = new LinkedList<Enemy>();
-	private LinkedList<Hard> hardObstacles = new LinkedList<Hard>();
-	private LinkedList<Soft> softObstacles = new LinkedList<Soft>();
+	private List<Hard> hardObstacles = new LinkedList<Hard>();
+	private List<Soft> softObstacles = new LinkedList<Soft>();
 	private LinkedList<Shot> shots = new LinkedList<Shot>();
-	private LinkedList<Extra> extras = new LinkedList<Shot>();
+	//private LinkedList<Extra> extras = new LinkedList<Shot>();
 
 	// State
 	private boolean pause;

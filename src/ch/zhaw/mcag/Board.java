@@ -15,14 +15,17 @@ public class Board extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 6466804428038769553L;
 	private GameContext c;
+	private Menu menu;
+	private boolean showMenu = true;
 
 	public Board(GameContext c) {
-		addKeyListener(new TAdapter(c));
+		addKeyListener(new TAdapter(c, this));
 		setFocusable(true);
 		setDoubleBuffered(true);
 		this.c = c;
 		c.setPlayer(ItemFactory.createPlayer());
 		c.setBackground(ItemFactory.createBackground());
+		menu = new Menu(this);
 
 	}
 
@@ -35,8 +38,16 @@ public class Board extends JPanel implements ActionListener {
 		this.paintShots((Graphics2D) g);
 		this.paintPlayer((Graphics2D) g);
 
+		if (showMenu == true){
+			this.paintMenu((Graphics2D) g);
+		}
+		
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
+	}
+	
+	private void paintMenu(Graphics2D g2d) {
+		menu.draw(g2d);
 	}
 
 	private void paintBackground(Graphics2D g2d) {
@@ -80,5 +91,17 @@ public class Board extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
+	}
+	
+	public Menu getMenu(){
+		return menu;
+	}
+	
+	public boolean showMenu(){
+		return showMenu;
+	}
+	
+	public void toggleMenu(){
+		showMenu = !showMenu();
 	}
 }
