@@ -2,10 +2,10 @@ package ch.zhaw.mcag;
 
 import java.awt.event.*;
 
-public class TAdapter extends KeyAdapter {
+public class KeyboardAdapter extends KeyAdapter {
 	GameContext c;
 
-	public TAdapter(GameContext c) {
+	public KeyboardAdapter(GameContext c) {
 		super();
 		this.c = c;
 	}

@@ -17,7 +17,7 @@ public class Board extends JPanel implements ActionListener {
 	private GameContext c;
 
 	public Board(GameContext c) {
-		addKeyListener(new TAdapter(c));
+		addKeyListener(new KeyboardAdapter(c));
 		setFocusable(true);
 		setDoubleBuffered(true);
 		this.c = c;
