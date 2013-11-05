@@ -39,7 +39,7 @@ public class Board extends JPanel implements ActionListener {
                 
                 addKeyListener(new KeyboardAdapter(c, this));
                 
-                this.menu = new Menu(this);
+                this.menu = new Menu(this, c);
 		setFocusable(true);
 		setDoubleBuffered(true);
 		this.c = c;

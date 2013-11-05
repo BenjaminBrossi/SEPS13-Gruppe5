@@ -50,16 +50,30 @@ public class KeyboardAdapter extends KeyAdapter {
 			case KeyEvent.VK_ESCAPE:
 				board.getMenu().reset();
 				board.toggleMenu();
+				break;
 			}
-		} else if (key == KeyEvent.VK_ESCAPE && board.getMenu().getState() == 1) {
-			board.toggleMenu();
-		} else if (key == KeyEvent.VK_ESCAPE && board.getMenu().getState() != 1) {
-			board.getMenu().reset();
-			board.repaint();
-		} else if (board.showMenu()) {
-			board.getMenu().keyPressed(e);
+		} else {
+			switch (key) {
+			case KeyEvent.VK_UP:
+				board.getMenu().up();
+				break;
+			case KeyEvent.VK_DOWN:
+				board.getMenu().down();
+				break;
+			case KeyEvent.VK_SPACE:
+				board.getMenu().select(board.getMenu().getSelected());
+				break;
+			case KeyEvent.VK_ENTER:
+				board.getMenu().select(board.getMenu().getSelected());
+				break;
+			case KeyEvent.VK_ESCAPE:
+				if (board.getMenu().getState() == 1)
+					board.toggleMenu();
+				else
+					board.getMenu().setState(1);
+				break;
+			}
 		}
-
+		board.repaint();
 	}
-
 }
