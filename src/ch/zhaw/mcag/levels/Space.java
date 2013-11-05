@@ -10,6 +10,7 @@ public class Space extends AbstractLevel{
 	private String[] hardObstacles = { "HRTA.png", "HRTA2.png", "HRTA3.png", "HRTA4.png" };
 	private String[] softObstacles = { "Satelite.png" };
 	private String[] extras = { "Coin.gif" };
+	
 	public String getPlayer() {
 		return player;
 	}

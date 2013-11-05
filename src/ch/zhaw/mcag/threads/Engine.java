@@ -26,7 +26,7 @@ public class Engine extends Thread {
 			if(c.getPoints() > 1000){
 				Config.setGameSpeed(5);
 			}
-			System.out.println(c.getPoints());
+			//System.out.println(c.getPoints());
 			try {
 				Thread.sleep(Config.getGameSpeed());
 			} catch (InterruptedException e) {

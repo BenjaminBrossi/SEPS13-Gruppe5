@@ -35,7 +35,12 @@ public class Board extends JPanel implements ActionListener {
 		this.paintShots((Graphics2D) g);
 		this.paintPlayer((Graphics2D) g);
 		this.paintExtras((Graphics2D) g);
-
+		
+		Font font = new Font("sans", Font.PLAIN, 36);
+		g.setColor(Color.green);
+		g.setFont(font);
+		g.drawString(c.getPoints() + "", 10, 50);
+		
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
 	}

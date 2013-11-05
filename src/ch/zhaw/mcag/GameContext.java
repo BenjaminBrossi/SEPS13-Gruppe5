@@ -102,5 +102,4 @@ public class GameContext {
 	public LinkedList<Extra> getExtras() {
 		return this.extras;
 	}
-	
 }
