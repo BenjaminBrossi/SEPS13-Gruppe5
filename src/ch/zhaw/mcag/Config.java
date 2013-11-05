@@ -5,13 +5,14 @@ import ch.zhaw.mcag.model.Dimension;
 
 public final class Config {
 	private static int level = Level.LEVEL_DEEPSEA;
-	
+
 	private static Dimension boardDimension;
 
 	private static int initialLifes = 5;
 
 	// Speed settings
-	private static int gameSpeed = 15;
+	private static int gameSpeed = 5;
+	private static int initialSpeed = 5;
 	private static int movePixels = 2;
 
 	private static int enemyFactor = 100;
@@ -22,21 +23,24 @@ public final class Config {
 	// Image path
 	public final static String imagePath = "/images/";
 
-	public static int getLevel(){
+	public static int getLevel() {
 		return level;
 	}
-	
-	public static int setLevel(int l){
+
+	public static int setLevel(int l) {
 		return level = l;
 	}
-	
 
 	public static int getGameSpeed() {
 		return gameSpeed;
 	}
 
 	public static void setGameSpeed(int speed) {
-		gameSpeed = speed;
+		System.out.println(speed);
+		if(speed >= 2 && speed < initialSpeed){
+			gameSpeed = speed;
+		}
+		
 	}
 
 	public static Dimension getBoardDimension() {
@@ -93,6 +97,14 @@ public final class Config {
 
 	public static void setExtraFactor(int extraFactor) {
 		Config.extraFactor = extraFactor;
+	}
+
+	public static int getInitialSpeed() {
+		return initialSpeed;
+	}
+
+	public static void setInitialSpeed(int initialSpeed) {
+		Config.initialSpeed = initialSpeed;
 	}
 	
 }

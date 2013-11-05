@@ -11,7 +11,9 @@ public class ObstacleCreator extends Thread {
 
 	public synchronized void run() {
 		while (true) {
-			createItems();
+			if (!c.isPaused()) {
+				createItems();
+			}
 			try {
 				Thread.sleep(Config.getGameSpeed() * Config.getObstacleFactor());
 			} catch (InterruptedException e) {

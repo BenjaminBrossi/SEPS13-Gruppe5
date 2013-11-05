@@ -25,7 +25,7 @@ public class GameContext {
 	private LinkedList<Extra> extras = new LinkedList<Extra>();
 
 	// State
-	private boolean pause;
+	private boolean pause = true;
 
 	public Config getConfig() {
 		return config;
@@ -83,7 +83,7 @@ public class GameContext {
 		this.shots = shots;
 	}
 
-	public boolean isPause() {
+	public boolean isPaused() {
 		return pause;
 	}
 

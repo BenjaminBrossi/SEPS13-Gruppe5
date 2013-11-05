@@ -48,12 +48,10 @@ public class KeyboardAdapter extends KeyAdapter {
 				c.getShots().add(c.getPlayer().shoot());
 				break;
 			case KeyEvent.VK_ESCAPE:
-				// game.pause();
 				board.getMenu().reset();
 				board.toggleMenu();
 			}
 		} else if (key == KeyEvent.VK_ESCAPE && board.getMenu().getState() == 1) {
-			// game.resume();
 			board.toggleMenu();
 		} else if (key == KeyEvent.VK_ESCAPE && board.getMenu().getState() != 1) {
 			board.getMenu().reset();

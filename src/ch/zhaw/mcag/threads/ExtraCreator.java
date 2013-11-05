@@ -11,8 +11,10 @@ public class ExtraCreator extends Thread {
 
 	public synchronized void run() {
 		while (true) {
-			c.getExtras().add(ItemFactory.createExtra());
-			System.out.println("ciao");
+			if (!c.isPaused()) {
+				c.getExtras().add(ItemFactory.createExtra());
+				System.out.println("ciao");
+			}
 			try {
 				Thread.sleep(Config.getGameSpeed() * Config.getExtraFactor());
 			} catch (InterruptedException e) {

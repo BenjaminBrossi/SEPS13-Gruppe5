@@ -18,7 +18,6 @@ public class Board extends JPanel implements ActionListener {
 	private Menu menu;
 	private boolean showMenu = true;
 
-
 	public Board(GameContext c) {
 		addKeyListener(new KeyboardAdapter(c, this));
 		setFocusable(true);
@@ -39,19 +38,22 @@ public class Board extends JPanel implements ActionListener {
 		this.paintPlayer((Graphics2D) g);
 		this.paintExtras((Graphics2D) g);
 
-		if (showMenu == true){
+		Font font = new Font("sans", Font.PLAIN, 36);
+		g.setColor(Color.green);
+		g.setFont(font);
+		g.drawString(c.getPoints() + "", 10, 50);
+
+		if (showMenu == true) {
 			this.paintMenu((Graphics2D) g);
 		}
 
-		
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
 	}
-	
+
 	private void paintMenu(Graphics2D g2d) {
 		menu.draw(g2d);
 	}
-
 
 	private void paintBackground(Graphics2D g2d) {
 		int x = c.getBackground().getPosition().getX();
@@ -92,7 +94,7 @@ public class Board extends JPanel implements ActionListener {
 			g2d.drawImage(shot.getImage(), shot.getPosition().getX(), shot.getPosition().getY(), this);
 		}
 	}
-	
+
 	private synchronized void paintExtras(Graphics2D g2d) {
 		LinkedList<Extra> tmp = c.getExtras();
 		for (Extra extra : tmp) {
@@ -102,16 +104,17 @@ public class Board extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 	}
-	
-	public void toggleMenu(){
+
+	public void toggleMenu() {
+		c.setPause(!c.isPaused());
 		showMenu = !showMenu;
 	}
-	
-	public Menu getMenu(){
+
+	public Menu getMenu() {
 		return menu;
 	}
-	
-	public boolean showMenu(){
+
+	public boolean showMenu() {
 		return showMenu;
 	}
 

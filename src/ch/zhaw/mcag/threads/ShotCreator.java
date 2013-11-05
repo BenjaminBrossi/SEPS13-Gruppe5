@@ -11,10 +11,12 @@ public class ShotCreator extends Thread {
 
 	public synchronized void run() {
 		while (true) {
-			if (c.getEnemies().size() > 1) {
-				int count = c.getEnemies().size();
-				int pick = (int) (Math.random() * count);
-				c.getShots().add(c.getEnemies().get(pick).shoot());
+			if (!c.isPaused()) {
+				if (c.getEnemies().size() > 1) {
+					int count = c.getEnemies().size();
+					int pick = (int) (Math.random() * count);
+					c.getShots().add(c.getEnemies().get(pick).shoot());
+				}
 			}
 			try {
 				Thread.sleep(Config.getGameSpeed() * Config.getShotFactor());

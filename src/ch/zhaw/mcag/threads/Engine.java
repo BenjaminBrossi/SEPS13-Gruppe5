@@ -18,15 +18,14 @@ public class Engine extends Thread {
 
 	public synchronized void run() {
 		while (true) {
-			moveAll();
-			collisionDetection();
-			disposeAll();
-			board.repaint();
-			c.setPoints(c.getPoints() + 1);
-			if(c.getPoints() > 1000){
-				Config.setGameSpeed(5);
+			if (!c.isPaused()) {
+				moveAll();
+				collisionDetection();
+				disposeAll();
+				c.setPoints(c.getPoints() + 1);
+				board.repaint();
+				Config.setGameSpeed(Config.getInitialSpeed() - (int)(Math.log10(c.getPoints()) - 2));
 			}
-			//System.out.println(c.getPoints());
 			try {
 				Thread.sleep(Config.getGameSpeed());
 			} catch (InterruptedException e) {
@@ -42,7 +41,7 @@ public class Engine extends Thread {
 		them.addAll(c.getEnemies());
 		them.addAll(c.getSoftObstacles());
 		them.addAll(c.getHardObstacles());
-		
+
 		List<Shot> tmp = c.getShots();
 
 		for (Shot shot : tmp) {
@@ -63,7 +62,7 @@ public class Engine extends Thread {
 						thoseItem.setCollision(true);
 					} else if (thoseItem instanceof Destroyable) {
 						c.setPoints(c.getPoints() + 100);
-						
+
 						myItem.destroy();
 						thoseItem.destroy();
 					}
@@ -128,7 +127,7 @@ public class Engine extends Thread {
 		}
 
 		disposedObstacles = new LinkedList<Obstacle>();
-		List<Hard>tmp2 = c.getHardObstacles();
+		List<Hard> tmp2 = c.getHardObstacles();
 		for (Obstacle obstacle : tmp2) {
 			if (obstacle.getPosition().getX() < 0 - obstacle.getDimension().getLength()) {
 				disposedObstacles.add(obstacle);
@@ -179,7 +178,7 @@ public class Engine extends Thread {
 			enemy.move();
 		}
 	}
-	
+
 	private synchronized void moveExtras() {
 		List<Extra> tmp = c.getExtras();
 		for (Extra extra : tmp) {
