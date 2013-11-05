@@ -12,15 +12,17 @@ public class GameContext {
 
 	// Player
 	private Player player;
+	private long points;
 
 	// Background
 	private Background background;
 
 	// Items
 	private LinkedList<Enemy> enemies = new LinkedList<Enemy>();
-	private List<Hard> hardObstacles = new LinkedList<Hard>();
-	private List<Soft> softObstacles = new LinkedList<Soft>();
+	private LinkedList<Hard> hardObstacles = new LinkedList<Hard>();
+	private LinkedList<Soft> softObstacles = new LinkedList<Soft>();
 	private LinkedList<Shot> shots = new LinkedList<Shot>();
+	private LinkedList<Extra> extras = new LinkedList<Shot>();
 
 	// State
 	private boolean pause;
@@ -88,5 +90,15 @@ public class GameContext {
 	public void setPause(boolean pause) {
 		this.pause = pause;
 	}
+
+	public long getPoints() {
+		return points;
+	}
+
+	public void setPoints(long points) {
+		this.points = points;
+	}
+	
+	
 
 }

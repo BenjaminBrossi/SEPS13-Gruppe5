@@ -2,6 +2,7 @@ package ch.zhaw.mcag;
 
 import javax.swing.ImageIcon;
 
+import ch.zhaw.mcag.levels.Level;
 import ch.zhaw.mcag.model.*;
 import ch.zhaw.mcag.model.creature.*;
 import ch.zhaw.mcag.model.obstacle.*;
@@ -10,8 +11,9 @@ public class ItemFactory {
 	Config conf = new Config();
 
 	public static Enemy createEnemy() {
-		int pick = (int) (Math.random() * Config.enemies.length);
-		ImageIcon imageIcon = new ImageIcon(ItemFactory.class.getResource(Config.imagePath + Config.enemies[pick]));
+		Config.getLevel();
+		int pick = (int) (Math.random() * Level.getLevel().getEnemies().length);
+		ImageIcon imageIcon = new ImageIcon(ItemFactory.class.getResource(Config.imagePath + Level.getLevel().getEnemies()[pick]));
 		int y = (int) (Math.random() * Config.getBoardDimension().getHeight()) - (imageIcon.getIconHeight() / 2);
 		int x = Config.getBoardDimension().getLength();
 		Position position = new Position(x, y);
@@ -20,8 +22,8 @@ public class ItemFactory {
 	}
 
 	public static Enemy createExtra() {
-		int pick = (int) (Math.random() * Config.extras.length);
-		ImageIcon imageIcon = new ImageIcon(ItemFactory.class.getResource(Config.imagePath + Config.extras[pick]));
+		int pick = (int) (Math.random() * Level.getLevel().getExtras().length);
+		ImageIcon imageIcon = new ImageIcon(ItemFactory.class.getResource(Config.imagePath + Level.getLevel().getExtras()[pick]));
 		int y = (int) (Math.random() * Config.getBoardDimension().getHeight()) - (imageIcon.getIconHeight() / 2);
 		int x = Config.getBoardDimension().getLength();
 		Position position = new Position(x, y);
@@ -30,8 +32,8 @@ public class ItemFactory {
 	}
 
 	public static Hard createHardObstacle() {
-		int pick = (int) (Math.random() * Config.hardObstacles.length);
-		ImageIcon imageIcon = new ImageIcon(ItemFactory.class.getResource(Config.imagePath + Config.hardObstacles[pick]));
+		int pick = (int) (Math.random() * Level.getLevel().getHardObstacles().length);
+		ImageIcon imageIcon = new ImageIcon(ItemFactory.class.getResource(Config.imagePath + Level.getLevel().getHardObstacles()[pick]));
 		int y = (int) (Math.random() * Config.getBoardDimension().getHeight()) - (imageIcon.getIconHeight() / 2);
 		int x = Config.getBoardDimension().getLength();
 		Position position = new Position(x, y);
@@ -40,8 +42,8 @@ public class ItemFactory {
 	}
 
 	public static Soft createSoftObstacle() {
-		int pick = (int) (Math.random() * Config.softObstacles.length);
-		ImageIcon imageIcon = new ImageIcon(ItemFactory.class.getResource(Config.imagePath + Config.softObstacles[pick]));
+		int pick = (int) (Math.random() * Level.getLevel().getSoftObstacles().length);
+		ImageIcon imageIcon = new ImageIcon(ItemFactory.class.getResource(Config.imagePath + Level.getLevel().getSoftObstacles()[pick]));
 		int y = (int) (Math.random() * Config.getBoardDimension().getHeight()) - (imageIcon.getIconHeight() / 2);
 		int x = Config.getBoardDimension().getLength();
 		Position position = new Position(x, y);
@@ -50,7 +52,7 @@ public class ItemFactory {
 	}
 
 	public static Player createPlayer() {
-		ImageIcon imageIcon = new ImageIcon(ItemFactory.class.getResource(Config.imagePath + Config.player));
+		ImageIcon imageIcon = new ImageIcon(ItemFactory.class.getResource(Config.imagePath + Level.getLevel().getPlayer()));
 		Position position = new Position(0, (int) Config.getBoardDimension().getHeight() / 2);
 		Dimension dimension = new Dimension(imageIcon.getIconHeight(), imageIcon.getIconWidth());
 		return new Player(position, dimension, imageIcon.getImage());
@@ -59,9 +61,9 @@ public class ItemFactory {
 	public static Shot createShot(Creature creature) {
 		String picture;
 		if (creature.isGood()) {
-			picture = Config.friendlyShot;
+			picture = Level.getLevel().getFriendlyShot();
 		} else {
-			picture = Config.enemyShot;
+			picture = Level.getLevel().getEnemyShot();
 		}
 		ImageIcon imageIcon = new ImageIcon(ItemFactory.class.getResource(Config.imagePath + picture));
 		Dimension dimension = new Dimension(imageIcon.getIconHeight(), imageIcon.getIconWidth());
@@ -70,7 +72,7 @@ public class ItemFactory {
 	}
 
 	public static Background createBackground() {
-		ImageIcon imageIcon = new ImageIcon(ItemFactory.class.getResource(Config.imagePath + Config.background));
+		ImageIcon imageIcon = new ImageIcon(ItemFactory.class.getResource(Config.imagePath + Level.getLevel().getBackground()));
 		Position position = new Position(0, 0);
 		Dimension dimension = new Dimension(Config.getBoardDimension().getHeight(), Config.getBoardDimension().getLength());
 		return new Background(position, dimension, imageIcon.getImage());

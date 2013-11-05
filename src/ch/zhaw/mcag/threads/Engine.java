@@ -22,8 +22,12 @@ public class Engine extends Thread {
 			collisionDetection();
 			disposeAll();
 			board.repaint();
+			c.setPoints(c.getPoints() + 1);
+			if(c.getPoints() > 1000){
+				Config.setGameSpeed(5);
+			}
+			System.out.println(c.getPoints());
 			try {
-				Thread.yield();
 				Thread.sleep(Config.getGameSpeed());
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -56,6 +60,8 @@ public class Engine extends Thread {
 						System.out.println("minus one life");
 						evilItem.setCollision(true);
 					} else if (evilItem instanceof Destroyable) {
+						c.setPoints(c.getPoints() + 100);
+						
 						goodItem.destroy();
 						evilItem.destroy();
 					}
@@ -73,7 +79,7 @@ public class Engine extends Thread {
 		moveBackground();
 	}
 
-	private void disposeAll() {
+	private synchronized void disposeAll() {
 		disposeEnemies();
 		disposeObstacles();
 		disposeShots();

@@ -6,6 +6,7 @@ import java.util.*;
 
 import javax.swing.*;
 
+import ch.zhaw.mcag.levels.Level;
 import ch.zhaw.mcag.model.Shot;
 import ch.zhaw.mcag.model.creature.Enemy;
 import ch.zhaw.mcag.model.obstacle.Obstacle;
@@ -44,7 +45,7 @@ public class Board extends JPanel implements ActionListener {
 		g2d.drawImage(c.getBackground().getImage(), x - c.getBackground().getDimension().getLength(), y, Config.getBoardDimension().getLength(), Config.getBoardDimension().getHeight(), this);
 		g2d.drawImage(c.getBackground().getImage(), x, y, Config.getBoardDimension().getLength(), Config.getBoardDimension().getHeight(), this);
 		g2d.drawImage(c.getBackground().getImage(), x + c.getBackground().getDimension().getLength(), y, Config.getBoardDimension().getLength(), Config.getBoardDimension().getHeight(), this);
-		ImageIcon foreground = new ImageIcon(this.getClass().getResource(Config.imagePath + Config.foreground));
+		ImageIcon foreground = new ImageIcon(this.getClass().getResource(Config.imagePath + Level.getLevel().getForeground()));
 		g2d.drawImage(foreground.getImage(), 0, Config.getBoardDimension().getHeight() - foreground.getIconHeight(), Config.getBoardDimension().getLength(), foreground.getIconHeight(), this);
 	}
 

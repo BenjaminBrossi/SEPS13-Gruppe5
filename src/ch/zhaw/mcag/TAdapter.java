@@ -13,44 +13,37 @@ public class TAdapter extends KeyAdapter {
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 
-		if (key == KeyEvent.VK_LEFT) {
+		switch (key) {
+		case KeyEvent.VK_LEFT:
+		case KeyEvent.VK_RIGHT:
 			c.getPlayer().setDx(0);
-		}
-
-		if (key == KeyEvent.VK_RIGHT) {
-			c.getPlayer().setDx(0);
-		}
-
-		if (key == KeyEvent.VK_UP) {
+			break;
+		case KeyEvent.VK_DOWN:
+		case KeyEvent.VK_UP:
 			c.getPlayer().setDy(0);
-		}
-
-		if (key == KeyEvent.VK_DOWN) {
-			c.getPlayer().setDy(0);
+			break;
 		}
 	}
 
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 
-		if (key == KeyEvent.VK_LEFT) {
+		switch (key) {
+		case KeyEvent.VK_LEFT:
 			c.getPlayer().setDx(-Config.getMovePixels() * 2);
-		}
-
-		if (key == KeyEvent.VK_RIGHT) {
+			break;
+		case KeyEvent.VK_RIGHT:
 			c.getPlayer().setDx(Config.getMovePixels() * 2);
-		}
-
-		if (key == KeyEvent.VK_UP) {
-			c.getPlayer().setDy(-Config.getMovePixels() * 2);
-		}
-
-		if (key == KeyEvent.VK_DOWN) {
+			break;
+		case KeyEvent.VK_DOWN:
 			c.getPlayer().setDy(Config.getMovePixels() * 2);
-		}
-
-		if (key == KeyEvent.VK_SPACE) {
+			break;
+		case KeyEvent.VK_UP:
+			c.getPlayer().setDy(-Config.getMovePixels() * 2);
+			break;
+		case KeyEvent.VK_SPACE:
 			c.getShots().add(c.getPlayer().shoot());
+			break;
 		}
 	}
 }
