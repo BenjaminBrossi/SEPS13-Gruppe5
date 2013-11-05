@@ -25,18 +25,20 @@ public class Game extends JFrame {
 		ObstacleCreator oCreator = new ObstacleCreator(c);
 		EnemyCreator eCreator = new EnemyCreator(c);
 		ShotCreator sCreator = new ShotCreator(c);
+		ExtraCreator xCreator = new ExtraCreator(c);
 
 		engine.start();
 		oCreator.start();
 		eCreator.start();
 		sCreator.start();
+		xCreator.start();
 
 		this.add(board);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setUndecorated(true);
 
 		if (gd.isFullScreenSupported()) {
-			// gd.setFullScreenWindow(this);
+			//gd.setFullScreenWindow(this);
 			this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		} else {
 			this.setExtendedState(JFrame.MAXIMIZED_BOTH);

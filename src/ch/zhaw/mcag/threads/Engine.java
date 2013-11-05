@@ -22,8 +22,12 @@ public class Engine extends Thread {
 			collisionDetection();
 			disposeAll();
 			board.repaint();
+			c.setPoints(c.getPoints() + 1);
+			if(c.getPoints() > 1000){
+				Config.setGameSpeed(5);
+			}
+			//System.out.println(c.getPoints());
 			try {
-				Thread.yield();
 				Thread.sleep(Config.getGameSpeed());
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -32,32 +36,36 @@ public class Engine extends Thread {
 	}
 
 	private synchronized void collisionDetection() {
-		LinkedList<Item> evil = new LinkedList<Item>();
-		LinkedList<Item> good = new LinkedList<Item>();
+		LinkedList<Item> them = new LinkedList<Item>();
+		LinkedList<Item> me = new LinkedList<Item>();
 
-		evil.addAll(c.getEnemies());
-		evil.addAll(c.getSoftObstacles());
-		evil.addAll(c.getHardObstacles());
+		them.addAll(c.getEnemies());
+		them.addAll(c.getSoftObstacles());
+		them.addAll(c.getHardObstacles());
+		
+		List<Shot> tmp = c.getShots();
 
-		for (Shot shot : c.getShots()) {
+		for (Shot shot : tmp) {
 			if (shot.isGood()) {
-				good.add(shot);
+				me.add(shot);
 			} else {
-				evil.add(shot);
+				them.add(shot);
 			}
 		}
 
-		good.add(c.getPlayer());
+		me.add(c.getPlayer());
 
-		for (Item evilItem : evil) {
-			for (Item goodItem : good) {
-				if (goodItem.hasCollision(evilItem)) {
-					if (!evilItem.hadCollision() && goodItem.getClass().getName() == "ch.zhaw.mcag.model.creature.Player") {
+		for (Item thoseItem : them) {
+			for (Item myItem : me) {
+				if (myItem.hasCollision(thoseItem)) {
+					if (!thoseItem.hadCollision() && myItem.getClass().getName() == "ch.zhaw.mcag.model.creature.Player") {
 						System.out.println("minus one life");
-						evilItem.setCollision(true);
-					} else if (evilItem instanceof Destroyable) {
-						goodItem.destroy();
-						evilItem.destroy();
+						thoseItem.setCollision(true);
+					} else if (thoseItem instanceof Destroyable) {
+						c.setPoints(c.getPoints() + 100);
+						
+						myItem.destroy();
+						thoseItem.destroy();
 					}
 				}
 			}
@@ -70,18 +78,34 @@ public class Engine extends Thread {
 		moveShots();
 		movePlayer();
 		moveObstacles();
+		moveExtras();
 		moveBackground();
 	}
 
-	private void disposeAll() {
+	private synchronized void disposeAll() {
 		disposeEnemies();
 		disposeObstacles();
 		disposeShots();
+		disposeExtras();
+	}
+
+	private void disposeExtras() {
+		LinkedList<Extra> disposedExtras = new LinkedList<Extra>();
+		List<Extra> tmp = c.getExtras();
+		for (Extra extra : tmp) {
+			if (extra.getPosition().getX() < 0 - extra.getDimension().getLength() || extra.isDisposed()) {
+				disposedExtras.add(extra);
+			}
+		}
+		for (Extra extra : disposedExtras) {
+			c.getExtras().remove(extra);
+		}
 	}
 
 	private synchronized void disposeEnemies() {
 		LinkedList<Enemy> disposedEnememies = new LinkedList<Enemy>();
-		for (Enemy enemy : c.getEnemies()) {
+		List<Enemy> tmp = c.getEnemies();
+		for (Enemy enemy : tmp) {
 			if (enemy.getPosition().getX() < 0 - enemy.getDimension().getLength() || enemy.isDisposed()) {
 				disposedEnememies.add(enemy);
 			}
@@ -93,7 +117,8 @@ public class Engine extends Thread {
 
 	private synchronized void disposeObstacles() {
 		LinkedList<Obstacle> disposedObstacles = new LinkedList<Obstacle>();
-		for (Soft obstacle : c.getSoftObstacles()) {
+		List<Soft> tmp = c.getSoftObstacles();
+		for (Soft obstacle : tmp) {
 			if (obstacle.getPosition().getX() < 0 - obstacle.getDimension().getLength() || obstacle.isDisposed()) {
 				disposedObstacles.add(obstacle);
 			}
@@ -103,7 +128,8 @@ public class Engine extends Thread {
 		}
 
 		disposedObstacles = new LinkedList<Obstacle>();
-		for (Obstacle obstacle : c.getHardObstacles()) {
+		List<Hard>tmp2 = c.getHardObstacles();
+		for (Obstacle obstacle : tmp2) {
 			if (obstacle.getPosition().getX() < 0 - obstacle.getDimension().getLength()) {
 				disposedObstacles.add(obstacle);
 			}
@@ -115,7 +141,8 @@ public class Engine extends Thread {
 
 	private synchronized void disposeShots() {
 		LinkedList<Shot> disposedEnememies = new LinkedList<Shot>();
-		for (Shot shot : c.getShots()) {
+		List<Shot> tmp = c.getShots();
+		for (Shot shot : tmp) {
 			if (shot.getPosition().getX() < 0 - shot.getDimension().getLength() || shot.isDisposed()) {
 				disposedEnememies.add(shot);
 			}
@@ -135,23 +162,34 @@ public class Engine extends Thread {
 	}
 
 	private synchronized void moveObstacles() {
-		for (Obstacle soft : c.getSoftObstacles()) {
+		List<Soft> tmp = c.getSoftObstacles();
+		for (Obstacle soft : tmp) {
 			soft.move();
 		}
 
-		for (Obstacle hard : c.getHardObstacles()) {
+		List<Hard> tmp2 = c.getHardObstacles();
+		for (Obstacle hard : tmp2) {
 			hard.move();
 		}
 	}
 
 	private synchronized void moveEnemies() {
-		for (Enemy enemy : c.getEnemies()) {
+		List<Enemy> tmp = c.getEnemies();
+		for (Enemy enemy : tmp) {
 			enemy.move();
+		}
+	}
+	
+	private synchronized void moveExtras() {
+		List<Extra> tmp = c.getExtras();
+		for (Extra extra : tmp) {
+			extra.move();
 		}
 	}
 
 	private synchronized void moveShots() {
-		for (Shot shot : c.getShots()) {
+		List<Shot> tmp = c.getShots();
+		for (Shot shot : tmp) {
 			shot.move();
 		}
 	}
