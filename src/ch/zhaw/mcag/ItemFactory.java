@@ -2,7 +2,7 @@ package ch.zhaw.mcag;
 
 import javax.swing.ImageIcon;
 
-import ch.zhaw.mcag.levels.Level;
+import ch.zhaw.mcag.level.Level;
 import ch.zhaw.mcag.model.*;
 import ch.zhaw.mcag.model.creature.*;
 import ch.zhaw.mcag.model.obstacle.*;

@@ -1,11 +1,16 @@
 package ch.zhaw.mcag;
 
+import ch.zhaw.mcag.view.Board;
+import ch.zhaw.mcag.thread.EnemyCreator;
+import ch.zhaw.mcag.thread.ShotCreator;
+import ch.zhaw.mcag.thread.ExtraCreator;
+import ch.zhaw.mcag.thread.Engine;
+import ch.zhaw.mcag.thread.ObstacleCreator;
 import java.awt.*;
 
 import javax.swing.JFrame;
 
 import ch.zhaw.mcag.model.Dimension;
-import ch.zhaw.mcag.threads.*;
 
 public class Game extends JFrame {
 

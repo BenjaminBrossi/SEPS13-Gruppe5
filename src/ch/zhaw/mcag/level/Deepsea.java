@@ -1,6 +1,6 @@
-package ch.zhaw.mcag.levels;
+package ch.zhaw.mcag.level;
 
-public class Space extends AbstractLevel {
+public class Deepsea extends AbstractLevel {
 	private String player = "Player.png";
 	private String friendlyShot = "Shot.png";
 	private String enemyShot = "Shot_Opponent.png";
@@ -9,7 +9,7 @@ public class Space extends AbstractLevel {
 	private String[] enemies = { "Alien.png", "Alien2.png" };
 	private String[] hardObstacles = { "HRTA.png", "HRTA2.png", "HRTA3.png", "HRTA4.png" };
 	private String[] softObstacles = { "Satelite.png" };
-	private String[] extras = { "Coin.gif" };
+	private String[] extras = { "alien.gif" };
 
 	public String getPlayer() {
 		return player;
@@ -82,5 +82,4 @@ public class Space extends AbstractLevel {
 	public void setExtras(String[] extras) {
 		this.extras = extras;
 	}
-
 }

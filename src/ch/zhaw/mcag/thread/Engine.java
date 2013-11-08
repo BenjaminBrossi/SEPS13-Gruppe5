@@ -1,5 +1,6 @@
-package ch.zhaw.mcag.threads;
+package ch.zhaw.mcag.thread;
 
+import ch.zhaw.mcag.view.Board;
 import java.util.*;
 
 import ch.zhaw.mcag.*;

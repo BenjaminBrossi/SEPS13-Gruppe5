@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 
-package ch.zhaw.mcag;
+package ch.zhaw.mcag.adapter;
 
+import ch.zhaw.mcag.Config;
+import ch.zhaw.mcag.GameContext;
 import ch.zhaw.mcag.model.Dimension;
 import ch.zhaw.mcag.model.Position;
 import ch.zhaw.mcag.sensor.IControlable;
