@@ -1,4 +1,4 @@
-package ch.zhaw.mcag.levels;
+package ch.zhaw.mcag.level;
 
 public abstract class AbstractLevel {
 

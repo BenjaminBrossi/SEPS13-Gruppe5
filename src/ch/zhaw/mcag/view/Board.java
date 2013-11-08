@@ -1,5 +1,10 @@
-package ch.zhaw.mcag;
+package ch.zhaw.mcag.view;
 
+import ch.zhaw.mcag.Config;
+import ch.zhaw.mcag.GameContext;
+import ch.zhaw.mcag.ItemFactory;
+import ch.zhaw.mcag.adapter.KeyboardAdapter;
+import ch.zhaw.mcag.adapter.SensorAdapter;
 import ch.zhaw.mcag.model.Extra;
 import java.awt.*;
 import java.awt.event.*;

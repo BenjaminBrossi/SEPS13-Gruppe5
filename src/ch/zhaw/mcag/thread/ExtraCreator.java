@@ -1,4 +1,4 @@
-package ch.zhaw.mcag.threads;
+package ch.zhaw.mcag.thread;
 
 import ch.zhaw.mcag.*;
 

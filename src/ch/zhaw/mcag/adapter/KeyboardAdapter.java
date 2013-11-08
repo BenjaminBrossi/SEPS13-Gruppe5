@@ -1,5 +1,8 @@
-package ch.zhaw.mcag;
+package ch.zhaw.mcag.adapter;
 
+import ch.zhaw.mcag.view.Board;
+import ch.zhaw.mcag.Config;
+import ch.zhaw.mcag.GameContext;
 import java.awt.event.*;
 
 public class KeyboardAdapter extends KeyAdapter {

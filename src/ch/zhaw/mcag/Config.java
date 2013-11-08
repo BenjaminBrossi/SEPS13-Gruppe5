@@ -1,6 +1,6 @@
 package ch.zhaw.mcag;
 
-import ch.zhaw.mcag.levels.Level;
+import ch.zhaw.mcag.level.Level;
 import ch.zhaw.mcag.model.Dimension;
 
 public final class Config {

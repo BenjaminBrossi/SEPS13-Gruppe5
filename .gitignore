@@ -9,3 +9,9 @@ bin/
 /nbproject/private/
 /build/
 /dist/
+build.xml
+manifest.mf
+nbproject/build-impl.xml
+nbproject/genfiles.properties
+nbproject/project.properties
+nbproject/project.xml
