@@ -22,6 +22,7 @@ public class Player extends Creature {
 		}
 	}
 
+	@Override
 	public boolean isGood() {
 		return this.good;
 	}
@@ -35,4 +36,16 @@ public class Player extends Creature {
 		// set next possible shoot time
 		nextShot = Calendar.getInstance().getTimeInMillis() + Config.getShotInterval();
 	}
+
+	@Override
+	public boolean flicker() {
+		if (!flickerEnabled) {
+			return true;
+		}
+		if (flicker > 500 / Config.getGameSpeed()) {
+			this.flickerEnabled = false;
+		}
+		return ++flicker % 5 == 0;
+	}
+
 }

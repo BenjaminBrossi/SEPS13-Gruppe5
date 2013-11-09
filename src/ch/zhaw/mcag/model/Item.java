@@ -11,6 +11,8 @@ public class Item implements Drawable {
 	protected boolean good = false;
 	protected boolean disposed = false;
 	protected boolean hadCollision = false;
+	protected int flicker = 0;
+	protected boolean flickerEnabled = false;
 
 	public Item(Position position, Dimension dimension, Image image) {
 		this.position = position;
@@ -18,26 +20,32 @@ public class Item implements Drawable {
 		this.image = image;
 	}
 
+	@Override
 	public Dimension getDimension() {
 		return dimension;
 	}
 
+	@Override
 	public void setDimension(Dimension dimension) {
 		this.dimension = dimension;
 	}
 
+	@Override
 	public Position getPosition() {
 		return position;
 	}
 
+	@Override
 	public void setPosition(Position position) {
 		this.position = position;
 	}
 
+	@Override
 	public Image getImage() {
 		return this.image;
 	}
 
+	@Override
 	public void setImage(Image image) {
 		this.image = image;
 	}
@@ -50,7 +58,6 @@ public class Item implements Drawable {
 		if (x + l < 0 || x > board) {
 			return true;
 		}
-
 		return false;
 	}
 
@@ -69,8 +76,13 @@ public class Item implements Drawable {
 		return new Rectangle(position.getX(), position.getY(), dimension.getLength(), dimension.getHeight());
 	}
 
-	public boolean hasCollision(Item i) {
-		return this.getLimits().intersects(i.getLimits());
+	public Position hasCollision(Item i) {
+		if (!this.getLimits().intersects(i.getLimits())) {
+			return new Position(0, 0);
+		} else {
+			Rectangle intersection = this.getLimits().intersection(i.getLimits());
+			return new Position((int) intersection.getCenterX(), (int) intersection.getCenterY());
+		}
 	}
 
 	public boolean isGood() {
@@ -93,11 +105,29 @@ public class Item implements Drawable {
 
 	}
 
-	public boolean hadCollision() {
-		return hadCollision;
+	public void collide() {
+		if (!this.hadCollision) {
+			this.hadCollision = true;
+			this.disposed = true;
+		}
 	}
 
-	public void setCollision(boolean hadCollision) {
-		this.hadCollision = hadCollision;
+	public boolean hadCollision() {
+		return this.hadCollision;
+	}
+
+	public boolean flicker() {
+		if (!flickerEnabled) {
+			return true;
+		}
+		if (flicker > 500 / Config.getGameSpeed()) {
+			this.disposed = true;
+		}
+		return ++flicker % 5 == 0;
+	}
+
+	public void setFlicker(boolean flicker) {
+		this.flicker = 0;
+		this.flickerEnabled = flicker;
 	}
 }

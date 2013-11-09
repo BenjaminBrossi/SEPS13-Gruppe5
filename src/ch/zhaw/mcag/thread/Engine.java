@@ -17,33 +17,34 @@ public class Engine extends Thread {
 		this.board = board;
 	}
 
-	public synchronized void run() {
+	@Override
+	public void run() {
 		while (true) {
 			if (!c.isPaused()) {
 				moveAll();
 				collisionDetection();
 				disposeAll();
-				c.setPoints(c.getPoints() + 1);
+				c.setPoints(c.getPoints() + 0.01);
 				board.repaint();
 				Config.setGameSpeed(Config.getInitialSpeed() - (int) (Math.log10(c.getPoints()) - 2));
 			}
 			try {
 				Thread.sleep(Config.getGameSpeed());
 			} catch (InterruptedException e) {
-				e.printStackTrace();
 			}
 		}
 	}
 
 	private synchronized void collisionDetection() {
-		LinkedList<Item> them = new LinkedList<Item>();
-		LinkedList<Item> me = new LinkedList<Item>();
+		LinkedList<Item> them = new LinkedList<>();
+		LinkedList<Item> me = new LinkedList<>();
 
 		them.addAll(c.getEnemies());
 		them.addAll(c.getSoftObstacles());
 		them.addAll(c.getHardObstacles());
+		them.addAll(c.getExtras());
 
-		List<Shot> tmp = c.getShots();
+		List<Shot> tmp = (List<Shot>) c.getShots().clone();
 
 		for (Shot shot : tmp) {
 			if (shot.isGood()) {
@@ -57,15 +58,26 @@ public class Engine extends Thread {
 
 		for (Item thoseItem : them) {
 			for (Item myItem : me) {
-				if (myItem.hasCollision(thoseItem)) {
-					if (!thoseItem.hadCollision() && myItem.getClass().getName() == "ch.zhaw.mcag.model.creature.Player") {
-						System.out.println("minus one life");
-						thoseItem.setCollision(true);
+				Position intersection = myItem.hasCollision(thoseItem);
+				if (intersection.getX() > 0 && intersection.getY() > 0 && !thoseItem.hadCollision()) {
+					if (thoseItem instanceof Collectable && "ch.zhaw.mcag.model.creature.Player".equals(myItem.getClass().getName())) {
+						Extra e = (Extra) thoseItem;
+						e.collect();
+					} else if (thoseItem instanceof Destroyable && "ch.zhaw.mcag.model.creature.Player".equals(myItem.getClass().getName())) {
+						Config.setLifes(Config.getLifes() - 1);
+						myItem.setFlicker(true);
+						thoseItem.destroy();
+					} else if (thoseItem instanceof Hard && "ch.zhaw.mcag.model.creature.Player".equals(myItem.getClass().getName())) {
+						Config.setLifes(Config.getLifes() - 1);
+						myItem.setFlicker(true);
+						thoseItem.collide();
 					} else if (thoseItem instanceof Destroyable) {
 						c.setPoints(c.getPoints() + 100);
-
 						myItem.destroy();
 						thoseItem.destroy();
+						Explosion explosion = ItemFactory.createExplosion(intersection.getX(), intersection.getY());
+						explosion.setFlicker(true);
+						c.getExplosions().add(explosion);
 					}
 				}
 			}
@@ -87,11 +99,12 @@ public class Engine extends Thread {
 		disposeObstacles();
 		disposeShots();
 		disposeExtras();
+		disposeExposions();
 	}
 
-	private void disposeExtras() {
-		LinkedList<Extra> disposedExtras = new LinkedList<Extra>();
-		List<Extra> tmp = c.getExtras();
+	private synchronized void disposeExtras() {
+		LinkedList<Extra> disposedExtras = new LinkedList<>();
+		List<Extra> tmp = (LinkedList<Extra>) c.getExtras().clone();
 		for (Extra extra : tmp) {
 			if (extra.getPosition().getX() < 0 - extra.getDimension().getLength() || extra.isDisposed()) {
 				disposedExtras.add(extra);
@@ -103,8 +116,8 @@ public class Engine extends Thread {
 	}
 
 	private synchronized void disposeEnemies() {
-		LinkedList<Enemy> disposedEnememies = new LinkedList<Enemy>();
-		List<Enemy> tmp = c.getEnemies();
+		LinkedList<Enemy> disposedEnememies = new LinkedList<>();
+		List<Enemy> tmp = (LinkedList<Enemy>) c.getEnemies().clone();
 		for (Enemy enemy : tmp) {
 			if (enemy.getPosition().getX() < 0 - enemy.getDimension().getLength() || enemy.isDisposed()) {
 				disposedEnememies.add(enemy);
@@ -116,34 +129,38 @@ public class Engine extends Thread {
 	}
 
 	private synchronized void disposeObstacles() {
-		LinkedList<Obstacle> disposedObstacles = new LinkedList<Obstacle>();
-		List<Soft> tmp = c.getSoftObstacles();
+		LinkedList<Soft> disposedSofts = new LinkedList<>();
+		List<Soft> tmp = (List<Soft>) c.getSoftObstacles().clone();
 		for (Soft obstacle : tmp) {
 			if (obstacle.getPosition().getX() < 0 - obstacle.getDimension().getLength() || obstacle.isDisposed()) {
-				disposedObstacles.add(obstacle);
+				disposedSofts.add(obstacle);
 			}
 		}
-		for (Obstacle obstacle : disposedObstacles) {
+		for (Soft obstacle : disposedSofts) {
 			c.getSoftObstacles().remove(obstacle);
 		}
 
-		disposedObstacles = new LinkedList<Obstacle>();
-		List<Hard> tmp2 = c.getHardObstacles();
-		for (Obstacle obstacle : tmp2) {
+		LinkedList<Hard> disposedHards = new LinkedList<>();
+		List<Hard> tmp2 = (List<Hard>) c.getHardObstacles().clone();
+		for (Hard obstacle : tmp2) {
 			if (obstacle.getPosition().getX() < 0 - obstacle.getDimension().getLength()) {
-				disposedObstacles.add(obstacle);
+				disposedHards.add(obstacle);
 			}
 		}
-		for (Obstacle obstacle : disposedObstacles) {
+		for (Hard obstacle : disposedHards) {
 			c.getHardObstacles().remove(obstacle);
 		}
 	}
 
 	private synchronized void disposeShots() {
-		LinkedList<Shot> disposedEnememies = new LinkedList<Shot>();
-		List<Shot> tmp = c.getShots();
+		LinkedList<Shot> disposedEnememies = new LinkedList<>();
+		List<Shot> tmp = (List<Shot>) c.getShots().clone();
 		for (Shot shot : tmp) {
-			if (shot.getPosition().getX() < 0 - shot.getDimension().getLength() || shot.isDisposed()) {
+			if (shot.isGood() == false && shot.getPosition().getX() < 0 - shot.getDimension().getLength() || shot.isDisposed()) {
+				disposedEnememies.add(shot);
+			}
+
+			if (shot.isGood() && shot.getPosition().getX() > Config.getBoardDimension().getLength() || shot.isDisposed()) {
 				disposedEnememies.add(shot);
 			}
 		}
@@ -162,35 +179,48 @@ public class Engine extends Thread {
 	}
 
 	private synchronized void moveObstacles() {
-		List<Soft> tmp = c.getSoftObstacles();
+		List<Soft> tmp = (List<Soft>) c.getSoftObstacles().clone();
 		for (Obstacle soft : tmp) {
 			soft.move();
 		}
 
-		List<Hard> tmp2 = c.getHardObstacles();
+		List<Hard> tmp2 = (List<Hard>) c.getHardObstacles().clone();
 		for (Obstacle hard : tmp2) {
 			hard.move();
 		}
 	}
 
 	private synchronized void moveEnemies() {
-		List<Enemy> tmp = c.getEnemies();
+		List<Enemy> tmp = (List<Enemy>) c.getEnemies().clone();
 		for (Enemy enemy : tmp) {
 			enemy.move();
 		}
 	}
 
 	private synchronized void moveExtras() {
-		List<Extra> tmp = c.getExtras();
+		List<Extra> tmp = (List<Extra>) c.getExtras().clone();
 		for (Extra extra : tmp) {
 			extra.move();
 		}
 	}
 
 	private synchronized void moveShots() {
-		List<Shot> tmp = c.getShots();
+		List<Shot> tmp = (List<Shot>) c.getShots().clone();
 		for (Shot shot : tmp) {
 			shot.move();
+		}
+	}
+
+	private void disposeExposions() {
+		LinkedList<Explosion> disposedExplosions = new LinkedList<>();
+		List<Explosion> tmp = (List<Explosion>) c.getExplosions().clone();
+		for (Explosion explosion : tmp) {
+			if (explosion.isDisposed()) {
+				disposedExplosions.add(explosion);
+			}
+		}
+		for (Explosion explosion : disposedExplosions) {
+			c.getExplosions().remove(explosion);
 		}
 	}
 }

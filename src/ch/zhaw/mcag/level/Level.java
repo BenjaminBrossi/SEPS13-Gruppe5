@@ -6,7 +6,7 @@ public class Level {
 	public static final int LEVEL_SPACE = 0;
 	public static final int LEVEL_DEEPSEA = 1;
 
-	public static AbstractLevel getLevel() {
+	public static LevelInterface getLevel() {
 		switch (Config.getLevel()) {
 		case LEVEL_SPACE:
 			return new Space();

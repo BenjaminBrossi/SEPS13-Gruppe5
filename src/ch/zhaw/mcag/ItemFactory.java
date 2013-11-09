@@ -77,4 +77,17 @@ public class ItemFactory {
 		Dimension dimension = new Dimension(Config.getBoardDimension().getHeight(), Config.getBoardDimension().getLength());
 		return new Background(position, dimension, imageIcon.getImage());
 	}
+
+	public static Explosion createExplosion(int x, int y) {
+		ImageIcon imageIcon = new ImageIcon(ItemFactory.class.getResource(Config.imagePath + Level.getLevel().getExplosion()));
+		Position position = new Position(x - (imageIcon.getIconHeight() / 2), y - (imageIcon.getIconWidth() / 2));
+		Dimension dimension = new Dimension(imageIcon.getIconHeight(), imageIcon.getIconWidth());
+		return new Explosion(position, dimension, imageIcon.getImage());
+	}
+
+	public static Life createLife(int x, int y, ImageIcon imageIcon) {
+		Position position = new Position(x, y);
+		Dimension dimension = new Dimension(imageIcon.getIconHeight(), imageIcon.getIconWidth());
+		return new Life(position, dimension, imageIcon.getImage());
+	}
 }

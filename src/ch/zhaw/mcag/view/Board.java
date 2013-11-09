@@ -1,50 +1,42 @@
 package ch.zhaw.mcag.view;
 
+import ch.zhaw.mcag.*;
 import ch.zhaw.mcag.Config;
-import ch.zhaw.mcag.GameContext;
-import ch.zhaw.mcag.ItemFactory;
-import ch.zhaw.mcag.adapter.KeyboardAdapter;
-import ch.zhaw.mcag.adapter.SensorAdapter;
-import ch.zhaw.mcag.model.Extra;
+import ch.zhaw.mcag.adapter.*;
+import ch.zhaw.mcag.level.Level;
+import ch.zhaw.mcag.model.*;
+import ch.zhaw.mcag.model.creature.*;
+import ch.zhaw.mcag.model.obstacle.*;
+import ch.zhaw.mcag.sensor.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
-
 import javax.swing.*;
-
-import ch.zhaw.mcag.model.Shot;
-import ch.zhaw.mcag.model.creature.Enemy;
-import ch.zhaw.mcag.model.obstacle.Obstacle;
-import ch.zhaw.mcag.sensor.IControlable;
-import ch.zhaw.mcag.sensor.SensorListener;
-import ch.zhaw.mcag.sensor.ShootListener;
-import com.leapmotion.leap.Controller;
-import com.leapmotion.leap.Listener;
+import com.leapmotion.leap.*;
 
 public class Board extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 6466804428038769553L;
 	private GameContext c;
-        private Controller leapController;
-        private Listener sensorListener;
-        private Listener shootListener;
-        private IControlable leapAdapter;	
-        private Menu menu;
+	private Controller leapController;
+	private Listener sensorListener;
+	private Listener shootListener;
+	private IControlable leapAdapter;
+	private Menu menu;
 	private boolean showMenu = true;
 
-
 	public Board(GameContext c) {
-                // add leap motion controller
-                leapAdapter = new SensorAdapter(c);
-                sensorListener = new SensorListener(leapAdapter);
-                shootListener = new ShootListener(leapAdapter);
-                leapController = new Controller();
-                leapController.addListener(sensorListener);
-                leapController.addListener(shootListener);
-                
-                addKeyListener(new KeyboardAdapter(c, this));
-                
-                this.menu = new Menu(this, c);
+		// add leap motion controller
+		leapAdapter = new SensorAdapter(c);
+		sensorListener = new SensorListener(leapAdapter);
+		shootListener = new ShootListener(leapAdapter);
+		leapController = new Controller();
+		leapController.addListener(sensorListener);
+		leapController.addListener(shootListener);
+
+		addKeyListener(new KeyboardAdapter(c, this));
+
+		this.menu = new Menu(this, c);
 		setFocusable(true);
 		setDoubleBuffered(true);
 		this.c = c;
@@ -53,6 +45,7 @@ public class Board extends JPanel implements ActionListener {
 
 	}
 
+	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
 
@@ -61,26 +54,26 @@ public class Board extends JPanel implements ActionListener {
 		this.paintEnemies((Graphics2D) g);
 		this.paintShots((Graphics2D) g);
 		this.paintPlayer((Graphics2D) g);
-                this.paintExtras((Graphics2D) g);
+		this.paintExtras((Graphics2D) g);
+		this.paintExplosions((Graphics2D) g);
+		this.paintLifes((Graphics2D) g);
 
 		Font font = new Font("sans", Font.PLAIN, 36);
 		g.setColor(Color.green);
 		g.setFont(font);
-		g.drawString(c.getPoints() + "", 10, 50);
+		g.drawString((int) c.getPoints() + "", 10, 50);
 
 		if (showMenu == true) {
 			this.paintMenu((Graphics2D) g);
 		}
 
-
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
 	}
-        
-        private void paintMenu(Graphics2D g2d) {
+
+	private void paintMenu(Graphics2D g2d) {
 		menu.draw(g2d);
 	}
-
 
 	private void paintBackground(Graphics2D g2d) {
 		int x = c.getBackground().getPosition().getX();
@@ -93,49 +86,49 @@ public class Board extends JPanel implements ActionListener {
 	}
 
 	private void paintPlayer(Graphics2D g2d) {
-		g2d.drawImage(c.getPlayer().getImage(), c.getPlayer().getPosition().getX(), c.getPlayer().getPosition().getY(), this);
+		if (c.getPlayer().flicker()) {
+			g2d.drawImage(c.getPlayer().getImage(), c.getPlayer().getPosition().getX(), c.getPlayer().getPosition().getY(), this);
+		}
 	}
 
 	private synchronized void paintObstacles(Graphics2D g2d) {
-		LinkedList<Obstacle> tmp = new LinkedList<Obstacle>(c.getHardObstacles());
-		for (Obstacle obstacle : tmp) {
+		LinkedList<Hard> hards = (LinkedList<Hard>) c.getHardObstacles().clone();
+		for (Hard obstacle : hards) {
 			g2d.drawImage(obstacle.getImage(), obstacle.getPosition().getX(), obstacle.getPosition().getY(), this);
 		}
 
-		tmp = new LinkedList<Obstacle>(c.getSoftObstacles());
-		for (Obstacle obstacle : tmp) {
+		LinkedList<Soft> softs = (LinkedList<Soft>) c.getSoftObstacles().clone();
+		for (Soft obstacle : softs) {
 			g2d.drawImage(obstacle.getImage(), obstacle.getPosition().getX(), obstacle.getPosition().getY(), this);
 		}
 	}
 
 	private synchronized void paintEnemies(Graphics2D g2d) {
-		LinkedList<Enemy> tmp = new LinkedList<Enemy>(c.getEnemies());
+		LinkedList<Enemy> tmp = (LinkedList<Enemy>) c.getEnemies().clone();
 		for (Enemy enemy : tmp) {
 			g2d.drawImage(enemy.getImage(), enemy.getPosition().getX(), enemy.getPosition().getY(), this);
 		}
 	}
 
 	private synchronized void paintShots(Graphics2D g2d) {
-		LinkedList<Shot> tmp = new LinkedList<Shot>(c.getShots());
+		LinkedList<Shot> tmp = (LinkedList<Shot>) c.getShots().clone();
 		for (Shot shot : tmp) {
 			g2d.drawImage(shot.getImage(), shot.getPosition().getX(), shot.getPosition().getY(), this);
 		}
 	}
-        
-        private synchronized void paintExtras(Graphics2D g2d) {
-        LinkedList<Extra> tmp = c.getExtras();
-        for (Extra extra : tmp) {
-                g2d.drawImage(extra.getImage(), extra.getPosition().getX(), extra.getPosition().getY(), this);
-        }
-        
-        
+
+	private synchronized void paintExtras(Graphics2D g2d) {
+		LinkedList<Extra> tmp = (LinkedList<Extra>) c.getExtras().clone();
+		for (Extra extra : tmp) {
+			g2d.drawImage(extra.getImage(), extra.getPosition().getX(), extra.getPosition().getY(), this);
+		}
 	}
 
-
+	@Override
 	public void actionPerformed(ActionEvent e) {
 	}
-        
-        	public void toggleMenu() {
+
+	public void toggleMenu() {
 		c.setPause(!c.isPaused());
 		showMenu = !showMenu;
 	}
@@ -148,4 +141,21 @@ public class Board extends JPanel implements ActionListener {
 		return showMenu;
 	}
 
+	private synchronized void paintExplosions(Graphics2D g2d) {
+		LinkedList<Explosion> tmp = (LinkedList<Explosion>) c.getExplosions().clone();
+		for (Explosion explosion : tmp) {
+			if (explosion.flicker()) {
+				g2d.drawImage(explosion.getImage(), explosion.getPosition().getX(), explosion.getPosition().getY(), this);
+			}
+		}
+	}
+
+	private void paintLifes(Graphics2D g2d) {
+		int lifes = Config.getLifes();
+		for (int i = 0; i < lifes; i++) {
+			ImageIcon imageIcon = new ImageIcon(ItemFactory.class.getResource(Config.imagePath + Level.getLevel().getLife()));
+			Life life = ItemFactory.createLife(Config.getBoardDimension().getLength() - (2 + i) * imageIcon.getIconWidth(), 0, imageIcon);
+			g2d.drawImage(life.getImage(), life.getPosition().getX(), life.getPosition().getY(), this);
+		}
+	}
 }

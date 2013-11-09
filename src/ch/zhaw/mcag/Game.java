@@ -17,6 +17,9 @@ public class Game extends JFrame {
 	private static final long serialVersionUID = -6941538058687003272L;
 
 	public Game() {
+	}
+
+	private void start() {
 
 		java.awt.Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		Config.setBoardDimension(new Dimension(dimension.height, dimension.width));
@@ -52,8 +55,10 @@ public class Game extends JFrame {
 		this.setVisible(true);
 	}
 
+
 	public static void main(String[] args) {
-		new Game();
+		Game game = new Game();
+		game.start();
 	}
 
 }

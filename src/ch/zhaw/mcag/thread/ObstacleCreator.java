@@ -9,7 +9,8 @@ public class ObstacleCreator extends Thread {
 		this.c = c;
 	}
 
-	public synchronized void run() {
+	@Override
+	public void run() {
 		while (true) {
 			if (!c.isPaused()) {
 				createItems();
@@ -17,7 +18,6 @@ public class ObstacleCreator extends Thread {
 			try {
 				Thread.sleep(Config.getGameSpeed() * Config.getObstacleFactor());
 			} catch (InterruptedException e) {
-				e.printStackTrace();
 			}
 		}
 	}

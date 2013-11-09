@@ -12,17 +12,18 @@ public class GameContext {
 
 	// Player
 	private Player player;
-	private long points;
+	private double points = 1;
 
 	// Background
 	private Background background;
 
 	// Items
-	private LinkedList<Enemy> enemies = new LinkedList<Enemy>();
-	private LinkedList<Hard> hardObstacles = new LinkedList<Hard>();
-	private LinkedList<Soft> softObstacles = new LinkedList<Soft>();
-	private LinkedList<Shot> shots = new LinkedList<Shot>();
-	private LinkedList<Extra> extras = new LinkedList<Extra>();
+	private LinkedList<Enemy> enemies = new LinkedList<>();
+	private LinkedList<Hard> hardObstacles = new LinkedList<>();
+	private LinkedList<Soft> softObstacles = new LinkedList<>();
+	private LinkedList<Shot> shots = new LinkedList<>();
+	private LinkedList<Extra> extras = new LinkedList<>();
+	private LinkedList<Explosion> explosions = new LinkedList<>();
 
 	// State
 	private boolean pause = true;
@@ -91,15 +92,23 @@ public class GameContext {
 		this.pause = pause;
 	}
 
-	public long getPoints() {
+	public double getPoints() {
 		return points;
 	}
 
-	public void setPoints(long points) {
+	public void setPoints(double points) {
 		this.points = points;
 	}
 
 	public LinkedList<Extra> getExtras() {
 		return this.extras;
+	}
+
+	public LinkedList<Explosion> getExplosions() {
+		return explosions;
+	}
+
+	public void setExplosions(LinkedList<Explosion> explosions) {
+		this.explosions = explosions;
 	}
 }
