@@ -36,24 +36,9 @@ public class Engine extends Thread {
 	}
 
 	private synchronized void collisionDetection() {
-		LinkedList<Item> them = new LinkedList<>();
-		LinkedList<Item> me = new LinkedList<>();
-
-		them.addAll(c.getEnemies());
-		them.addAll(c.getSoftObstacles());
-		them.addAll(c.getHardObstacles());
+		LinkedList<Item> them = c.getEvilStuff();
+		LinkedList<Item> me = c.getGoodStuff();
 		them.addAll(c.getExtras());
-
-
-		for (Shot shot : (LinkedList<Shot>) c.getShots().clone()) {
-			if (shot.isGood()) {
-				me.add(shot);
-			} else {
-				them.add(shot);
-			}
-		}
-
-		me.add(c.getPlayer());
 
 		CollisionHandler collisionHandler = new CollisionHandler(me, them, c);
 		collisionHandler.searchCollision();

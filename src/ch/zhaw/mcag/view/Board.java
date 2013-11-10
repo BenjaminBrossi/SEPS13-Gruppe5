@@ -69,8 +69,10 @@ public class Board extends JPanel implements ActionListener {
 		g2d.drawImage(c.getBackground().getImage(), x - c.getBackground().getDimension().getLength(), y, Config.getBoardDimension().getLength(), Config.getBoardDimension().getHeight(), this);
 		g2d.drawImage(c.getBackground().getImage(), x, y, Config.getBoardDimension().getLength(), Config.getBoardDimension().getHeight(), this);
 		g2d.drawImage(c.getBackground().getImage(), x + c.getBackground().getDimension().getLength(), y, Config.getBoardDimension().getLength(), Config.getBoardDimension().getHeight(), this);
-		ImageIcon foreground = new ImageIcon(this.getClass().getResource(Config.getImagePath() + Config.getForeground()));
-		g2d.drawImage(foreground.getImage(), 0, Config.getBoardDimension().getHeight() - foreground.getIconHeight(), Config.getBoardDimension().getLength(), foreground.getIconHeight(), this);
+		if (Config.getForeground().compareTo("") == 0) {
+			ImageIcon foreground = new ImageIcon(this.getClass().getResource(Config.getImagePath() + Config.getForeground()));
+			g2d.drawImage(foreground.getImage(), 0, Config.getBoardDimension().getHeight() - foreground.getIconHeight(), Config.getBoardDimension().getLength(), foreground.getIconHeight(), this);
+		}
 	}
 
 	private void paintItems(Graphics2D g2d) {
