@@ -1,4 +1,4 @@
-package ch.zhaw.mcag.threads;
+package ch.zhaw.mcag.thread;
 
 import ch.zhaw.mcag.*;
 
@@ -9,7 +9,8 @@ public class ShotCreator extends Thread {
 		this.c = c;
 	}
 
-	public synchronized void run() {
+	@Override
+	public void run() {
 		while (true) {
 			if (!c.isPaused()) {
 				if (c.getEnemies().size() > 1) {
@@ -21,7 +22,6 @@ public class ShotCreator extends Thread {
 			try {
 				Thread.sleep(Config.getGameSpeed() * Config.getShotFactor());
 			} catch (InterruptedException e) {
-				e.printStackTrace();
 			}
 		}
 	}

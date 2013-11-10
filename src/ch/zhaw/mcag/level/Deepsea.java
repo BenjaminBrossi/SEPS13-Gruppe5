@@ -1,15 +1,19 @@
-package ch.zhaw.mcag.levels;
+package ch.zhaw.mcag.level;
 
-public class Deepsea extends AbstractLevel {
-	private String player = "Player.png";
-	private String friendlyShot = "Shot.png";
-	private String enemyShot = "Shot_Opponent.png";
-	private String background = "Background.png";
-	private String foreground = "Earth.png";
-	private String[] enemies = { "Alien.png", "Alien2.png" };
-	private String[] hardObstacles = { "HRTA.png", "HRTA2.png", "HRTA3.png", "HRTA4.png" };
-	private String[] softObstacles = { "Satelite.png" };
-	private String[] extras = { "alien.gif" };
+public class Deepsea implements LevelInterface {
+	private String player = "Submarine.png";
+	private String friendlyShot = "Fish.png";
+	private String enemyShot = "Torpedo.png";
+	private String background = "Deepsea.jpg";
+	private String foreground = "";
+	private String explosion = "Wirbel.gif";
+	private String life = "GreenHeart.png";
+	private String[] enemies = {"Fish1.png", "Octopus.gif"};
+	private String[] hardObstacles = {"HardCoral.png", "HardCoral2.png"};
+	private String[] softObstacles = {"SoftCoral.png"};
+
+	// Keep the order (Extra points, life point, clean the field, invincible)
+	private String[] extras = {"Coin.gif", "LifePoint.png", "Flash.png", "Shield.png"};
 
 	public String getPlayer() {
 		return player;
@@ -82,4 +86,24 @@ public class Deepsea extends AbstractLevel {
 	public void setExtras(String[] extras) {
 		this.extras = extras;
 	}
+
+	@Override
+	public String getExplosion() {
+		return this.explosion;
+	}
+
+	@Override
+	public void setExplosion(String explosion) {
+		this.explosion = explosion;
+	}
+
+	@Override
+	public String getLife() {
+		return this.life;
+	}
+
+	public void setLife(String life) {
+		this.life = life;
+	}
+
 }

@@ -1,15 +1,19 @@
-package ch.zhaw.mcag.levels;
+package ch.zhaw.mcag.level;
 
-public class Space extends AbstractLevel {
+public class Space implements LevelInterface {
 	private String player = "Player.png";
 	private String friendlyShot = "Shot.png";
 	private String enemyShot = "Shot_Opponent.png";
 	private String background = "Background.png";
 	private String foreground = "Earth.png";
-	private String[] enemies = { "Alien.png", "Alien2.png" };
+	private String explosion = "Impact.png";
+	private String life = "GreenHeart.png";
+	private String[] enemies = {"Alien.png", "Alien2.png", "Enemy.png"};
 	private String[] hardObstacles = { "HRTA.png", "HRTA2.png", "HRTA3.png", "HRTA4.png" };
-	private String[] softObstacles = { "Satelite.png" };
-	private String[] extras = { "Coin.gif" };
+	private String[] softObstacles = {"Satelite.png"};
+
+	// Keep the order (Extra points, life point, clean the field, invincible)
+	private String[] extras = {"Coin.gif", "LifePoint.png", "Flash.png", "Shield.png"};
 
 	public String getPlayer() {
 		return player;
@@ -83,4 +87,19 @@ public class Space extends AbstractLevel {
 		this.extras = extras;
 	}
 
+	public String getExplosion() {
+		return explosion;
+	}
+
+	public void setExplosion(String explosion) {
+		this.explosion = explosion;
+	}
+
+	public String getLife() {
+		return life;
+	}
+
+	public void setLife(String life) {
+		this.life = life;
+	}
 }

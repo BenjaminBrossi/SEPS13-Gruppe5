@@ -8,8 +8,9 @@ import java.util.Calendar;
 import java.util.List;
 
 public class Player extends Creature {
-	protected boolean good = true;
 	private long nextShot;
+	protected boolean good = true;
+	protected int flickerTime = Config.getFlickerTime() * 2;
 
 	public Player(Position position, Dimension dimension, Image image) {
 		super(position, dimension, image);
@@ -22,6 +23,7 @@ public class Player extends Creature {
 		}
 	}
 
+	@Override
 	public boolean isGood() {
 		return this.good;
 	}
@@ -34,5 +36,21 @@ public class Player extends Creature {
 		shots.add(ItemFactory.createShot(this));
 		// set next possible shoot time
 		nextShot = Calendar.getInstance().getTimeInMillis() + Config.getShotInterval();
+	}
+
+	@Override
+	public boolean flicker() {
+		if (!flickerEnabled) {
+			return true;
+		}
+		if (flicker > this.flickerTime / Config.getGameSpeed()) {
+			this.flickerEnabled = false;
+			this.flickerTime = Config.getFlickerTime() * 2;
+		}
+		return ++flicker % 3 == 0;
+	}
+
+	public void setFlickerTime(int flickerTime) {
+		this.flickerTime = flickerTime;
 	}
 }

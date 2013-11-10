@@ -1,5 +1,7 @@
-package ch.zhaw.mcag;
+package ch.zhaw.mcag.view;
 
+import ch.zhaw.mcag.Config;
+import ch.zhaw.mcag.GameContext;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;

@@ -1,4 +1,4 @@
-package ch.zhaw.mcag.threads;
+package ch.zhaw.mcag.thread;
 
 import ch.zhaw.mcag.*;
 
@@ -9,7 +9,8 @@ public class EnemyCreator extends Thread {
 		this.c = c;
 	}
 
-	public synchronized void run() {
+	@Override
+	public void run() {
 		while (true) {
 			if (!c.isPaused()) {
 				createItems();
@@ -17,7 +18,6 @@ public class EnemyCreator extends Thread {
 			try {
 				Thread.sleep(Config.getGameSpeed() * Config.getEnemyFactor());
 			} catch (InterruptedException e) {
-				e.printStackTrace();
 			}
 		}
 	}
