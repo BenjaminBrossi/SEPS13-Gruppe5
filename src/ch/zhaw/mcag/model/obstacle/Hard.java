@@ -8,4 +8,11 @@ public class Hard extends Obstacle {
 	public Hard(Position position, Dimension dimension, Image image) {
 		super(position, dimension, image);
 	}
+
+	@Override
+	public void collide() {
+		if (!this.hadCollision) {
+			this.hadCollision = true;
+		}
+	}
 }
