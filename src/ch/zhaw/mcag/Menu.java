@@ -11,6 +11,7 @@ public class Menu {
 	private int state;
 	private Board board;
 	private GameContext context;
+	private String playerName;
 
 	public Menu(Board board, GameContext context) {
 		x = 280;
@@ -18,6 +19,7 @@ public class Menu {
 		selected = 2;
 		this.board = board;
 		this.context = context;
+		this.playerName = "PLAYER";
 	}
 
 	public void draw(Graphics2D g2d) {
@@ -50,8 +52,18 @@ public class Menu {
 			g2d.drawString("Spiel fortsetzen", Config.getBoardDimension()
 					.getLength() / 2 - 150, 250);
 		}
-		g2d.drawString("Neues Spiel",
+		else{
+			g2d.drawString("Name: "+playerName, Config.getBoardDimension()
+					.getLength() / 2 - 150, 250);
+		}
+		if (context.getPoints() == 0) {
+			g2d.drawString("Spiel beginnen",
 				Config.getBoardDimension().getLength() / 2 - 150, 300);
+		}
+		else{
+			g2d.drawString("Neues Spiel",
+					Config.getBoardDimension().getLength() / 2 - 150, 300);
+		}
 		g2d.drawString("Name ändern",
 				Config.getBoardDimension().getLength() / 2 - 150, 350);
 		g2d.drawString("Level auswählen", Config.getBoardDimension()
@@ -80,6 +92,8 @@ public class Menu {
 	private void showNameMenu(Graphics2D g2d) {
 		g2d.drawString("Name: ",
 				Config.getBoardDimension().getLength() / 2 - 150, 250);
+		g2d.drawString(playerName,
+				Config.getBoardDimension().getLength() / 2 - 150, 300);
 	}
 
 	private void showLevelMenu(Graphics2D g2d) {
@@ -154,6 +168,16 @@ public class Menu {
 				}
 			}
 		}
+	}
+	
+	public void addCharToName(char a){
+		if (state == 2)
+		playerName = playerName + a;
+	}
+	
+	public void deleteCharFromName(){
+		if (playerName.length() > 0 && state == 2) 
+			playerName = playerName.substring(0, playerName.length() - 1);
 	}
 
 	public int getState() {

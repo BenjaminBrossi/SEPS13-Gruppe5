@@ -64,7 +64,12 @@ public class KeyboardAdapter extends KeyAdapter {
 				board.getMenu().select(board.getMenu().getSelected());
 				break;
 			case KeyEvent.VK_ENTER:
-				board.getMenu().select(board.getMenu().getSelected());
+				if (board.getMenu().getState() != 1){
+					board.getMenu().setState(1);
+				}
+				else{
+					board.getMenu().select(board.getMenu().getSelected());
+				}
 				break;
 			case KeyEvent.VK_ESCAPE:
 				if (board.getMenu().getState() == 1)
@@ -72,6 +77,11 @@ public class KeyboardAdapter extends KeyAdapter {
 				else
 					board.getMenu().setState(1);
 				break;
+			case KeyEvent.VK_BACK_SPACE:
+				board.getMenu().deleteCharFromName();
+			}
+			if ((key >= 48 && key <= 57) || (key >= 65 && key <= 90) || key == KeyEvent.VK_SPACE){ // 0-9, A-Z and ' '
+				board.getMenu().addCharToName((char) key);
 			}
 		}
 		board.repaint();
