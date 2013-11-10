@@ -8,12 +8,14 @@ public final class Config {
 	private static Dimension boardDimension;
 
 	private static int lifes = 5;
+	private static int extraPoint = 500;
 
 	// Speed settings
 	private static int gameSpeed = 15;
 	private static int initialSpeed = 10;
 	private static int movePixels = 2;
 
+	// Speed factors
 	private static int enemyFactor = 150;
 	private static int obstacleFactor = 150;
 	private static int shotFactor = 50;
@@ -122,6 +124,14 @@ public final class Config {
 
 	public static void setExtraFactor(int extraFactor) {
 		Config.extraFactor = extraFactor;
+	}
+
+	public static int getExtraPoint() {
+		return extraPoint;
+	}
+
+	public static void setExtraPoint(int extraPoint) {
+		Config.extraPoint = extraPoint;
 	}
 
 }

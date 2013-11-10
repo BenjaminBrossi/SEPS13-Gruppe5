@@ -7,6 +7,7 @@ public class Deepsea implements LevelInterface {
 	private String background = "Background.png";
 	private String foreground = "Earth.png";
 	private String explosion = "Impact.png";
+	private String life = "GreenHeart.png";
 	private String[] enemies = { "Alien.png", "Alien2.png" };
 	private String[] hardObstacles = { "HRTA.png", "HRTA2.png", "HRTA3.png", "HRTA4.png" };
 	private String[] softObstacles = { "Satelite.png" };
@@ -92,6 +93,15 @@ public class Deepsea implements LevelInterface {
 	@Override
 	public void setExplosion(String explosion) {
 		this.explosion = explosion;
+	}
+
+	@Override
+	public String getLife() {
+		return this.life;
+	}
+
+	public void setLife(String life) {
+		this.life = life;
 	}
 
 }

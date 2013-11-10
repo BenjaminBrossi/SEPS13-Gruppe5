@@ -28,7 +28,7 @@ public class ItemFactory {
 		int x = Config.getBoardDimension().getLength();
 		Position position = new Position(x, y);
 		Dimension dimension = new Dimension(imageIcon.getIconHeight(), imageIcon.getIconWidth());
-		return new Extra(position, dimension, imageIcon.getImage());
+		return new Extra(position, dimension, imageIcon.getImage(), pick);
 	}
 
 	public static Hard createHardObstacle() {

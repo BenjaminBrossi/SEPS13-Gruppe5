@@ -13,6 +13,7 @@ public class GameContext {
 	// Player
 	private Player player;
 	private double points = 1;
+	private int lifes = Config.getLifes();
 
 	// Background
 	private Background background;
@@ -110,5 +111,62 @@ public class GameContext {
 
 	public void setExplosions(LinkedList<Explosion> explosions) {
 		this.explosions = explosions;
+	}
+
+	public int getLifes() {
+		return lifes;
+	}
+
+	public void setLifes(int lifes) {
+		if (lifes > 0) {
+			this.lifes = lifes;
+		} else {
+			this.lifes = 0;
+			this.setPause(true);
+		}
+	}
+
+	public LinkedList<Item> getEvilStuff() {
+		LinkedList<Item> tmp = new LinkedList<>();
+		tmp.addAll(this.getEnemies());
+		tmp.addAll(this.getHardObstacles());
+		tmp.addAll(this.getSoftObstacles());
+		tmp.addAll(this.getEnemies());
+
+		List<Shot> shots = (List<Shot>) this.getShots().clone();
+
+		for (Shot shot : shots) {
+			if (!shot.isGood()) {
+				tmp.add(shot);
+			}
+		}
+		return tmp;
+	}
+
+	public LinkedList<Item> getGoodStuff() {
+		LinkedList<Item> tmp = new LinkedList<>();
+
+		List<Shot> shots = (List<Shot>) this.getShots().clone();
+
+		for (Shot shot : shots) {
+			if (shot.isGood()) {
+				tmp.add(shot);
+			}
+		}
+		tmp.add(this.getPlayer());
+		return tmp;
+	}
+
+	public LinkedList<Item> getAllStuff() {
+		LinkedList<Item> tmp = new LinkedList<>();
+		tmp.addAll(this.getEnemies());
+		tmp.addAll(this.getHardObstacles());
+		tmp.addAll(this.getSoftObstacles());
+		tmp.addAll(this.getEnemies());
+		tmp.addAll(this.getShots());
+		tmp.addAll(this.getExtras());
+		tmp.addAll(this.getExplosions());
+		tmp.add(this.getPlayer());
+		return tmp;
 	}
 }

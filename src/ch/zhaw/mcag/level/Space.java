@@ -10,8 +10,10 @@ public class Space implements LevelInterface {
 	private String life = "GreenHeart.png";
 	private String[] enemies = {"Alien.png", "Alien2.png", "Enemy.png"};
 	private String[] hardObstacles = { "HRTA.png", "HRTA2.png", "HRTA3.png", "HRTA4.png" };
-	private String[] softObstacles = { "Satelite.png" };
-	private String[] extras = { "Coin.gif" };
+	private String[] softObstacles = {"Satelite.png"};
+
+	// Keep the order (Extra points, life point, clean the field, invincible)
+	private String[] extras = {"Coin.gif", "LifePoint.png", "Flash.png", "Shield.png"};
 
 	public String getPlayer() {
 		return player;

@@ -5,12 +5,9 @@ import ch.zhaw.mcag.Config;
 import ch.zhaw.mcag.adapter.*;
 import ch.zhaw.mcag.level.Level;
 import ch.zhaw.mcag.model.*;
-import ch.zhaw.mcag.model.creature.*;
-import ch.zhaw.mcag.model.obstacle.*;
 import ch.zhaw.mcag.sensor.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
 import javax.swing.*;
 import com.leapmotion.leap.*;
 
@@ -50,29 +47,20 @@ public class Board extends JPanel implements ActionListener {
 		super.paint(g);
 
 		this.paintBackground((Graphics2D) g);
-		this.paintObstacles((Graphics2D) g);
-		this.paintEnemies((Graphics2D) g);
-		this.paintShots((Graphics2D) g);
-		this.paintPlayer((Graphics2D) g);
-		this.paintExtras((Graphics2D) g);
-		this.paintExplosions((Graphics2D) g);
+		this.paintItems((Graphics2D) g);
 		this.paintLifes((Graphics2D) g);
-
-		Font font = new Font("sans", Font.PLAIN, 36);
-		g.setColor(Color.green);
-		g.setFont(font);
-		g.drawString((int) c.getPoints() + "", 10, 50);
-
-		if (showMenu == true) {
-			this.paintMenu((Graphics2D) g);
-		}
+		this.paintLifes((Graphics2D) g);
+		this.paintScore((Graphics2D) g);
+		this.paintMenu((Graphics2D) g);
 
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
 	}
 
 	private void paintMenu(Graphics2D g2d) {
-		menu.draw(g2d);
+		if (showMenu == true) {
+			menu.draw(g2d);
+		}
 	}
 
 	private void paintBackground(Graphics2D g2d) {
@@ -85,42 +73,27 @@ public class Board extends JPanel implements ActionListener {
 		g2d.drawImage(foreground.getImage(), 0, Config.getBoardDimension().getHeight() - foreground.getIconHeight(), Config.getBoardDimension().getLength(), foreground.getIconHeight(), this);
 	}
 
-	private void paintPlayer(Graphics2D g2d) {
-		if (c.getPlayer().flicker()) {
-			g2d.drawImage(c.getPlayer().getImage(), c.getPlayer().getPosition().getX(), c.getPlayer().getPosition().getY(), this);
+	private void paintItems(Graphics2D g2d) {
+		for (Item item : c.getAllStuff()) {
+			if (item.flicker()) {
+				g2d.drawImage(item.getImage(), item.getPosition().getX(), item.getPosition().getY(), this);
+			}
 		}
 	}
 
-	private synchronized void paintObstacles(Graphics2D g2d) {
-		LinkedList<Hard> hards = (LinkedList<Hard>) c.getHardObstacles().clone();
-		for (Hard obstacle : hards) {
-			g2d.drawImage(obstacle.getImage(), obstacle.getPosition().getX(), obstacle.getPosition().getY(), this);
-		}
-
-		LinkedList<Soft> softs = (LinkedList<Soft>) c.getSoftObstacles().clone();
-		for (Soft obstacle : softs) {
-			g2d.drawImage(obstacle.getImage(), obstacle.getPosition().getX(), obstacle.getPosition().getY(), this);
-		}
+	private void paintScore(Graphics2D g2d) {
+		Font font = new Font("sans", Font.PLAIN, 36);
+		g2d.setColor(Color.green);
+		g2d.setFont(font);
+		g2d.drawString((int) c.getPoints() + "", 10, 50);
 	}
 
-	private synchronized void paintEnemies(Graphics2D g2d) {
-		LinkedList<Enemy> tmp = (LinkedList<Enemy>) c.getEnemies().clone();
-		for (Enemy enemy : tmp) {
-			g2d.drawImage(enemy.getImage(), enemy.getPosition().getX(), enemy.getPosition().getY(), this);
-		}
-	}
-
-	private synchronized void paintShots(Graphics2D g2d) {
-		LinkedList<Shot> tmp = (LinkedList<Shot>) c.getShots().clone();
-		for (Shot shot : tmp) {
-			g2d.drawImage(shot.getImage(), shot.getPosition().getX(), shot.getPosition().getY(), this);
-		}
-	}
-
-	private synchronized void paintExtras(Graphics2D g2d) {
-		LinkedList<Extra> tmp = (LinkedList<Extra>) c.getExtras().clone();
-		for (Extra extra : tmp) {
-			g2d.drawImage(extra.getImage(), extra.getPosition().getX(), extra.getPosition().getY(), this);
+	private void paintLifes(Graphics2D g2d) {
+		int lifes = c.getLifes();
+		for (int i = 0; i < lifes; i++) {
+			ImageIcon imageIcon = new ImageIcon(ItemFactory.class.getResource(Config.imagePath + Level.getLevel().getLife()));
+			Life life = ItemFactory.createLife(Config.getBoardDimension().getLength() - (2 + i) * imageIcon.getIconWidth(), 0, imageIcon);
+			g2d.drawImage(life.getImage(), life.getPosition().getX(), life.getPosition().getY(), this);
 		}
 	}
 
@@ -139,23 +112,5 @@ public class Board extends JPanel implements ActionListener {
 
 	public boolean showMenu() {
 		return showMenu;
-	}
-
-	private synchronized void paintExplosions(Graphics2D g2d) {
-		LinkedList<Explosion> tmp = (LinkedList<Explosion>) c.getExplosions().clone();
-		for (Explosion explosion : tmp) {
-			if (explosion.flicker()) {
-				g2d.drawImage(explosion.getImage(), explosion.getPosition().getX(), explosion.getPosition().getY(), this);
-			}
-		}
-	}
-
-	private void paintLifes(Graphics2D g2d) {
-		int lifes = Config.getLifes();
-		for (int i = 0; i < lifes; i++) {
-			ImageIcon imageIcon = new ImageIcon(ItemFactory.class.getResource(Config.imagePath + Level.getLevel().getLife()));
-			Life life = ItemFactory.createLife(Config.getBoardDimension().getLength() - (2 + i) * imageIcon.getIconWidth(), 0, imageIcon);
-			g2d.drawImage(life.getImage(), life.getPosition().getX(), life.getPosition().getY(), this);
-		}
 	}
 }

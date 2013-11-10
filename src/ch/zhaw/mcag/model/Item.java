@@ -130,4 +130,7 @@ public class Item implements Drawable {
 		this.flicker = 0;
 		this.flickerEnabled = flicker;
 	}
+
+	public void move() {
+	}
 }
