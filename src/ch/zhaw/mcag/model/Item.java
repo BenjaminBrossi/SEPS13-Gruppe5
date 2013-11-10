@@ -13,6 +13,7 @@ public class Item implements Drawable {
 	protected boolean hadCollision = false;
 	protected int flicker = 0;
 	protected boolean flickerEnabled = false;
+	protected int flickerTime = Config.getFlickerTime();
 
 	public Item(Position position, Dimension dimension, Image image) {
 		this.position = position;
@@ -120,7 +121,7 @@ public class Item implements Drawable {
 		if (!flickerEnabled) {
 			return true;
 		}
-		if (flicker > 500 / Config.getGameSpeed()) {
+		if (flicker > flickerTime / Config.getGameSpeed()) {
 			this.disposed = true;
 		}
 		return ++flicker % 5 == 0;
@@ -128,7 +129,12 @@ public class Item implements Drawable {
 
 	public void setFlicker(boolean flicker) {
 		this.flicker = 0;
+		this.flickerTime = Config.getFlickerTime();
 		this.flickerEnabled = flicker;
+	}
+
+	public boolean isFlickering() {
+		return flickerEnabled;
 	}
 
 	public void move() {

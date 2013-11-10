@@ -69,7 +69,7 @@ public class Board extends JPanel implements ActionListener {
 		g2d.drawImage(c.getBackground().getImage(), x - c.getBackground().getDimension().getLength(), y, Config.getBoardDimension().getLength(), Config.getBoardDimension().getHeight(), this);
 		g2d.drawImage(c.getBackground().getImage(), x, y, Config.getBoardDimension().getLength(), Config.getBoardDimension().getHeight(), this);
 		g2d.drawImage(c.getBackground().getImage(), x + c.getBackground().getDimension().getLength(), y, Config.getBoardDimension().getLength(), Config.getBoardDimension().getHeight(), this);
-		ImageIcon foreground = new ImageIcon(this.getClass().getResource(Config.imagePath + Config.foreground));
+		ImageIcon foreground = new ImageIcon(this.getClass().getResource(Config.getImagePath() + Config.getForeground()));
 		g2d.drawImage(foreground.getImage(), 0, Config.getBoardDimension().getHeight() - foreground.getIconHeight(), Config.getBoardDimension().getLength(), foreground.getIconHeight(), this);
 	}
 
@@ -91,7 +91,7 @@ public class Board extends JPanel implements ActionListener {
 	private void paintLifes(Graphics2D g2d) {
 		int lifes = c.getLifes();
 		for (int i = 0; i < lifes; i++) {
-			ImageIcon imageIcon = new ImageIcon(ItemFactory.class.getResource(Config.imagePath + Level.getLevel().getLife()));
+			ImageIcon imageIcon = new ImageIcon(ItemFactory.class.getResource(Config.getImagePath() + Level.getLevel().getLife()));
 			Life life = ItemFactory.createLife(Config.getBoardDimension().getLength() - (2 + i) * imageIcon.getIconWidth(), 0, imageIcon);
 			g2d.drawImage(life.getImage(), life.getPosition().getX(), life.getPosition().getY(), this);
 		}

@@ -33,6 +33,8 @@ public class Extra extends Item implements Collectable {
 				}
 				break;
 			case INVINCIBLE:
+				c.getPlayer().setFlickerTime(Config.getFlickerTime() * 10);
+				c.getPlayer().setFlicker(true);
 				break;
 		}
 

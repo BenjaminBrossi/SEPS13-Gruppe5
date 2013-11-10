@@ -55,33 +55,8 @@ public class Engine extends Thread {
 
 		me.add(c.getPlayer());
 
-		for (Item thoseItem : them) {
-			for (Item myItem : me) {
-				Position intersection = myItem.hasCollision(thoseItem);
-				if (intersection.getX() > 0 && intersection.getY() > 0 && !thoseItem.hadCollision()) {
-					if (thoseItem instanceof Collectable && "ch.zhaw.mcag.model.creature.Player".equals(myItem.getClass().getName())) {
-						Extra e = (Extra) thoseItem;
-						e.collect(c);
-					} else if (thoseItem instanceof Destroyable && "ch.zhaw.mcag.model.creature.Player".equals(myItem.getClass().getName())) {
-						c.setLifes(c.getLifes() - 1);
-						myItem.setFlicker(true);
-						thoseItem.destroy();
-					} else if (thoseItem instanceof Hard && "ch.zhaw.mcag.model.creature.Player".equals(myItem.getClass().getName())) {
-						Config.setLifes(Config.getLifes() - 1);
-						myItem.setFlicker(true);
-						thoseItem.collide();
-					} else if (thoseItem instanceof Destroyable) {
-						c.setPoints(c.getPoints() + 100);
-						myItem.destroy();
-						thoseItem.destroy();
-						Explosion explosion = ItemFactory.createExplosion(intersection.getX(), intersection.getY());
-						explosion.setFlicker(true);
-						c.getExplosions().add(explosion);
-					}
-				}
-			}
-		}
-
+		CollisionHandler collisionHandler = new CollisionHandler(me, them, c);
+		collisionHandler.searchCollision();
 	}
 
 	private void moveAll() {
@@ -136,7 +111,7 @@ public class Engine extends Thread {
 
 		LinkedList<Hard> disposedHards = new LinkedList<>();
 		for (Hard obstacle : (List<Hard>) c.getHardObstacles().clone()) {
-			if (obstacle.getPosition().getX() < 0 - obstacle.getDimension().getLength()) {
+			if (obstacle.getPosition().getX() < 0 - obstacle.getDimension().getLength() || obstacle.isDisposed()) {
 				disposedHards.add(obstacle);
 			}
 		}
