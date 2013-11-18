@@ -12,7 +12,7 @@ public class GameContext {
 
 	// Player
 	private Player player;
-	private double points = 1;
+	private double points = 0;
 	private int lifes = Config.getLifes();
 
 	// Background
@@ -29,6 +29,20 @@ public class GameContext {
 	// State
 	private boolean pause = true;
 
+        public void resetContext()
+        {
+            this.points = 0;
+            this.lifes = Config.getLifes();
+            this.enemies = new LinkedList<>();
+            this.hardObstacles = new LinkedList<>();
+            this.softObstacles = new LinkedList<>();
+            this.shots = new LinkedList<>();
+            this.extras = new LinkedList<>();
+            this.explosions = new LinkedList<>();
+            setPlayer(ItemFactory.createPlayer());
+            Config.setGameSpeed(Config.getInitialSpeed());
+        }
+        
 	public Config getConfig() {
 		return config;
 	}

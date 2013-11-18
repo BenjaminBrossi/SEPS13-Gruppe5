@@ -48,7 +48,7 @@ public class Menu {
 	}
 
 	private void showMainMenu(Graphics2D g2d) {
-		if (context.getPoints() != 0) {
+		if (context.getPoints() != 0 && context.getLifes() > 0) {
 			g2d.drawString("Spiel fortsetzen", Config.getBoardDimension()
 					.getLength() / 2 - 150, 250);
 		}
@@ -95,6 +95,7 @@ public class Menu {
 			board.toggleMenu();
 			break;
 		case 2: // Neues Spiel
+                        this.context.resetContext();
 			board.toggleMenu();
 			break;
 		case 3: // Name ändern

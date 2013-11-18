@@ -46,6 +46,11 @@ public class Board extends JPanel implements ActionListener {
 	public void paint(Graphics g) {
 		super.paint(g);
 
+                
+                //menu on game over
+                if(c.getLifes() < 1)
+                    showMenu = true;
+                
 		this.paintBackground((Graphics2D) g);
 		this.paintItems((Graphics2D) g);
 		this.paintLifes((Graphics2D) g);
@@ -53,6 +58,7 @@ public class Board extends JPanel implements ActionListener {
 		this.paintScore((Graphics2D) g);
 		this.paintMenu((Graphics2D) g);
 
+                
 		Toolkit.getDefaultToolkit().sync();
 		g.dispose();
 	}
@@ -104,8 +110,10 @@ public class Board extends JPanel implements ActionListener {
 	}
 
 	public void toggleMenu() {
+                if(c.getLifes() > 0){
 		c.setPause(!c.isPaused());
 		showMenu = !showMenu;
+                }
 	}
 
 	public Menu getMenu() {
