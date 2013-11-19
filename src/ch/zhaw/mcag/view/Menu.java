@@ -2,37 +2,47 @@ package ch.zhaw.mcag.view;
 
 import ch.zhaw.mcag.Config;
 import ch.zhaw.mcag.GameContext;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 public class Menu {
 
-	private int x;
+	private int cursorY;
 	private int selected;
 	private int state;
 	private Board board;
 	private GameContext context;
+	private String playerName;
+	private Font big = new Font("sans", Font.PLAIN, 50);
+	private Font medium = new Font("sans", Font.PLAIN, 36);
+	private Font small = new Font("sans", Font.PLAIN, 24);
+	private int menuX = Config.getBoardDimension().getLength() / 2 - 170;
+	private int levelX = menuX;
+	private int selectedLevel;
 
 	public Menu(Board board, GameContext context) {
-		x = 280;
+		cursorY = 280;
 		state = 1;
 		selected = 2;
+		selectedLevel = 1;
 		this.board = board;
 		this.context = context;
+		this.playerName = "PLAYER";
 	}
 
 	public void draw(Graphics2D g2d) {
-		g2d.setColor(new Color(0, 0, 0, 128));
+		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+				RenderingHints.VALUE_ANTIALIAS_ON);
+		g2d.setColor(new Color(0, 0, 0, 128)); // semi transparent black
 		g2d.fillRect(Config.getBoardDimension().getLength() / 2 - 250, Config
 				.getBoardDimension().getHeight() / 2 - 300, 500, 600);
 		g2d.setColor(Color.WHITE);
-		Font font = new Font("sans", Font.PLAIN, 50);
-		g2d.setFont(font);
-		g2d.drawString("MCAG",
-				Config.getBoardDimension().getLength() / 2 - 170, 180);
-		font = new Font("sans", Font.PLAIN, 36);
-		g2d.setFont(font);
+		g2d.setFont(big);
+		g2d.drawString("MCAG", menuX, 180);
+		g2d.setFont(medium);
 
 		if (state == 1) {
 			showMainMenu(g2d);
@@ -52,41 +62,41 @@ public class Menu {
 			g2d.drawString("Spiel fortsetzen", Config.getBoardDimension()
 					.getLength() / 2 - 150, 250);
 		}
-		g2d.drawString("Neues Spiel",
-				Config.getBoardDimension().getLength() / 2 - 150, 300);
-		g2d.drawString("Name 채ndern",
+		if (context.getPoints() == 0) {
+			g2d.drawString("Spiel beginnen", menuX + 20, 300);
+		} else {
+			g2d.drawString("Neues Spiel", menuX + 20, 300);
+		}
+		g2d.drawString("Name 둵dern",
 				Config.getBoardDimension().getLength() / 2 - 150, 350);
-		g2d.drawString("Level ausw채hlen", Config.getBoardDimension()
-				.getLength() / 2 - 150, 400);
-		g2d.drawString("Controller einstellen", Config.getBoardDimension()
-				.getLength() / 2 - 150, 450);
-		g2d.drawString("Highscore",
-				Config.getBoardDimension().getLength() / 2 - 150, 500);
-		g2d.drawString("Beenden",
-				Config.getBoardDimension().getLength() / 2 - 150, 550);
+		g2d.drawString("Level ausw둯len", menuX + 20, 400);
+		g2d.drawString("Controller einstellen", menuX + 20, 450);
+		g2d.drawString("Highscore", menuX + 20, 500);
+		g2d.drawString("Beenden", menuX + 20, 550);
 
-		g2d.fillOval(Config.getBoardDimension().getLength() / 2 - 200, x, 20,
-				20);
+		g2d.fillOval(menuX - 30, cursorY, 20, 20);
 	}
 
 	private void showControllerMenu(Graphics2D g2d) {
-		g2d.drawString("Controller w채hlen: ", Config.getBoardDimension()
-				.getLength() / 2 - 150, 250);
+		g2d.drawString("Controller w둯len ", menuX, 250);
 	}
 
 	private void showHighscoreMenu(Graphics2D g2d) {
-		g2d.drawString("Highscore: ",
-				Config.getBoardDimension().getLength() / 2 - 150, 250);
+		g2d.drawString("Highscore ", menuX, 250);
+		g2d.setFont(small);
+		g2d.drawString("Name ", menuX, 300);
+		g2d.drawString("Score ", menuX + 270, 300);
+		g2d.drawLine(menuX, 310, menuX + 350, 310);
 	}
 
 	private void showNameMenu(Graphics2D g2d) {
-		g2d.drawString("Name: ",
-				Config.getBoardDimension().getLength() / 2 - 150, 250);
+		g2d.drawString("Name ", menuX, 250);
+		g2d.drawString(playerName, menuX, 300);
 	}
 
 	private void showLevelMenu(Graphics2D g2d) {
-		g2d.drawString("Level w채hlen: ",
-				Config.getBoardDimension().getLength() / 2 - 150, 250);
+		g2d.drawString("Level w둯len ", menuX, 250);
+		g2d.drawRect(levelX, 300, 100, 100);
 	}
 
 	public void select(int selected) {
@@ -118,19 +128,19 @@ public class Menu {
 	public void up() {
 		if (state == 1) {
 			if (context.getPoints() == 0) {
-				if (x > 280) {
-					x -= 50;
+				if (cursorY > 280) {
+					cursorY -= 50;
 					selected--;
 				} else {
-					x = 530;
+					cursorY = 530;
 					selected = 7;
 				}
 			} else {
-				if (x > 230) {
-					x -= 50;
+				if (cursorY > 230) {
+					cursorY -= 50;
 					selected--;
 				} else {
-					x = 530;
+					cursorY = 530;
 					selected = 7;
 				}
 			}
@@ -140,22 +150,53 @@ public class Menu {
 	public void down() {
 		if (state == 1) {
 			if (context.getPoints() == 0) {
-				if (x < 530) {
-					x += 50;
+				if (cursorY < 530) {
+					cursorY += 50;
 					selected++;
 				} else {
-					x = 280;
+					cursorY = 280;
 					selected = 2;
 				}
 			} else {
-				if (x < 530) {
-					x += 50;
+				if (cursorY < 530) {
+					cursorY += 50;
 					selected++;
 				} else {
-					x = 230;
+					cursorY = 230;
 					selected = 1;
 				}
 			}
+		}
+	}
+
+	public void left() {
+		if (state == 3) {
+			if (levelX > menuX) {
+				levelX = menuX;
+				selectedLevel = 1;
+			}
+		}
+	}
+
+	public void right() {
+		if (state == 3) {
+			if (levelX < menuX + 200) {
+				levelX += 200;
+				selectedLevel = 2;
+			}
+		}
+	}
+
+	public void addCharToName(char a) {
+		if (state == 2) {
+			playerName = playerName + a;
+		}
+
+	}
+
+	public void deleteCharFromName() {
+		if (playerName.length() > 0 && state == 2) {
+			playerName = playerName.substring(0, playerName.length() - 1);
 		}
 	}
 
@@ -170,9 +211,9 @@ public class Menu {
 	public void setState(int i) {
 		state = i;
 	}
-	
-	public void reset(){
-		x = 230;
+
+	public void reset() {
+		cursorY = 230;
 		state = 1;
 		selected = 1;
 	}
