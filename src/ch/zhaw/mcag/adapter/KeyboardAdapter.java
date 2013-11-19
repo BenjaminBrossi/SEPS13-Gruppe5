@@ -56,12 +56,21 @@ public class KeyboardAdapter extends KeyAdapter {
 				break;
 			}
 		} else {
+			if ((key >= 48 && key <= 57) || (key >= 65 && key <= 90) || key == KeyEvent.VK_SPACE){ // 0-9, A-Z and ' '
+				board.getMenu().addCharToName((char) key);
+			}
 			switch (key) {
 			case KeyEvent.VK_UP:
 				board.getMenu().up();
 				break;
 			case KeyEvent.VK_DOWN:
 				board.getMenu().down();
+				break;
+			case KeyEvent.VK_LEFT:
+				board.getMenu().left();
+				break;
+			case KeyEvent.VK_RIGHT:
+				board.getMenu().right();
 				break;
 			case KeyEvent.VK_SPACE:
 				board.getMenu().select(board.getMenu().getSelected());
@@ -82,9 +91,6 @@ public class KeyboardAdapter extends KeyAdapter {
 				break;
 			case KeyEvent.VK_BACK_SPACE:
 				board.getMenu().deleteCharFromName();
-			}
-			if ((key >= 48 && key <= 57) || (key >= 65 && key <= 90) || key == KeyEvent.VK_SPACE){ // 0-9, A-Z and ' '
-				board.getMenu().addCharToName((char) key);
 			}
 		}
 		board.repaint();

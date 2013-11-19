@@ -12,7 +12,7 @@ public class GameContext {
 
 	// Player
 	private Player player;
-	private double points = 1;
+	private double points = 0;
 	private int lifes = Config.getLifes();
 
 	// Background
