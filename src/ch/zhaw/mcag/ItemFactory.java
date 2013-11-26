@@ -8,7 +8,7 @@ import ch.zhaw.mcag.model.creature.*;
 import ch.zhaw.mcag.model.obstacle.*;
 
 public class ItemFactory {
-	Config conf = new Config();
+	//Config conf = new Config();
 
 	public static Enemy createEnemy() {
 		Config.getLevel();
