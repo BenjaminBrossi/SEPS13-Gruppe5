@@ -67,9 +67,9 @@ public class Menu {
 		} else {
 			g2d.drawString("Neues Spiel", menuX + 20, 300);
 		}
-		g2d.drawString("Name 둵dern",
+		g2d.drawString("Name 채ndern",
 				Config.getBoardDimension().getLength() / 2 - 150, 350);
-		g2d.drawString("Level ausw둯len", menuX + 20, 400);
+		g2d.drawString("Level ausw채hlen", menuX + 20, 400);
 		g2d.drawString("Controller einstellen", menuX + 20, 450);
 		g2d.drawString("Highscore", menuX + 20, 500);
 		g2d.drawString("Beenden", menuX + 20, 550);
@@ -78,7 +78,7 @@ public class Menu {
 	}
 
 	private void showControllerMenu(Graphics2D g2d) {
-		g2d.drawString("Controller w둯len ", menuX, 250);
+		g2d.drawString("Controller w채hlen ", menuX, 250);
 	}
 
 	private void showHighscoreMenu(Graphics2D g2d) {
@@ -95,7 +95,7 @@ public class Menu {
 	}
 
 	private void showLevelMenu(Graphics2D g2d) {
-		g2d.drawString("Level w둯len ", menuX, 250);
+		g2d.drawString("Level w채hlen ", menuX, 250);
 		g2d.drawRect(levelX, 300, 100, 100);
 	}
 
