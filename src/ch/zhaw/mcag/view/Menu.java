@@ -1,20 +1,16 @@
 package ch.zhaw.mcag.view;
 
 import ch.zhaw.mcag.Config;
-import ch.zhaw.mcag.GameContext;
-import ch.zhaw.mcag.ItemFactory;
+import ch.zhaw.mcag.Game;
+import ch.zhaw.mcag.model.ItemFactory;
 import ch.zhaw.mcag.level.Level;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
-import java.awt.image.ImageObserver;
 
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
 
 public class Menu {
 
@@ -22,7 +18,7 @@ public class Menu {
 	private int selected;
 	private int state;
 	private Board board;
-	private GameContext context;
+	private Game context;
 	private String playerName;
 	private Font big = new Font("sans", Font.PLAIN, 50);
 	private Font medium = new Font("sans", Font.PLAIN, 36);
@@ -35,7 +31,7 @@ public class Menu {
 	private ImageIcon spaceLevelImage;
 	private ImageIcon deepseaLevelImage;
 
-	public Menu(Board board, GameContext context) {
+	public Menu(Board board, Game context) {
 		cursorY = 280;
 		state = 1;
 		selected = 2;
@@ -47,7 +43,7 @@ public class Menu {
 		//config = context.getConfig();
 		spaceLevelImage = new ImageIcon(Config.getImagePath()+"Player.png");
 		deepseaLevelImage = new ImageIcon(Config.getImagePath()+"Submarine.png");
-		
+
 	}
 
 	public void draw(Graphics2D g2d) {
@@ -84,19 +80,19 @@ public class Menu {
 		} else {
 			g2d.drawString("Neues Spiel", menuX + 20, 300);
 		}
-		g2d.drawString("Name ändern",
+		g2d.drawString("Name √§ndern",
 				Config.getBoardDimension().getLength() / 2 - 150, 350);
-		g2d.drawString("Level auswählen", menuX + 20, 400);
+		g2d.drawString("Level ausw√§hlen", menuX + 20, 400);
 		g2d.drawString("Controller einstellen", menuX + 20, 450);
 		g2d.drawString("Highscore", menuX + 20, 500);
 		g2d.drawString("Beenden", menuX + 20, 550);
 
 		g2d.fillOval(menuX - 30, cursorY, 20, 20);
-		
+
 	}
 
 	private void showControllerMenu(Graphics2D g2d) {
-		g2d.drawString("Controller wählen ", menuX, 250);
+		g2d.drawString("Controller w√§hlen ", menuX, 250);
 	}
 
 	private void showHighscoreMenu(Graphics2D g2d) {
@@ -113,7 +109,7 @@ public class Menu {
 	}
 
 	private void showLevelMenu(Graphics2D g2d) {
-		g2d.drawString("Level wählen ", menuX, 250);
+		g2d.drawString("Level w√§hlen ", menuX, 250);
 		g2d.drawRect(levelX, 300, 100, 100);
 		//JLabel j = new JLabel((Icon) spaceLevelImage.getImage());
 		//g2d.drawImage(spaceLevelImage.getImage(), levelX, 300, null);
@@ -131,10 +127,10 @@ public class Menu {
 			this.context.resetContext();
 			board.toggleMenu();
 			break;
-		case 3: // Name ändern
+		case 3: // Name ÔøΩndern
 			state = 2;
 			break;
-		case 4: // Level auswählen
+		case 4: // Level auswÔøΩhlen
 			state = 3;
 			break;
 		case 5: // Controller einstellen

@@ -1,6 +1,6 @@
 package ch.zhaw.mcag.model;
 
-import ch.zhaw.mcag.GameContext;
+import ch.zhaw.mcag.Game;
 
 /**
  *
@@ -8,5 +8,5 @@ import ch.zhaw.mcag.GameContext;
  */
 public interface Collectable {
 
-	public void collect(GameContext c);
+	public void collect(Game c);
 }

@@ -2,14 +2,14 @@ package ch.zhaw.mcag.adapter;
 
 import ch.zhaw.mcag.view.Board;
 import ch.zhaw.mcag.Config;
-import ch.zhaw.mcag.GameContext;
+import ch.zhaw.mcag.Game;
 import java.awt.event.*;
 
 public class KeyboardAdapter extends KeyAdapter {
-	GameContext c;
+	Game c;
 	Board board;
 
-	public KeyboardAdapter(GameContext c, Board board) {
+	public KeyboardAdapter(Game c, Board board) {
 		super();
 		this.c = c;
 		this.board = board;

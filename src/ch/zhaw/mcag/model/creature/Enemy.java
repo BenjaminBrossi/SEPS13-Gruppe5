@@ -1,5 +1,6 @@
 package ch.zhaw.mcag.model.creature;
 
+import ch.zhaw.mcag.model.ItemFactory;
 import java.awt.Image;
 
 import ch.zhaw.mcag.*;

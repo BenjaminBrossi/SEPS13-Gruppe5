@@ -1,65 +1,187 @@
 package ch.zhaw.mcag;
 
-import ch.zhaw.mcag.view.Board;
-import ch.zhaw.mcag.thread.EnemyCreator;
-import ch.zhaw.mcag.thread.ShotCreator;
-import ch.zhaw.mcag.thread.ExtraCreator;
-import ch.zhaw.mcag.thread.Engine;
-import ch.zhaw.mcag.thread.ObstacleCreator;
-import java.awt.*;
+import ch.zhaw.mcag.model.ItemFactory;
+import java.util.*;
 
-import javax.swing.JFrame;
+import ch.zhaw.mcag.model.*;
+import ch.zhaw.mcag.model.creature.*;
+import ch.zhaw.mcag.model.obstacle.*;
 
-import ch.zhaw.mcag.model.Dimension;
+public class Game {
+	// Config
+	private Config config;
 
-public class Game extends JFrame {
+	// Player
+	private Player player;
+	private double points = 0;
+	private int lifes = Config.getLifes();
 
-	private static final long serialVersionUID = -6941538058687003272L;
+	// Background
+	private Background background;
 
-	public Game() {
+	// Items
+	private LinkedList<Enemy> enemies = new LinkedList<>();
+	private LinkedList<Hard> hardObstacles = new LinkedList<>();
+	private LinkedList<Soft> softObstacles = new LinkedList<>();
+	private LinkedList<Shot> shots = new LinkedList<>();
+	private LinkedList<Extra> extras = new LinkedList<>();
+	private LinkedList<Explosion> explosions = new LinkedList<>();
+
+	// State
+	private boolean pause = true;
+
+        public void resetContext()
+        {
+            this.points = 0;
+            this.lifes = Config.getLifes();
+            this.enemies = new LinkedList<>();
+            this.hardObstacles = new LinkedList<>();
+            this.softObstacles = new LinkedList<>();
+            this.shots = new LinkedList<>();
+            this.extras = new LinkedList<>();
+            this.explosions = new LinkedList<>();
+            setPlayer(ItemFactory.createPlayer());
+            Config.setGameSpeed(Config.getInitialSpeed());
+        }
+        
+	public Config getConfig() {
+		return config;
 	}
 
-	private void start() {
+	public void setConfig(Config config) {
+		this.config = config;
+	}
 
-		java.awt.Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-		Config.setBoardDimension(new Dimension(dimension.height, dimension.width));
-		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+	public Player getPlayer() {
+		return player;
+	}
 
-		GameContext c = new GameContext();
-		Board board = new Board(c);
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
 
-		// Threads
-		Engine engine = new Engine(c, board);
-		ObstacleCreator oCreator = new ObstacleCreator(c);
-		EnemyCreator eCreator = new EnemyCreator(c);
-		ShotCreator sCreator = new ShotCreator(c);
-		ExtraCreator xCreator = new ExtraCreator(c);
+	public Background getBackground() {
+		return background;
+	}
 
-		engine.start();
-		oCreator.start();
-		eCreator.start();
-		sCreator.start();
-		xCreator.start();
+	public void setBackground(Background background) {
+		this.background = background;
+	}
 
-		this.add(board);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setUndecorated(true);
+	public LinkedList<Enemy> getEnemies() {
+		return enemies;
+	}
 
-		if (gd.isFullScreenSupported()) {
-			// gd.setFullScreenWindow(this);
-			this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+	public void setEnemies(LinkedList<Enemy> enemies) {
+		this.enemies = enemies;
+	}
+
+	public LinkedList<Hard> getHardObstacles() {
+		return hardObstacles;
+	}
+
+	public void setHardObstacles(LinkedList<Hard> hardObstacles) {
+		this.hardObstacles = hardObstacles;
+	}
+
+	public LinkedList<Soft> getSoftObstacles() {
+		return softObstacles;
+	}
+
+	public void setSoftObstacles(LinkedList<Soft> softObstacles) {
+		this.softObstacles = softObstacles;
+	}
+
+	public LinkedList<Shot> getShots() {
+		return shots;
+	}
+
+	public void setShots(LinkedList<Shot> shots) {
+		this.shots = shots;
+	}
+
+	public boolean isPaused() {
+		return pause;
+	}
+
+	public void setPause(boolean pause) {
+		this.pause = pause;
+	}
+
+	public double getPoints() {
+		return points;
+	}
+
+	public void setPoints(double points) {
+		this.points = points;
+	}
+
+	public LinkedList<Extra> getExtras() {
+		return this.extras;
+	}
+
+	public LinkedList<Explosion> getExplosions() {
+		return explosions;
+	}
+
+	public void setExplosions(LinkedList<Explosion> explosions) {
+		this.explosions = explosions;
+	}
+
+	public int getLifes() {
+		return lifes;
+	}
+
+	public void setLifes(int lifes) {
+		if (lifes > 0) {
+			this.lifes = lifes;
 		} else {
-			this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+			this.lifes = 0;
+			this.setPause(true);
 		}
-
-		this.setVisible(true);
 	}
 
+	public LinkedList<Item> getEvilStuff() {
+		LinkedList<Item> tmp = new LinkedList<>();
+		tmp.addAll(this.getEnemies());
+		tmp.addAll(this.getHardObstacles());
+		tmp.addAll(this.getSoftObstacles());
+		tmp.addAll(this.getEnemies());
 
+		List<Shot> shots = (List<Shot>) this.getShots().clone();
 
-	public static void main(String[] args) {
-		Game game = new Game();
-		game.start();
+		for (Shot shot : shots) {
+			if (!shot.isGood()) {
+				tmp.add(shot);
+			}
+		}
+		return tmp;
 	}
 
+	public LinkedList<Item> getGoodStuff() {
+		LinkedList<Item> tmp = new LinkedList<>();
+
+		List<Shot> shots = (List<Shot>) this.getShots().clone();
+
+		for (Shot shot : shots) {
+			if (shot.isGood()) {
+				tmp.add(shot);
+			}
+		}
+		tmp.add(this.getPlayer());
+		return tmp;
+	}
+
+	public LinkedList<Item> getAllStuff() {
+		LinkedList<Item> tmp = new LinkedList<>();
+		tmp.addAll(this.getEnemies());
+		tmp.addAll(this.getHardObstacles());
+		tmp.addAll(this.getSoftObstacles());
+		tmp.addAll(this.getEnemies());
+		tmp.addAll(this.getShots());
+		tmp.addAll(this.getExtras());
+		tmp.addAll(this.getExplosions());
+		tmp.add(this.getPlayer());
+		return tmp;
+	}
 }
