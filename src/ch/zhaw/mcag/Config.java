@@ -3,7 +3,7 @@ package ch.zhaw.mcag;
 import ch.zhaw.mcag.level.Level;
 import ch.zhaw.mcag.model.Dimension;
 
-public final class Config {
+public class Config {
 	//private static int level = Level.LEVEL_DEEPSEA;
 	private static int level = Level.LEVEL_DEEPSEA;
 	private static Dimension boardDimension;

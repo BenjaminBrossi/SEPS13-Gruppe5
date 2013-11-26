@@ -1,5 +1,6 @@
 package ch.zhaw.mcag.view;
 
+import ch.zhaw.mcag.model.ItemFactory;
 import ch.zhaw.mcag.*;
 import ch.zhaw.mcag.Config;
 import ch.zhaw.mcag.adapter.*;
@@ -14,7 +15,7 @@ import com.leapmotion.leap.*;
 public class Board extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 6466804428038769553L;
-	private GameContext c;
+	private Game c;
 	private Controller leapController;
 	private Listener sensorListener;
 	private Listener shootListener;
@@ -22,7 +23,7 @@ public class Board extends JPanel implements ActionListener {
 	private Menu menu;
 	private boolean showMenu = true;
 
-	public Board(GameContext c) {
+	public Board(Game c) {
 		// add leap motion controller
 		leapAdapter = new SensorAdapter(c);
 		sensorListener = new SensorListener(leapAdapter);

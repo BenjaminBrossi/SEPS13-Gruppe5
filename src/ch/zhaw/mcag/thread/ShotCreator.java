@@ -3,9 +3,9 @@ package ch.zhaw.mcag.thread;
 import ch.zhaw.mcag.*;
 
 public class ShotCreator extends Thread {
-	GameContext c;
+	Game c;
 
-	public ShotCreator(GameContext c) {
+	public ShotCreator(Game c) {
 		this.c = c;
 	}
 

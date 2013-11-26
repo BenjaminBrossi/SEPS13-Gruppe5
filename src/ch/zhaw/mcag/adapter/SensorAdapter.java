@@ -7,7 +7,7 @@
 package ch.zhaw.mcag.adapter;
 
 import ch.zhaw.mcag.Config;
-import ch.zhaw.mcag.GameContext;
+import ch.zhaw.mcag.Game;
 import ch.zhaw.mcag.model.Dimension;
 import ch.zhaw.mcag.model.Position;
 import ch.zhaw.mcag.sensor.IControlable;
@@ -17,9 +17,9 @@ import ch.zhaw.mcag.sensor.IControlable;
  * @author itz
  */
 public class SensorAdapter implements IControlable {
-	private GameContext gameContext;
+	private Game gameContext;
 
-	public SensorAdapter(GameContext context) {
+	public SensorAdapter(Game context) {
 		this.gameContext = context;
 	}
 

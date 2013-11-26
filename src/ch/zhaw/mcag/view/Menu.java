@@ -1,12 +1,16 @@
 package ch.zhaw.mcag.view;
 
 import ch.zhaw.mcag.Config;
-import ch.zhaw.mcag.GameContext;
+import ch.zhaw.mcag.Game;
+import ch.zhaw.mcag.model.ItemFactory;
+import ch.zhaw.mcag.level.Level;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+
+import javax.swing.ImageIcon;
 
 public class Menu {
 
@@ -14,7 +18,7 @@ public class Menu {
 	private int selected;
 	private int state;
 	private Board board;
-	private GameContext context;
+	private Game context;
 	private String playerName;
 	private Font big = new Font("sans", Font.PLAIN, 50);
 	private Font medium = new Font("sans", Font.PLAIN, 36);
@@ -22,15 +26,24 @@ public class Menu {
 	private int menuX = Config.getBoardDimension().getLength() / 2 - 170;
 	private int levelX = menuX;
 	private int selectedLevel;
+	private int level;
+	//private Config config;
+	private ImageIcon spaceLevelImage;
+	private ImageIcon deepseaLevelImage;
 
-	public Menu(Board board, GameContext context) {
+	public Menu(Board board, Game context) {
 		cursorY = 280;
 		state = 1;
 		selected = 2;
 		selectedLevel = 1;
+		level = 1;
 		this.board = board;
 		this.context = context;
 		this.playerName = "PLAYER";
+		//config = context.getConfig();
+		spaceLevelImage = new ImageIcon(Config.getImagePath()+"Player.png");
+		deepseaLevelImage = new ImageIcon(Config.getImagePath()+"Submarine.png");
+
 	}
 
 	public void draw(Graphics2D g2d) {
@@ -75,6 +88,7 @@ public class Menu {
 		g2d.drawString("Beenden", menuX + 20, 550);
 
 		g2d.fillOval(menuX - 30, cursorY, 20, 20);
+
 	}
 
 	private void showControllerMenu(Graphics2D g2d) {
@@ -97,6 +111,11 @@ public class Menu {
 	private void showLevelMenu(Graphics2D g2d) {
 		g2d.drawString("Level wählen ", menuX, 250);
 		g2d.drawRect(levelX, 300, 100, 100);
+		//JLabel j = new JLabel((Icon) spaceLevelImage.getImage());
+		//g2d.drawImage(spaceLevelImage.getImage(), levelX, 300, null);
+		//spaceLevelImage.paintIcon(null, g2d, levelX, 300);
+		g2d.drawImage(spaceLevelImage.getImage(), levelX, 300, board);
+		//g2d.drawImage(spaceLevelImage.getImage(), levelX + 200, 300, null);
 	}
 
 	public void select(int selected) {
@@ -105,13 +124,13 @@ public class Menu {
 			board.toggleMenu();
 			break;
 		case 2: // Neues Spiel
-                        this.context.resetContext();
+			this.context.resetContext();
 			board.toggleMenu();
 			break;
-		case 3: // Name ändern
+		case 3: // Name �ndern
 			state = 2;
 			break;
-		case 4: // Level auswählen
+		case 4: // Level ausw�hlen
 			state = 3;
 			break;
 		case 5: // Controller einstellen
@@ -185,6 +204,21 @@ public class Menu {
 				selectedLevel = 2;
 			}
 		}
+	}
+
+	public void setLevel() {
+		if (selectedLevel == 1) {
+			Config.setLevel(Level.LEVEL_SPACE);
+		}
+		if (selectedLevel == 2) {
+			Config.setLevel(Level.LEVEL_DEEPSEA);
+		}
+		context.setPlayer(ItemFactory.createPlayer());
+		context.setBackground(ItemFactory.createBackground());
+	}
+
+	public int getLevel() {
+		return level;
 	}
 
 	public void addCharToName(char a) {

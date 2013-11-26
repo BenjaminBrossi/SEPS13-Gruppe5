@@ -2,14 +2,14 @@ package ch.zhaw.mcag.adapter;
 
 import ch.zhaw.mcag.view.Board;
 import ch.zhaw.mcag.Config;
-import ch.zhaw.mcag.GameContext;
+import ch.zhaw.mcag.Game;
 import java.awt.event.*;
 
 public class KeyboardAdapter extends KeyAdapter {
-	GameContext c;
+	Game c;
 	Board board;
 
-	public KeyboardAdapter(GameContext c, Board board) {
+	public KeyboardAdapter(Game c, Board board) {
 		super();
 		this.c = c;
 		this.board = board;
@@ -56,7 +56,8 @@ public class KeyboardAdapter extends KeyAdapter {
 				break;
 			}
 		} else {
-			if ((key >= 48 && key <= 57) || (key >= 65 && key <= 90) || key == KeyEvent.VK_SPACE){ // 0-9, A-Z and ' '
+			if ((key >= 48 && key <= 57) || (key >= 65 && key <= 90)
+					|| key == KeyEvent.VK_SPACE) { // 0-9, A-Z and ' '
 				board.getMenu().addCharToName((char) key);
 			}
 			switch (key) {
@@ -76,12 +77,17 @@ public class KeyboardAdapter extends KeyAdapter {
 				board.getMenu().select(board.getMenu().getSelected());
 				break;
 			case KeyEvent.VK_ENTER:
-				if (board.getMenu().getState() != 1){
-					board.getMenu().setState(1);
+				if (board.getMenu().getState() == 3) {
+					board.getMenu().setLevel();
 				}
-				else{
+				if (board.getMenu().getState() == 1) {
 					board.getMenu().select(board.getMenu().getSelected());
 				}
+
+				else if (board.getMenu().getState() != 1) {
+					board.getMenu().setState(1);
+				}
+
 				break;
 			case KeyEvent.VK_ESCAPE:
 				if (board.getMenu().getState() == 1)

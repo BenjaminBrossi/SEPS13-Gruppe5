@@ -1,5 +1,6 @@
-package ch.zhaw.mcag;
+package ch.zhaw.mcag.model;
 
+import ch.zhaw.mcag.Config;
 import javax.swing.ImageIcon;
 
 import ch.zhaw.mcag.level.Level;

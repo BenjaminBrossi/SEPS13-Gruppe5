@@ -1,11 +1,12 @@
 package ch.zhaw.mcag.thread;
 
+import ch.zhaw.mcag.model.ItemFactory;
 import ch.zhaw.mcag.*;
 
 public class ExtraCreator extends Thread {
-	GameContext c;
+	Game c;
 
-	public ExtraCreator(GameContext c) {
+	public ExtraCreator(Game c) {
 		this.c = c;
 	}
 

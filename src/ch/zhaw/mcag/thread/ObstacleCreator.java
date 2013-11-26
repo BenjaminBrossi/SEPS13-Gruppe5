@@ -1,11 +1,12 @@
 package ch.zhaw.mcag.thread;
 
+import ch.zhaw.mcag.model.ItemFactory;
 import ch.zhaw.mcag.*;
 
 public class ObstacleCreator extends Thread {
-	GameContext c;
+	Game c;
 
-	public ObstacleCreator(GameContext c) {
+	public ObstacleCreator(Game c) {
 		this.c = c;
 	}
 

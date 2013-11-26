@@ -2,8 +2,8 @@
 package ch.zhaw.mcag.thread;
 
 import ch.zhaw.mcag.Config;
-import ch.zhaw.mcag.GameContext;
-import ch.zhaw.mcag.ItemFactory;
+import ch.zhaw.mcag.Game;
+import ch.zhaw.mcag.model.ItemFactory;
 import ch.zhaw.mcag.model.Collectable;
 import ch.zhaw.mcag.model.Destroyable;
 import ch.zhaw.mcag.model.Explosion;
@@ -22,9 +22,9 @@ public class CollisionHandler {
 
 	LinkedList<Item> me;
 	LinkedList<Item> them;
-	GameContext c;
+	Game c;
 
-	CollisionHandler(LinkedList<Item> me, LinkedList<Item> them, GameContext c) {
+	CollisionHandler(LinkedList<Item> me, LinkedList<Item> them, Game c) {
 		this.me = me;
 		this.them = them;
 		this.c = c;

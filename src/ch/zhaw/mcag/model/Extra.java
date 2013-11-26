@@ -3,7 +3,7 @@ package ch.zhaw.mcag.model;
 import java.awt.Image;
 
 import ch.zhaw.mcag.Config;
-import ch.zhaw.mcag.GameContext;
+import ch.zhaw.mcag.Game;
 
 public class Extra extends Item implements Collectable {
 	private boolean collected = false;
@@ -19,7 +19,7 @@ public class Extra extends Item implements Collectable {
 	}
 
 	@Override
-	public void collect(GameContext c) {
+	public void collect(Game c) {
 		switch (this.type) {
 			case EXTRA_POINTS:
 				c.setPoints(c.getPoints() + Config.getExtraPoint());
