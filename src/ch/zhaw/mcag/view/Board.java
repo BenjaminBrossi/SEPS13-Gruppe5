@@ -1,9 +1,10 @@
 package ch.zhaw.mcag.view;
 
+import ch.zhaw.mcag.inputAdapter.SensorAdapter;
+import ch.zhaw.mcag.inputAdapter.KeyboardAdapter;
 import ch.zhaw.mcag.model.ItemFactory;
 import ch.zhaw.mcag.*;
 import ch.zhaw.mcag.Config;
-import ch.zhaw.mcag.adapter.*;
 import ch.zhaw.mcag.level.Level;
 import ch.zhaw.mcag.model.*;
 import ch.zhaw.mcag.sensor.*;
