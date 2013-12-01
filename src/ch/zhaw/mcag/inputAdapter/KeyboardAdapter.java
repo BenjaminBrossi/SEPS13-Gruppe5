@@ -77,17 +77,7 @@ public class KeyboardAdapter extends KeyAdapter {
 				board.getMenu().select(board.getMenu().getSelected());
 				break;
 			case KeyEvent.VK_ENTER:
-				if (board.getMenu().getState() == 3) {
-					board.getMenu().setLevel();
-				}
-				if (board.getMenu().getState() == 1) {
-					board.getMenu().select(board.getMenu().getSelected());
-				}
-
-				else if (board.getMenu().getState() != 1) {
-					board.getMenu().setState(1);
-				}
-
+				board.getMenu().enter();
 				break;
 			case KeyEvent.VK_ESCAPE:
 				if (board.getMenu().getState() == 1)
