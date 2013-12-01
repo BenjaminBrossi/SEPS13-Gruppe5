@@ -3,13 +3,12 @@ package ch.zhaw.mcag.view;
 import ch.zhaw.mcag.Config;
 import ch.zhaw.mcag.Game;
 import ch.zhaw.mcag.model.ItemFactory;
+import ch.zhaw.mcag.model.Position;
 import ch.zhaw.mcag.level.Level;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-
 import javax.swing.ImageIcon;
 
 public class Menu {
@@ -24,25 +23,26 @@ public class Menu {
 	private Font medium = new Font("sans", Font.PLAIN, 36);
 	private Font small = new Font("sans", Font.PLAIN, 24);
 	private int menuX = Config.getBoardDimension().getLength() / 2 - 170;
+	private int menuY = Config.getBoardDimension().getHeight() / 2 - 200;
 	private int levelX = menuX;
 	private int selectedLevel;
 	private int level;
-	//private Config config;
 	private ImageIcon spaceLevelImage;
 	private ImageIcon deepseaLevelImage;
 
 	public Menu(Board board, Game context) {
-		cursorY = 280;
+		cursorY = menuY + 75;
 		state = 1;
 		selected = 2;
 		selectedLevel = 1;
 		level = 1;
 		this.board = board;
 		this.context = context;
-		this.playerName = "PLAYER";
-		//config = context.getConfig();
-		spaceLevelImage = new ImageIcon(Config.getImagePath()+"Player.png");
-		deepseaLevelImage = new ImageIcon(Config.getImagePath()+"Submarine.png");
+		// this.playerName = "PLAYER";
+		spaceLevelImage = new ImageIcon(this.getClass().getResource(
+				Config.getImagePath() + "Player.png"));
+		deepseaLevelImage = new ImageIcon(this.getClass().getResource(
+				Config.getImagePath() + "Submarine.png"));
 
 	}
 
@@ -51,71 +51,60 @@ public class Menu {
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		g2d.setColor(new Color(0, 0, 0, 128)); // semi transparent black
 		g2d.fillRect(Config.getBoardDimension().getLength() / 2 - 250, Config
-				.getBoardDimension().getHeight() / 2 - 300, 500, 600);
+				.getBoardDimension().getHeight() / 2 - 300, 500, 500);
 		g2d.setColor(Color.WHITE);
 		g2d.setFont(big);
-		g2d.drawString("MCAG", menuX, 180);
+		g2d.drawString("MCAG", menuX, menuY);
 		g2d.setFont(medium);
 
 		if (state == 1) {
 			showMainMenu(g2d);
 		} else if (state == 2) {
-			showNameMenu(g2d);
-		} else if (state == 3) {
 			showLevelMenu(g2d);
-		} else if (state == 4) {
-			showControllerMenu(g2d);
-		} else if (state == 5) {
+		} else if (state == 3) {
 			showHighscoreMenu(g2d);
 		}
 	}
 
 	private void showMainMenu(Graphics2D g2d) {
-		if (context.getPoints() != 0 && context.getLifes() > 0) {
-			g2d.drawString("Spiel fortsetzen", Config.getBoardDimension()
-					.getLength() / 2 - 150, 250);
-		}
 		if (context.getPoints() == 0) {
-			g2d.drawString("Spiel beginnen", menuX + 20, 300);
-		} else {
-			g2d.drawString("Neues Spiel", menuX + 20, 300);
+			g2d.drawString("Spiel beginnen", menuX + 20, menuY + 100);
+			g2d.drawString("Level wŠhlen", menuX + 20, menuY + 150);
+			g2d.drawString("Highscore", menuX + 20, menuY + 200);
+			g2d.drawString("Beenden", menuX + 20, menuY + 250);
+			g2d.fillOval(menuX - 30, cursorY, 20, 20);
 		}
-		g2d.drawString("Name Ã¤ndern",
-				Config.getBoardDimension().getLength() / 2 - 150, 350);
-		g2d.drawString("Level auswÃ¤hlen", menuX + 20, 400);
-		g2d.drawString("Controller einstellen", menuX + 20, 450);
-		g2d.drawString("Highscore", menuX + 20, 500);
-		g2d.drawString("Beenden", menuX + 20, 550);
 
-		g2d.fillOval(menuX - 30, cursorY, 20, 20);
+		else {
+			g2d.drawString("Spiel fortsetzen", menuX + 20, menuY + 50);
+			g2d.drawString("Neues Spiel", menuX + 20, menuY + 100);
+			g2d.drawString("Level wŠhlen", menuX + 20, menuY + 150);
+			g2d.drawString("Highscore", menuX + 20, menuY + 200);
+			g2d.drawString("Beenden", menuX + 20, menuY + 250);
+			g2d.fillOval(menuX - 30, cursorY, 20, 20);
+		}
 
-	}
-
-	private void showControllerMenu(Graphics2D g2d) {
-		g2d.drawString("Controller wÃ¤hlen ", menuX, 250);
 	}
 
 	private void showHighscoreMenu(Graphics2D g2d) {
-		g2d.drawString("Highscore ", menuX, 250);
+		g2d.drawString("Highscore ", menuX, menuY + 50);
 		g2d.setFont(small);
-		g2d.drawString("Name ", menuX, 300);
-		g2d.drawString("Score ", menuX + 270, 300);
-		g2d.drawLine(menuX, 310, menuX + 350, 310);
+		g2d.drawString("Name ", menuX, menuY + 100);
+		g2d.drawString("Score ", menuX + 270, menuY + 100);
+		g2d.drawLine(menuX, menuY + 110, menuX + 350, menuY + 110);
 	}
 
-	private void showNameMenu(Graphics2D g2d) {
+/*	private void showNameMenu(Graphics2D g2d) {
 		g2d.drawString("Name ", menuX, 250);
 		g2d.drawString(playerName, menuX, 300);
-	}
+	}*/
+	
 
 	private void showLevelMenu(Graphics2D g2d) {
-		g2d.drawString("Level wÃ¤hlen ", menuX, 250);
-		g2d.drawRect(levelX, 300, 100, 100);
-		//JLabel j = new JLabel((Icon) spaceLevelImage.getImage());
-		//g2d.drawImage(spaceLevelImage.getImage(), levelX, 300, null);
-		//spaceLevelImage.paintIcon(null, g2d, levelX, 300);
-		g2d.drawImage(spaceLevelImage.getImage(), levelX, 300, board);
-		//g2d.drawImage(spaceLevelImage.getImage(), levelX + 200, 300, null);
+		g2d.drawString("Level wählen ", menuX, menuY + 50);
+		g2d.drawRect(levelX, menuY + 120, 120, 120);
+		g2d.drawImage(spaceLevelImage.getImage(), menuX + 25, menuY + 160, board);
+		g2d.drawImage(deepseaLevelImage.getImage(), menuX + 205, menuY + 130, board);
 	}
 
 	public void select(int selected) {
@@ -127,19 +116,13 @@ public class Menu {
 			this.context.resetContext();
 			board.toggleMenu();
 			break;
-		case 3: // Name ï¿½ndern
+		case 3: // Level auswï¿½hlen
 			state = 2;
 			break;
-		case 4: // Level auswï¿½hlen
+		case 4: // Highscore
 			state = 3;
 			break;
-		case 5: // Controller einstellen
-			state = 4;
-			break;
-		case 6: // Highscore
-			state = 5;
-			break;
-		case 7: // Beenden
+		case 5: // Beenden
 			System.exit(0);
 		}
 	}
@@ -147,20 +130,20 @@ public class Menu {
 	public void up() {
 		if (state == 1) {
 			if (context.getPoints() == 0) {
-				if (cursorY > 280) {
+				if (cursorY > menuY + 75) {
 					cursorY -= 50;
 					selected--;
 				} else {
-					cursorY = 530;
-					selected = 7;
+					cursorY = menuY + 225;
+					selected = 5;
 				}
 			} else {
-				if (cursorY > 230) {
+				if (cursorY > menuY + 25) {
 					cursorY -= 50;
 					selected--;
 				} else {
-					cursorY = 530;
-					selected = 7;
+					cursorY = menuY + 225;
+					selected = 5;
 				}
 			}
 		}
@@ -169,19 +152,19 @@ public class Menu {
 	public void down() {
 		if (state == 1) {
 			if (context.getPoints() == 0) {
-				if (cursorY < 530) {
+				if (cursorY < menuY + 225) {
 					cursorY += 50;
 					selected++;
 				} else {
-					cursorY = 280;
+					cursorY = menuY + 75;
 					selected = 2;
 				}
 			} else {
-				if (cursorY < 530) {
+				if (cursorY < menuY + 225) {
 					cursorY += 50;
 					selected++;
 				} else {
-					cursorY = 230;
+					cursorY = menuY + 25;
 					selected = 1;
 				}
 			}
@@ -189,7 +172,7 @@ public class Menu {
 	}
 
 	public void left() {
-		if (state == 3) {
+		if (state == 2) {
 			if (levelX > menuX) {
 				levelX = menuX;
 				selectedLevel = 1;
@@ -198,7 +181,7 @@ public class Menu {
 	}
 
 	public void right() {
-		if (state == 3) {
+		if (state == 2) {
 			if (levelX < menuX + 200) {
 				levelX += 200;
 				selectedLevel = 2;
@@ -213,7 +196,9 @@ public class Menu {
 		if (selectedLevel == 2) {
 			Config.setLevel(Level.LEVEL_DEEPSEA);
 		}
+		Position position = context.getPlayer().getPosition();
 		context.setPlayer(ItemFactory.createPlayer());
+		context.getPlayer().setPosition(position);
 		context.setBackground(ItemFactory.createBackground());
 	}
 
@@ -222,14 +207,14 @@ public class Menu {
 	}
 
 	public void addCharToName(char a) {
-		if (state == 2) {
+		if (state == 10) {
 			playerName = playerName + a;
 		}
 
 	}
 
 	public void deleteCharFromName() {
-		if (playerName.length() > 0 && state == 2) {
+		if (playerName.length() > 0 && state == 10) {
 			playerName = playerName.substring(0, playerName.length() - 1);
 		}
 	}
@@ -247,8 +232,19 @@ public class Menu {
 	}
 
 	public void reset() {
-		cursorY = 230;
+		cursorY = menuY + 25;
 		state = 1;
 		selected = 1;
+	}
+
+	public void enter() {
+		if (state == 2) {
+			setLevel();
+		}
+		if (state == 1) {
+			select(selected);
+		} else if (state != 1) {
+			state = 1;
+		}
 	}
 }

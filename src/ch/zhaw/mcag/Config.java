@@ -4,8 +4,7 @@ import ch.zhaw.mcag.level.Level;
 import ch.zhaw.mcag.model.Dimension;
 
 public class Config {
-	//private static int level = Level.LEVEL_DEEPSEA;
-	private static int level = Level.LEVEL_DEEPSEA;
+	private static int level = Level.LEVEL_SPACE;
 	private static Dimension boardDimension;
 
 	private static int lifes = 5;
