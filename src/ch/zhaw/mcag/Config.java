@@ -12,6 +12,7 @@ public class Config {
 	private static int extraPoint = 2000;
 	private static int obstaclePoint = 1000;
 	private static int creaturePoint = 500;
+	private static int highscoreLimit = 10;
 
 	// Speed settings
 	private static int gameSpeed = 15;
@@ -201,4 +202,13 @@ public class Config {
 	public static String[] getExtras() {
 		return extras;
 	}
+
+	public static int getHighscoreLimit() {
+		return highscoreLimit;
+	}
+
+	public static void setHighscoreLimit(int highscoreLimit) {
+		Config.highscoreLimit = highscoreLimit;
+	}
+
 }

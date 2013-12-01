@@ -11,6 +11,7 @@ import java.awt.*;
 import javax.swing.JFrame;
 
 import ch.zhaw.mcag.model.Dimension;
+import ch.zhaw.mcag.model.Highscore;
 
 public class GameFrame extends JFrame {
 
@@ -59,6 +60,7 @@ public class GameFrame extends JFrame {
 
 	public static void main(String[] args) {
 		GameFrame game = new GameFrame();
+
 		game.start();
 	}
 

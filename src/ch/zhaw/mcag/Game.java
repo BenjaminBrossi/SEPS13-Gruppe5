@@ -26,6 +26,7 @@ public class Game {
 	private LinkedList<Shot> shots = new LinkedList<>();
 	private LinkedList<Extra> extras = new LinkedList<>();
 	private LinkedList<Explosion> explosions = new LinkedList<>();
+	private LinkedList<Highscore> highscore = new LinkedList<>();
 
 	// State
 	private boolean pause = true;
@@ -43,7 +44,7 @@ public class Game {
             setPlayer(ItemFactory.createPlayer());
             Config.setGameSpeed(Config.getInitialSpeed());
         }
-        
+
 	public Config getConfig() {
 		return config;
 	}
@@ -184,4 +185,13 @@ public class Game {
 		tmp.add(this.getPlayer());
 		return tmp;
 	}
+
+	public LinkedList<Highscore> getHighscore() {
+		return highscore;
+	}
+
+	public void setHighscore(LinkedList<Highscore> highscore) {
+		this.highscore = highscore;
+	}
+	
 }
