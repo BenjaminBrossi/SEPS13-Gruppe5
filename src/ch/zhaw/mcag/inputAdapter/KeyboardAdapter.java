@@ -15,6 +15,7 @@ public class KeyboardAdapter extends KeyAdapter {
 		this.board = board;
 	}
 
+	@Override
 	public void keyReleased(KeyEvent e) {
 		int key = e.getKeyCode();
 
@@ -30,6 +31,7 @@ public class KeyboardAdapter extends KeyAdapter {
 		}
 	}
 
+	@Override
 	public void keyPressed(KeyEvent e) {
 		int key = e.getKeyCode();
 

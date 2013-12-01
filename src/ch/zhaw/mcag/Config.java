@@ -11,7 +11,7 @@ public class Config {
 	private static int extraPoint = 2000;
 	private static int obstaclePoint = 1000;
 	private static int creaturePoint = 500;
-	private static int highscoreLimit = 10;
+	private static int highscoreLimit = 5;
 
 	// Speed settings
 	private static int gameSpeed = 15;

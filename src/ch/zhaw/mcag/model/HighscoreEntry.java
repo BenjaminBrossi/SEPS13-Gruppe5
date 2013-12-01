@@ -6,11 +6,13 @@
 
 package ch.zhaw.mcag.model;
 
+import java.io.Serializable;
+
 /**
  *
  * @author beni
  */
-public class HighscoreEntry implements Comparable {
+public class HighscoreEntry implements Comparable, Serializable {
 
 	private double points;
 	private String name;

@@ -5,10 +5,12 @@ import ch.zhaw.mcag.Game;
 import ch.zhaw.mcag.model.ItemFactory;
 import ch.zhaw.mcag.model.Position;
 import ch.zhaw.mcag.level.Level;
+import ch.zhaw.mcag.model.HighscoreEntry;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.util.Iterator;
 import javax.swing.ImageIcon;
 
 public class Menu {
@@ -38,7 +40,7 @@ public class Menu {
 		level = 1;
 		this.board = board;
 		this.context = context;
-		// this.playerName = "PLAYER";
+		this.playerName = "PLAYER";
 		spaceLevelImage = new ImageIcon(this.getClass().getResource(
 				Config.getImagePath() + "Player.png"));
 		deepseaLevelImage = new ImageIcon(this.getClass().getResource(
@@ -63,22 +65,22 @@ public class Menu {
 			showLevelMenu(g2d);
 		} else if (state == 3) {
 			showHighscoreMenu(g2d);
+		} else if (state == 4) {
+			showNameMenu(g2d);
 		}
 	}
 
 	private void showMainMenu(Graphics2D g2d) {
 		if (context.getPoints() == 0) {
 			g2d.drawString("Spiel beginnen", menuX + 20, menuY + 100);
-			g2d.drawString("Level wählen", menuX + 20, menuY + 150);
+			g2d.drawString("Level w√§hlen", menuX + 20, menuY + 150);
 			g2d.drawString("Highscore", menuX + 20, menuY + 200);
 			g2d.drawString("Beenden", menuX + 20, menuY + 250);
 			g2d.fillOval(menuX - 30, cursorY, 20, 20);
-		}
-
-		else {
+		} else {
 			g2d.drawString("Spiel fortsetzen", menuX + 20, menuY + 50);
 			g2d.drawString("Neues Spiel", menuX + 20, menuY + 100);
-			g2d.drawString("Level wählen", menuX + 20, menuY + 150);
+			g2d.drawString("Level w√§hlen", menuX + 20, menuY + 150);
 			g2d.drawString("Highscore", menuX + 20, menuY + 200);
 			g2d.drawString("Beenden", menuX + 20, menuY + 250);
 			g2d.fillOval(menuX - 30, cursorY, 20, 20);
@@ -92,16 +94,23 @@ public class Menu {
 		g2d.drawString("Name ", menuX, menuY + 100);
 		g2d.drawString("Score ", menuX + 270, menuY + 100);
 		g2d.drawLine(menuX, menuY + 110, menuX + 350, menuY + 110);
+		Iterator<HighscoreEntry> itr = context.getHighscore().iterator();
+		int i = 1;
+		while (itr.hasNext()) {
+			HighscoreEntry he = itr.next();
+			g2d.drawString(he.getName(), menuX, menuY + 100 + 50 * i);
+			g2d.drawString((int) he.getPoints() + "", menuX + 270, menuY + 100 + 50 * i);
+			i++;
+		}
 	}
 
-/*	private void showNameMenu(Graphics2D g2d) {
+	public void showNameMenu(Graphics2D g2d) {
 		g2d.drawString("Name ", menuX, 250);
 		g2d.drawString(playerName, menuX, 300);
-	}*/
-	
+	}
 
 	private void showLevelMenu(Graphics2D g2d) {
-		g2d.drawString("Level w‰hlen ", menuX, menuY + 50);
+		g2d.drawString("Level w√§hlen ", menuX, menuY + 50);
 		g2d.drawRect(levelX, menuY + 120, 120, 120);
 		g2d.drawImage(spaceLevelImage.getImage(), menuX + 25, menuY + 160, board);
 		g2d.drawImage(deepseaLevelImage.getImage(), menuX + 205, menuY + 130, board);
@@ -109,21 +118,21 @@ public class Menu {
 
 	public void select(int selected) {
 		switch (selected) {
-		case 1: // Spiel fortsetzen
-			board.toggleMenu();
-			break;
-		case 2: // Neues Spiel
-			this.context.resetContext();
-			board.toggleMenu();
-			break;
-		case 3: // Level auswÔøΩhlen
-			state = 2;
-			break;
-		case 4: // Highscore
-			state = 3;
-			break;
-		case 5: // Beenden
-			System.exit(0);
+			case 1: // Spiel fortsetzen
+				board.toggleMenu();
+				break;
+			case 2: // Neues Spiel
+				this.context.resetContext();
+				board.toggleMenu();
+				break;
+			case 3: // Level auswÔøΩhlen
+				state = 2;
+				break;
+			case 4: // Highscore
+				state = 3;
+				break;
+			case 5: // Beenden
+				System.exit(0);
 		}
 	}
 
@@ -207,14 +216,14 @@ public class Menu {
 	}
 
 	public void addCharToName(char a) {
-		if (state == 10) {
+		if (state == 4) {
 			playerName = playerName + a;
 		}
 
 	}
 
 	public void deleteCharFromName() {
-		if (playerName.length() > 0 && state == 10) {
+		if (playerName.length() > 0 && state == 4) {
 			playerName = playerName.substring(0, playerName.length() - 1);
 		}
 	}
@@ -238,11 +247,14 @@ public class Menu {
 	}
 
 	public void enter() {
-		if (state == 2) {
-			setLevel();
-		}
 		if (state == 1) {
 			select(selected);
+		} else if (state == 2) {
+			setLevel();
+		} else if (state == 4) {
+			context.getHighscore().addEntry(context.getPoints(), playerName);
+			reset();
+			select(4);
 		} else if (state != 1) {
 			state = 1;
 		}

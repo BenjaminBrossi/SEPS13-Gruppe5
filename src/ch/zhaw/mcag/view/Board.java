@@ -50,7 +50,6 @@ public class Board extends JPanel implements ActionListener {
 
 		//menu on game over
 		if (c.getLifes() < 1) {
-
 			showMenu = true;
 		}
 
@@ -67,6 +66,9 @@ public class Board extends JPanel implements ActionListener {
 
 	private void paintMenu(Graphics2D g2d) {
 		if (showMenu == true) {
+			if (c.getPoints() > c.getHighscore().getLowestPointsInTable()) {
+				menu.setState(4);
+			}
 			menu.draw(g2d);
 		}
 	}
