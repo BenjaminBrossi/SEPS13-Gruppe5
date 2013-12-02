@@ -9,6 +9,7 @@ import ch.zhaw.mcag.model.creature.Enemy;
 import ch.zhaw.mcag.model.obstacle.*;
 
 public class Engine extends Thread {
+
 	Game c;
 	Board board;
 

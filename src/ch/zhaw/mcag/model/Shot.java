@@ -5,6 +5,7 @@ import java.awt.Image;
 import ch.zhaw.mcag.*;
 
 public class Shot extends Item implements Movable, Destroyable {
+
 	private int direction = 1;
 	private boolean good = true;
 

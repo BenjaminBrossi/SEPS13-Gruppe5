@@ -7,10 +7,11 @@ package ch.zhaw.mcag.sensor;
 import com.leapmotion.leap.*;
 
 /**
- * 
+ *
  * @author sam
  */
 public class SensorListener extends Listener {
+
 	private IControlable adapter;
 
 	public SensorListener(IControlable controller) {

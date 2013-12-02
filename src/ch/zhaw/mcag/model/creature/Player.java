@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.List;
 
 public class Player extends Creature {
+
 	private long nextShot;
 	protected boolean good = true;
 	protected int flickerTime = Config.getFlickerTime() * 2;

@@ -4,6 +4,7 @@ import ch.zhaw.mcag.model.ItemFactory;
 import ch.zhaw.mcag.*;
 
 public class ObstacleCreator extends Thread {
+
 	Game c;
 
 	public ObstacleCreator(Game c) {

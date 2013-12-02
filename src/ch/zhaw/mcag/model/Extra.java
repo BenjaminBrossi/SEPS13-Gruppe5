@@ -6,6 +6,7 @@ import ch.zhaw.mcag.Config;
 import ch.zhaw.mcag.Game;
 
 public class Extra extends Item implements Collectable {
+
 	private boolean collected = false;
 	private ExtraEnum type;
 

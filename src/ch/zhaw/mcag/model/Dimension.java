@@ -1,6 +1,7 @@
 package ch.zhaw.mcag.model;
 
 public class Dimension {
+
 	private int height;
 	private int length;
 

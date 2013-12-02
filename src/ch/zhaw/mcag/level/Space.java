@@ -1,6 +1,7 @@
 package ch.zhaw.mcag.level;
 
 public class Space implements LevelInterface {
+
 	private String player = "Player.png";
 	private String friendlyShot = "Shot.png";
 	private String enemyShot = "Shot_Opponent.png";
@@ -9,7 +10,7 @@ public class Space implements LevelInterface {
 	private String explosion = "Impact.png";
 	private String life = "GreenHeart.png";
 	private String[] enemies = {"Alien.png", "Alien2.png", "Enemy.png"};
-	private String[] hardObstacles = { "HRTA.png", "HRTA2.png", "HRTA3.png", "HRTA4.png" };
+	private String[] hardObstacles = {"HRTA.png", "HRTA2.png", "HRTA3.png", "HRTA4.png"};
 	private String[] softObstacles = {"Satelite.png"};
 
 	// Keep the order (Extra points, life point, clean the field, invincible)

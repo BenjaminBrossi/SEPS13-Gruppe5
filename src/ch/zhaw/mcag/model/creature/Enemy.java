@@ -7,6 +7,7 @@ import ch.zhaw.mcag.*;
 import ch.zhaw.mcag.model.*;
 
 public class Enemy extends Creature implements Destroyable {
+
 	protected int direction = 1;
 
 	public Enemy(Position position, Dimension dimension, Image image) {

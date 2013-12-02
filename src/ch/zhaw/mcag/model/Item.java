@@ -5,6 +5,7 @@ import java.awt.*;
 import ch.zhaw.mcag.Config;
 
 public class Item implements Drawable {
+
 	protected Dimension dimension;
 	protected Position position;
 	protected Image image;

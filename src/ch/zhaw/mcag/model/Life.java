@@ -1,4 +1,3 @@
-
 package ch.zhaw.mcag.model;
 
 import java.awt.Image;

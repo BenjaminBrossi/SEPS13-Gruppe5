@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package ch.zhaw.mcag.inputAdapter;
 
 import ch.zhaw.mcag.Config;
@@ -13,10 +12,11 @@ import ch.zhaw.mcag.model.Position;
 import ch.zhaw.mcag.sensor.IControlable;
 
 /**
- * 
+ *
  * @author itz
  */
 public class SensorAdapter implements IControlable {
+
 	private Game gameContext;
 
 	public SensorAdapter(Game context) {

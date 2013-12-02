@@ -3,6 +3,7 @@ package ch.zhaw.mcag.thread;
 import ch.zhaw.mcag.*;
 
 public class ShotCreator extends Thread {
+
 	Game c;
 
 	public ShotCreator(Game c) {

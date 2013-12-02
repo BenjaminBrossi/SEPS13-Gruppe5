@@ -1,15 +1,8 @@
-
 package ch.zhaw.mcag.thread;
 
 import ch.zhaw.mcag.Config;
 import ch.zhaw.mcag.Game;
-import ch.zhaw.mcag.model.ItemFactory;
-import ch.zhaw.mcag.model.Collectable;
-import ch.zhaw.mcag.model.Destroyable;
-import ch.zhaw.mcag.model.Explosion;
-import ch.zhaw.mcag.model.Extra;
-import ch.zhaw.mcag.model.Item;
-import ch.zhaw.mcag.model.Position;
+import ch.zhaw.mcag.model.*;
 import ch.zhaw.mcag.model.creature.Player;
 import ch.zhaw.mcag.model.obstacle.Hard;
 import java.util.LinkedList;
@@ -44,7 +37,6 @@ public class CollisionHandler {
 			}
 		}
 	}
-
 
 	private void handleCollision(Item myItem, Item thoseItem, Position intersection) {
 		if (thoseItem instanceof Collectable && "ch.zhaw.mcag.model.creature.Player".equals(myItem.getClass().getName())) {

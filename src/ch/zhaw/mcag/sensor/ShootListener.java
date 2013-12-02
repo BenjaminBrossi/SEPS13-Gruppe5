@@ -10,10 +10,11 @@ import com.leapmotion.leap.Hand;
 import com.leapmotion.leap.Listener;
 
 /**
- * 
+ *
  * @author sam
  */
 public class ShootListener extends Listener {
+
 	private IControlable adapter;
 
 	public ShootListener(IControlable controller) {

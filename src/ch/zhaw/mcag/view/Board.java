@@ -1,8 +1,6 @@
 package ch.zhaw.mcag.view;
 
-import ch.zhaw.mcag.inputAdapter.SensorAdapter;
-import ch.zhaw.mcag.inputAdapter.KeyboardAdapter;
-import ch.zhaw.mcag.model.ItemFactory;
+import ch.zhaw.mcag.inputAdapter.*;
 import ch.zhaw.mcag.*;
 import ch.zhaw.mcag.Config;
 import ch.zhaw.mcag.level.Level;
@@ -55,7 +53,6 @@ public class Board extends JPanel implements ActionListener {
 
 		this.paintBackground((Graphics2D) g);
 		this.paintItems((Graphics2D) g);
-		this.paintLifes((Graphics2D) g);
 		this.paintLifes((Graphics2D) g);
 		this.paintScore((Graphics2D) g);
 		this.paintMenu((Graphics2D) g);

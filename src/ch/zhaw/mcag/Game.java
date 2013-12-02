@@ -8,6 +8,7 @@ import ch.zhaw.mcag.model.creature.*;
 import ch.zhaw.mcag.model.obstacle.*;
 
 public class Game {
+
 	// Config
 	private Config config;
 
@@ -15,7 +16,7 @@ public class Game {
 	private Player player;
 	private double points = 0;
 	private int lifes = Config.getLifes();
-
+	private int maxLifes = 10;
 	// Background
 	private Background background;
 
@@ -31,19 +32,18 @@ public class Game {
 	// State
 	private boolean pause = true;
 
-        public void resetContext()
-        {
-            this.points = 0;
-            this.lifes = Config.getLifes();
-            this.enemies = new LinkedList<>();
-            this.hardObstacles = new LinkedList<>();
-            this.softObstacles = new LinkedList<>();
-            this.shots = new LinkedList<>();
-            this.extras = new LinkedList<>();
-            this.explosions = new LinkedList<>();
-            setPlayer(ItemFactory.createPlayer());
-            Config.setGameSpeed(Config.getInitialSpeed());
-        }
+	public void resetContext() {
+		this.points = 0;
+		this.lifes = Config.getLifes();
+		this.enemies = new LinkedList<>();
+		this.hardObstacles = new LinkedList<>();
+		this.softObstacles = new LinkedList<>();
+		this.shots = new LinkedList<>();
+		this.extras = new LinkedList<>();
+		this.explosions = new LinkedList<>();
+		setPlayer(ItemFactory.createPlayer());
+		Config.setGameSpeed(Config.getInitialSpeed());
+	}
 
 	public Config getConfig() {
 		return config;
@@ -135,7 +135,7 @@ public class Game {
 
 	public void setLifes(int lifes) {
 		if (lifes > 0) {
-			this.lifes = lifes;
+			this.lifes = lifes <= maxLifes ? lifes : maxLifes;
 		} else {
 			this.lifes = 0;
 			this.setPause(true);

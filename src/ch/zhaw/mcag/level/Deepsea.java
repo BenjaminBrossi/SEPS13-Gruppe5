@@ -1,6 +1,7 @@
 package ch.zhaw.mcag.level;
 
 public class Deepsea implements LevelInterface {
+
 	private String player = "Submarine.png";
 	private String friendlyShot = "Fish.png";
 	private String enemyShot = "Torpedo.png";

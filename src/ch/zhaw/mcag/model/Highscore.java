@@ -36,7 +36,7 @@ public class Highscore implements Iterable {
 			} catch (IOException | ClassNotFoundException e) {
 				System.out.println("READ ERROR");
 			}
-	}
+		}
 		Highscore hs = new Highscore(table);
 		return hs;
 	}
@@ -51,7 +51,7 @@ public class Highscore implements Iterable {
 	}
 
 	public double getLowestPointsInTable() {
-		if (this.table.isEmpty()) {
+		if (this.table.isEmpty() || this.table.size() < Config.getHighscoreLimit()) {
 			return 0;
 		}
 		return this.table.getLast().getPoints();
@@ -68,7 +68,6 @@ public class Highscore implements Iterable {
 			out.close();
 			fileOut.close();
 		} catch (IOException i) {
-			i.printStackTrace();
 			System.out.println("WRITE ERROR");
 		}
 	}

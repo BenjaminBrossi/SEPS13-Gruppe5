@@ -6,6 +6,7 @@ import ch.zhaw.mcag.Config;
 import ch.zhaw.mcag.model.*;
 
 public abstract class Creature extends Item implements Movable {
+
 	protected int dx = 0;
 	protected int dy = 0;
 

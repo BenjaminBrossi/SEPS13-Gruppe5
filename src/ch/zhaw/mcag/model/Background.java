@@ -3,6 +3,7 @@ package ch.zhaw.mcag.model;
 import java.awt.Image;
 
 public class Background extends Item {
+
 	public Background(Position position, Dimension dimension, Image image) {
 		super(position, dimension, image);
 	}
