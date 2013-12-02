@@ -9,9 +9,9 @@ public class Config {
 	private static Dimension boardDimension;
 
 	private static int lifes = 5;
-	private static int extraPoint = 2000;
-	private static int obstaclePoint = 1000;
-	private static int creaturePoint = 500;
+	private static int extraPoint = 2000000;
+	private static int obstaclePoint = 1000000;
+	private static int creaturePoint = 5000000;
 	private static int highscoreLimit = 5;
 
 	// Speed settings
