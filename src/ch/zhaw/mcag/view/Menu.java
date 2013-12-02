@@ -254,8 +254,7 @@ public class Menu {
 		} else if (state == 4) {
 			context.getHighscore().addEntry(context.getPoints(), playerName);
 			this.context.resetContext();
-			reset();
-			select(4);
+			state = 3;
 		} else if (state != 1) {
 			state = 1;
 		}
