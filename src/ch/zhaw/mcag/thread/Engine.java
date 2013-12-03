@@ -47,7 +47,9 @@ public class Engine extends Thread {
 
 	private void moveAll() {
 		for (Item item : c.getAllStuff()) {
-			item.move();
+			if (item != null) {
+				item.move();
+			}
 		}
 		c.getBackground().move();
 	}
@@ -107,18 +109,17 @@ public class Engine extends Thread {
 	}
 
 	private synchronized void disposeShots() {
-		LinkedList<Shot> disposedEnememies = new LinkedList<>();
+		LinkedList<Shot> disposedShots = new LinkedList<>();
 		for (Shot shot : (List<Shot>) c.getShots().clone()) {
 			if (shot.isGood() == false && shot.getPosition().getX() < 0 - shot.getDimension().getLength() || shot.isDisposed()) {
-				disposedEnememies.add(shot);
+				disposedShots.add(shot);
 			}
 
 			if (shot.isGood() && shot.getPosition().getX() > Config.getBoardDimension().getLength() || shot.isDisposed()) {
-				disposedEnememies.add(shot);
+				disposedShots.add(shot);
 			}
 		}
-
-		for (Shot shot : disposedEnememies) {
+		for (Shot shot : disposedShots) {
 			c.getShots().remove(shot);
 		}
 	}
