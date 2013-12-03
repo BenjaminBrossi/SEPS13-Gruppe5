@@ -84,8 +84,10 @@ public class Board extends JPanel implements ActionListener {
 
 	private void paintItems(Graphics2D g2d) {
 		for (Item item : c.getAllStuff()) {
-			if (item.flicker()) {
-				g2d.drawImage(item.getImage(), item.getPosition().getX(), item.getPosition().getY(), this);
+			if (item != null) {
+				if (item.flicker()) {
+					g2d.drawImage(item.getImage(), item.getPosition().getX(), item.getPosition().getY(), this);
+				}
 			}
 		}
 	}
