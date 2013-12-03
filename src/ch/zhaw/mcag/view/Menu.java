@@ -99,7 +99,8 @@ public class Menu {
 		while (itr.hasNext()) {
 			HighscoreEntry he = itr.next();
 			g2d.drawString(he.getName(), menuX, menuY + 100 + 50 * i);
-			g2d.drawString((int) he.getPoints() + "", menuX + 270, menuY + 100 + 50 * i);
+			g2d.drawString((int) he.getPoints() + "", menuX + 270, menuY + 100
+					+ 50 * i);
 			i++;
 		}
 	}
@@ -112,27 +113,29 @@ public class Menu {
 	private void showLevelMenu(Graphics2D g2d) {
 		g2d.drawString("Level wählen ", menuX, menuY + 50);
 		g2d.drawRect(levelX, menuY + 120, 120, 120);
-		g2d.drawImage(spaceLevelImage.getImage(), menuX + 25, menuY + 160, board);
-		g2d.drawImage(deepseaLevelImage.getImage(), menuX + 205, menuY + 130, board);
+		g2d.drawImage(spaceLevelImage.getImage(), menuX + 25, menuY + 160,
+				board);
+		g2d.drawImage(deepseaLevelImage.getImage(), menuX + 205, menuY + 130,
+				board);
 	}
 
 	public void select(int selected) {
 		switch (selected) {
-			case 1: // Spiel fortsetzen
-				board.toggleMenu();
-				break;
-			case 2: // Neues Spiel
-				this.context.resetContext();
-				board.toggleMenu();
-				break;
-			case 3: // Level ausw�hlen
-				state = 2;
-				break;
-			case 4: // Highscore
-				state = 3;
-				break;
-			case 5: // Beenden
-				System.exit(0);
+		case 1: // Spiel fortsetzen
+			board.toggleMenu();
+			break;
+		case 2: // Neues Spiel
+			this.context.resetContext();
+			board.toggleMenu();
+			break;
+		case 3: // Level ausw�hlen
+			state = 2;
+			break;
+		case 4: // Highscore
+			state = 3;
+			break;
+		case 5: // Beenden
+			System.exit(0);
 		}
 	}
 
@@ -217,7 +220,9 @@ public class Menu {
 
 	public void addCharToName(char a) {
 		if (state == 4) {
-			playerName = playerName + a;
+			if (playerName.length() < 16) {
+				playerName = playerName + a;
+			}
 		}
 
 	}
