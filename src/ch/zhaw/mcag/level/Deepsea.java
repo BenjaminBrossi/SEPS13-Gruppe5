@@ -1,110 +1,76 @@
 package ch.zhaw.mcag.level;
 
+/**
+ * Level Deepsea
+ */
 public class Deepsea implements LevelInterface {
 
-	private String player = "Submarine.png";
-	private String friendlyShot = "Fish.png";
-	private String enemyShot = "Torpedo.png";
-	private String background = "Deepsea.jpg";
-	private String foreground = "";
-	private String explosion = "Wirbel.gif";
-	private String life = "GreenHeart.png";
-	private String[] enemies = {"Fish1.png", "Octopus.gif"};
-	private String[] hardObstacles = {"HardCoral.png", "HardCoral2.png"};
-	private String[] softObstacles = {"SoftCoral.png"};
+	private final String PLAYER = "Submarine.png";
+	private final String FRIENDLY_SHOT = "Fish.png";
+	private final String ENEMY_SHOT = "Torpedo.png";
+	private final String BACKGROUND = "Deepsea.jpg";
+	private final String FOREGROUND = "";
+	private final String EXPLOSIONS = "Wirbel.gif";
+	private final String LIFE = "GreenHeart.png";
+	private final String[] ENEMIES = {"Fish1.png", "Octopus.gif"};
+	private final String[] HARD_OBSTACLES = {"HardCoral.png", "HardCoral2.png"};
+	private final String[] SOFT_OBSTACLES = {"SoftCoral.png"};
 
-	// Keep the order (Extra points, life point, clean the field, invincible)
-	private String[] extras = {"Coin.gif", "LifePoint.png", "Flash.png", "Shield.png"};
+	// Keep the order (Extra points, LIFE point, clean the field, invincible)
+	private final String[] EXTRAS = {"Coin.gif", "LifePoint.png", "Flash.png", "Shield.png"};
 
+	@Override
 	public String getPlayer() {
-		return player;
+		return PLAYER;
 	}
 
-	public void setPlayer(String player) {
-		this.player = player;
-	}
-
+	@Override
 	public String getFriendlyShot() {
-		return friendlyShot;
+		return FRIENDLY_SHOT;
 	}
 
-	public void setFriendlyShot(String friendlyShot) {
-		this.friendlyShot = friendlyShot;
-	}
-
+	@Override
 	public String getEnemyShot() {
-		return enemyShot;
+		return ENEMY_SHOT;
 	}
 
-	public void setEnemyShot(String enemyShot) {
-		this.enemyShot = enemyShot;
-	}
-
+	@Override
 	public String getBackground() {
-		return background;
+		return BACKGROUND;
 	}
 
-	public void setBackground(String background) {
-		this.background = background;
-	}
-
+	@Override
 	public String getForeground() {
-		return foreground;
+		return FOREGROUND;
 	}
 
-	public void setForeground(String foreground) {
-		this.foreground = foreground;
-	}
-
+	@Override
 	public String[] getEnemies() {
-		return enemies;
+		return ENEMIES;
 	}
 
-	public void setEnemies(String[] enemies) {
-		this.enemies = enemies;
-	}
-
+	@Override
 	public String[] getHardObstacles() {
-		return hardObstacles;
+		return HARD_OBSTACLES;
 	}
 
-	public void setHardObstacles(String[] hardObstacles) {
-		this.hardObstacles = hardObstacles;
-	}
-
+	@Override
 	public String[] getSoftObstacles() {
-		return softObstacles;
+		return SOFT_OBSTACLES;
 	}
 
-	public void setSoftObstacles(String[] softObstacles) {
-		this.softObstacles = softObstacles;
-	}
-
+	@Override
 	public String[] getExtras() {
-		return extras;
-	}
-
-	public void setExtras(String[] extras) {
-		this.extras = extras;
+		return EXTRAS;
 	}
 
 	@Override
 	public String getExplosion() {
-		return this.explosion;
-	}
-
-	@Override
-	public void setExplosion(String explosion) {
-		this.explosion = explosion;
+		return this.EXPLOSIONS;
 	}
 
 	@Override
 	public String getLife() {
-		return this.life;
+		return this.LIFE;
 	}
-
-	public void setLife(String life) {
-		this.life = life;
-	}
-
 }

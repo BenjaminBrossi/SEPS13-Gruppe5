@@ -1,46 +1,88 @@
 package ch.zhaw.mcag.level;
 
+/**
+ * Interface for the levels
+ *
+ */
 public interface LevelInterface {
 
+	/**
+	 * Get the player icon
+	 *
+	 * @return icon
+	 */
 	public String getPlayer();
 
-	public void setPlayer(String player);
-
+	/**
+	 * Get the friendly shot icon
+	 *
+	 * @return icon
+	 */
 	public String getFriendlyShot();
 
-	public void setFriendlyShot(String friendlyShot);
-
+	/**
+	 * Get the enemy shot icon
+	 *
+	 * @return icon
+	 */
 	public String getEnemyShot();
 
-	public void setEnemyShot(String enemyShot);
-
+	/**
+	 * Get the background icon
+	 *
+	 * @return icon
+	 */
 	public String getBackground();
 
-	public void setBackground(String background);
-
+	/**
+	 * Get the foreground icon
+	 *
+	 * @return icon
+	 */
 	public String getForeground();
 
-	public void setForeground(String foreground);
-
+	/**
+	 * Get the enemy icons
+	 *
+	 * @return icons
+	 */
 	public String[] getEnemies();
 
-	public void setEnemies(String[] enemies);
-
+	/**
+	 * Get the hard obstacle icons
+	 *
+	 * @return icons
+	 */
 	public String[] getHardObstacles();
 
-	public void setHardObstacles(String[] hardObstacles);
-
+	/**
+	 * Get the soft obstacle icons
+	 *
+	 * @return icons
+	 */
 	public String[] getSoftObstacles();
 
-	public void setSoftObstacles(String[] softObstacles);
-
+	/**
+	 * Get the extra icons
+	 *
+	 * Order: Extra points, LIFE point, clean the field, invincible
+	 *
+	 * @return icons
+	 */
 	public String[] getExtras();
 
-	public void setExtras(String[] extras);
-
+	/**
+	 * Get the explosion icon
+	 *
+	 * @return icons
+	 */
 	public String getExplosion();
 
-	public void setExplosion(String explosion);
-
+	/**
+	 * Get the life icon
+	 *
+	 * @return icon
+	 */
 	public String getLife();
+
 }

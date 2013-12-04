@@ -1,106 +1,77 @@
 package ch.zhaw.mcag.level;
 
+/**
+ * Level space
+ *
+ */
 public class Space implements LevelInterface {
 
-	private String player = "Player.png";
-	private String friendlyShot = "Shot.png";
-	private String enemyShot = "Shot_Opponent.png";
-	private String background = "Background.png";
-	private String foreground = "Earth.png";
-	private String explosion = "Impact.png";
-	private String life = "GreenHeart.png";
-	private String[] enemies = {"Alien.png", "Alien2.png", "Enemy.png"};
-	private String[] hardObstacles = {"HRTA.png", "HRTA2.png", "HRTA3.png", "HRTA4.png"};
-	private String[] softObstacles = {"Satelite.png"};
+	private final String PLAYER = "Player.png";
+	private final String FRIENDLY_SHOT = "Shot.png";
+	private final String ENEMY_SHOT = "Shot_Opponent.png";
+	private final String BACKGROUND = "Background.png";
+	private final String FOREGROUND = "Earth.png";
+	private final String EXPLOSIONS = "Impact.png";
+	private final String LIFE = "GreenHeart.png";
+	private final String[] ENEMIES = {"Alien.png", "Alien2.png", "Enemy.png"};
+	private final String[] HARD_OBSTACLES = {"HRTA.png", "HRTA2.png", "HRTA3.png", "HRTA4.png"};
+	private final String[] SOFT_OBSTACLES = {"Satelite.png"};
 
 	// Keep the order (Extra points, life point, clean the field, invincible)
-	private String[] extras = {"Coin.gif", "LifePoint.png", "Flash.png", "Shield.png"};
+	private final String[] EXTRAS = {"Coin.gif", "LifePoint.png", "Flash.png", "Shield.png"};
 
+	@Override
 	public String getPlayer() {
-		return player;
+		return PLAYER;
 	}
 
-	public void setPlayer(String player) {
-		this.player = player;
-	}
-
+	@Override
 	public String getFriendlyShot() {
-		return friendlyShot;
+		return FRIENDLY_SHOT;
 	}
 
-	public void setFriendlyShot(String friendlyShot) {
-		this.friendlyShot = friendlyShot;
-	}
-
+	@Override
 	public String getEnemyShot() {
-		return enemyShot;
+		return ENEMY_SHOT;
 	}
 
-	public void setEnemyShot(String enemyShot) {
-		this.enemyShot = enemyShot;
-	}
-
+	@Override
 	public String getBackground() {
-		return background;
+		return BACKGROUND;
 	}
 
-	public void setBackground(String background) {
-		this.background = background;
-	}
-
+	@Override
 	public String getForeground() {
-		return foreground;
+		return FOREGROUND;
 	}
 
-	public void setForeground(String foreground) {
-		this.foreground = foreground;
-	}
-
+	@Override
 	public String[] getEnemies() {
-		return enemies;
+		return ENEMIES;
 	}
 
-	public void setEnemies(String[] enemies) {
-		this.enemies = enemies;
-	}
-
+	@Override
 	public String[] getHardObstacles() {
-		return hardObstacles;
+		return HARD_OBSTACLES;
 	}
 
-	public void setHardObstacles(String[] hardObstacles) {
-		this.hardObstacles = hardObstacles;
-	}
-
+	@Override
 	public String[] getSoftObstacles() {
-		return softObstacles;
+		return SOFT_OBSTACLES;
 	}
 
-	public void setSoftObstacles(String[] softObstacles) {
-		this.softObstacles = softObstacles;
-	}
-
+	@Override
 	public String[] getExtras() {
-		return extras;
+		return EXTRAS;
 	}
 
-	public void setExtras(String[] extras) {
-		this.extras = extras;
-	}
-
+	@Override
 	public String getExplosion() {
-		return explosion;
+		return EXPLOSIONS;
 	}
 
-	public void setExplosion(String explosion) {
-		this.explosion = explosion;
-	}
-
+	@Override
 	public String getLife() {
-		return life;
-	}
-
-	public void setLife(String life) {
-		this.life = life;
+		return this.LIFE;
 	}
 }
