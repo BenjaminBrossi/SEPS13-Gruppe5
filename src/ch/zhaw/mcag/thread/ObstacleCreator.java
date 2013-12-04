@@ -3,10 +3,18 @@ package ch.zhaw.mcag.thread;
 import ch.zhaw.mcag.model.ItemFactory;
 import ch.zhaw.mcag.*;
 
+/**
+ * Obstacle creator thread
+ */
 public class ObstacleCreator extends Thread {
 
-	Game c;
+	private final Game c;
 
+	/**
+	 * Create a new obstacle creator thread
+	 *
+	 * @param c
+	 */
 	public ObstacleCreator(Game c) {
 		this.c = c;
 	}

@@ -3,10 +3,18 @@ package ch.zhaw.mcag.thread;
 import ch.zhaw.mcag.model.ItemFactory;
 import ch.zhaw.mcag.*;
 
+/**
+ * Thread Enemy creator
+ */
 public class EnemyCreator extends Thread {
 
-	Game c;
+	private final Game c;
 
+	/**
+	 * Create a new enemy creator
+	 *
+	 * @param c
+	 */
 	public EnemyCreator(Game c) {
 		this.c = c;
 	}

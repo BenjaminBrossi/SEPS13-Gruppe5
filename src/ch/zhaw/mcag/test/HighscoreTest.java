@@ -7,10 +7,8 @@ package ch.zhaw.mcag.test;
 
 import ch.zhaw.mcag.Config;
 import ch.zhaw.mcag.model.Highscore;
-import ch.zhaw.mcag.model.HighscoreEntry;
 import java.io.File;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.LinkedList;
 import junit.framework.TestCase;
 import org.junit.Test;

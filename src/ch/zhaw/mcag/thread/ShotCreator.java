@@ -2,10 +2,19 @@ package ch.zhaw.mcag.thread;
 
 import ch.zhaw.mcag.*;
 
+/**
+ * Shot creator thread
+ *
+ */
 public class ShotCreator extends Thread {
 
-	Game c;
+	private final Game c;
 
+	/**
+	 * Create a new shot creator thread
+	 *
+	 * @param c
+	 */
 	public ShotCreator(Game c) {
 		this.c = c;
 	}

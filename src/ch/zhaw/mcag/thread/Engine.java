@@ -8,11 +8,20 @@ import ch.zhaw.mcag.model.*;
 import ch.zhaw.mcag.model.creature.Enemy;
 import ch.zhaw.mcag.model.obstacle.*;
 
+/**
+ * Game engine thread
+ */
 public class Engine extends Thread {
 
-	Game c;
-	Board board;
+	private final Game c;
+	private final Board board;
 
+	/**
+	 * Create a new engine
+	 *
+	 * @param c
+	 * @param board
+	 */
 	public Engine(Game c, Board board) {
 		this.c = c;
 		this.board = board;

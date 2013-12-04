@@ -8,21 +8,30 @@ import ch.zhaw.mcag.model.obstacle.Hard;
 import java.util.LinkedList;
 
 /**
- *
- * @author beni
+ * Collision handler: detect and handles collisions
  */
 public class CollisionHandler {
 
-	LinkedList<Item> me;
-	LinkedList<Item> them;
-	Game c;
+	private final LinkedList<Item> me;
+	private final LinkedList<Item> them;
+	private final Game c;
 
+	/**
+	 * Create a new collision handler
+	 *
+	 * @param me
+	 * @param them
+	 * @param c
+	 */
 	CollisionHandler(LinkedList<Item> me, LinkedList<Item> them, Game c) {
 		this.me = me;
 		this.them = them;
 		this.c = c;
 	}
 
+	/**
+	 * Search for collisions
+	 */
 	public void searchCollision() {
 		for (Item thoseItem : them) {
 			this.checkCollision(thoseItem, me);
