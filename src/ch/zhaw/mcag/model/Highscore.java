@@ -16,19 +16,21 @@ import java.util.*;
 public class Highscore implements Iterable {
 
 	private LinkedList<HighscoreEntry> table = new LinkedList<>();
+	private String path;
 
-	private Highscore(LinkedList<HighscoreEntry> table) {
+	private Highscore(LinkedList<HighscoreEntry> table, String path) {
+		this.path = path;
 		this.table = table;
 	}
 
-	public static Highscore getHighscore() {
+	public static Highscore getHighscore(String path) {
 		LinkedList<HighscoreEntry> table = new LinkedList<>();
-		File f = new File("highscore.ser");
+		File f = new File(path);
 		if (f.exists()) {
 			FileInputStream fileIn;
 			ObjectInputStream in;
 			try {
-				fileIn = new FileInputStream("highscore.ser");
+				fileIn = new FileInputStream(path);
 				in = new ObjectInputStream(fileIn);
 				table = (LinkedList<HighscoreEntry>) in.readObject();
 				in.close();
@@ -37,7 +39,7 @@ public class Highscore implements Iterable {
 				System.out.println("READ ERROR");
 			}
 		}
-		Highscore hs = new Highscore(table);
+		Highscore hs = new Highscore(table, path);
 		return hs;
 	}
 
@@ -51,7 +53,7 @@ public class Highscore implements Iterable {
 	}
 
 	public double getLowestPointsInTable() {
-		if (this.table.isEmpty() || this.table.size() < Config.getHighscoreLimit()) {
+		if (this.table.size() < Config.getHighscoreLimit()) {
 			return 0;
 		}
 		return this.table.getLast().getPoints();
@@ -62,7 +64,7 @@ public class Highscore implements Iterable {
 		ObjectOutputStream out;
 
 		try {
-			fileOut = new FileOutputStream("highscore.ser");
+			fileOut = new FileOutputStream(this.path);
 			out = new ObjectOutputStream(fileOut);
 			out.writeObject(table);
 			out.close();

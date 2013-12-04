@@ -27,7 +27,7 @@ public class Game {
 	private LinkedList<Shot> shots = new LinkedList<>();
 	private LinkedList<Extra> extras = new LinkedList<>();
 	private LinkedList<Explosion> explosions = new LinkedList<>();
-	private Highscore highscore = Highscore.getHighscore();
+	private Highscore highscore = Highscore.getHighscore("Highscore.ser");
 
 	// State
 	private boolean pause = true;

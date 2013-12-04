@@ -3,6 +3,10 @@ package ch.zhaw.mcag;
 import ch.zhaw.mcag.level.Level;
 import ch.zhaw.mcag.model.Dimension;
 
+/**
+ *
+ * @author beni
+ */
 public class Config {
 
 	private static int level = Level.LEVEL_SPACE;
@@ -43,6 +47,10 @@ public class Config {
 	private final static String[] softObstacles = {"Satelite.png"};
 	private final static String[] extras = {"alien.gif"};
 
+	/**
+	 *
+	 * @return selected Level
+	 */
 	public static int getLevel() {
 		return level;
 	}
