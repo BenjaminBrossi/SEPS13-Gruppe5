@@ -5,16 +5,28 @@ import java.awt.Image;
 import ch.zhaw.mcag.Config;
 import ch.zhaw.mcag.Game;
 
-public class Extra extends Item implements Collectable {
+/**
+ * Extra item
+ */
+public class Extra extends Item implements Collectable, Movable {
 
 	private boolean collected = false;
-	private ExtraEnum type;
+	private final ExtraEnum type;
 
+	/**
+	 * Create a new item
+	 *
+	 * @param position
+	 * @param dimension
+	 * @param image
+	 * @param type
+	 */
 	public Extra(Position position, Dimension dimension, Image image, int type) {
 		super(position, dimension, image);
 		this.type = ExtraEnum.values()[type];
 	}
 
+	@Override
 	public void move() {
 		this.getPosition().setX(this.getPosition().getX() - Config.getMovePixels());
 	}

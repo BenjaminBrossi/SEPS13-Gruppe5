@@ -8,23 +8,38 @@ package ch.zhaw.mcag.model;
 import java.io.Serializable;
 
 /**
- *
- * @author beni
+ * The Highscore entry
  */
 public class HighscoreEntry implements Comparable, Serializable {
 
-	private double points;
-	private String name;
+	private final double points;
+	private final String name;
 
+	/**
+	 * Create a new highscore entry
+	 *
+	 * @param points
+	 * @param name
+	 */
 	public HighscoreEntry(double points, String name) {
 		this.name = name;
 		this.points = points;
 	}
 
+	/**
+	 * Get the points of an entry
+	 *
+	 * @return
+	 */
 	public double getPoints() {
 		return points;
 	}
 
+	/**
+	 * Get the name of en entry
+	 *
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}

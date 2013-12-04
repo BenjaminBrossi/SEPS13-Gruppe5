@@ -4,11 +4,21 @@ import java.awt.Image;
 
 import ch.zhaw.mcag.*;
 
+/**
+ * Shot item
+ */
 public class Shot extends Item implements Movable, Destroyable {
 
 	private int direction = 1;
-	private boolean good = true;
 
+	/**
+	 * Create a new shot
+	 *
+	 * @param position
+	 * @param dimension
+	 * @param image
+	 * @param good
+	 */
 	public Shot(Position position, Dimension dimension, Image image, boolean good) {
 		super(position, dimension, image);
 		if (!good) {
@@ -17,20 +27,18 @@ public class Shot extends Item implements Movable, Destroyable {
 		}
 	}
 
+	@Override
 	public void move() {
 		this.getPosition().setX(this.getPosition().getX() + Config.getMovePixels() * this.direction * 2);
 	}
 
+	@Override
 	public void destroy() {
 		this.setDisposed(true);
 	}
 
+	@Override
 	public boolean isGood() {
 		return good;
 	}
-
-	public void setGood(boolean good) {
-		this.good = good;
-	}
-
 }

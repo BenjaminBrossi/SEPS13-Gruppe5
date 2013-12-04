@@ -10,19 +10,24 @@ import java.io.*;
 import java.util.*;
 
 /**
- *
- * @author beni
+ * The highscore implemented as singleton
  */
 public class Highscore implements Iterable {
 
 	private LinkedList<HighscoreEntry> table = new LinkedList<>();
-	private String path;
+	private final String path;
 
 	private Highscore(LinkedList<HighscoreEntry> table, String path) {
 		this.path = path;
 		this.table = table;
 	}
 
+	/**
+	 * Get the highscore
+	 *
+	 * @param path
+	 * @return
+	 */
 	public static Highscore getHighscore(String path) {
 		LinkedList<HighscoreEntry> table = new LinkedList<>();
 		File f = new File(path);
@@ -43,6 +48,12 @@ public class Highscore implements Iterable {
 		return hs;
 	}
 
+	/**
+	 * Add an entry to the highscore
+	 *
+	 * @param points
+	 * @param name
+	 */
 	public void addEntry(double points, String name) {
 		this.table.add(new HighscoreEntry(points, name));
 		Collections.sort(this.table);
@@ -52,6 +63,11 @@ public class Highscore implements Iterable {
 		writeMe();
 	}
 
+	/**
+	 * Get the points of the last entry
+	 *
+	 * @return points
+	 */
 	public double getLowestPointsInTable() {
 		if (this.table.size() < Config.getHighscoreLimit()) {
 			return 0;

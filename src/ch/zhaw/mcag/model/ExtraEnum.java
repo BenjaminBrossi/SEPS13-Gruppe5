@@ -6,5 +6,20 @@ package ch.zhaw.mcag.model;
  */
 public enum ExtraEnum {
 
-	EXTRA_POINTS, EXTRA_LIFE, KILL_ALL, INVINCIBLE
+	/**
+	 * Extra points
+	 */
+	EXTRA_POINTS,
+	/**
+	 * Extra life
+	 */
+	EXTRA_LIFE,
+	/**
+	 * Clear the board
+	 */
+	KILL_ALL,
+	/**
+	 * God mode
+	 */
+	INVINCIBLE
 }
