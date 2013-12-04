@@ -13,25 +13,34 @@ import java.awt.RenderingHints;
 import java.util.Iterator;
 import javax.swing.ImageIcon;
 
+/**
+ * The menu
+ */
 public class Menu {
 
 	private int cursorY;
 	private int selected;
 	private int state;
-	private Board board;
-	private Game context;
+	private final Board board;
+	private final Game context;
 	private String playerName;
-	private Font big = new Font("sans", Font.PLAIN, 50);
-	private Font medium = new Font("sans", Font.PLAIN, 36);
-	private Font small = new Font("sans", Font.PLAIN, 24);
-	private int menuX = Config.getBoardDimension().getLength() / 2 - 170;
-	private int menuY = Config.getBoardDimension().getHeight() / 2 - 200;
+	private final Font big = new Font("sans", Font.PLAIN, 50);
+	private final Font medium = new Font("sans", Font.PLAIN, 36);
+	private final Font small = new Font("sans", Font.PLAIN, 24);
+	private final int menuX = Config.getBoardDimension().getLength() / 2 - 170;
+	private final int menuY = Config.getBoardDimension().getHeight() / 2 - 200;
 	private int levelX = menuX;
 	private int selectedLevel;
-	private int level;
-	private ImageIcon spaceLevelImage;
-	private ImageIcon deepseaLevelImage;
+	private final int level;
+	private final ImageIcon spaceLevelImage;
+	private final ImageIcon deepseaLevelImage;
 
+	/**
+	 * Create a new menu
+	 *
+	 * @param board
+	 * @param context
+	 */
 	public Menu(Board board, Game context) {
 		cursorY = menuY + 75;
 		state = 1;
@@ -48,6 +57,11 @@ public class Menu {
 
 	}
 
+	/**
+	 * Draw the menu
+	 *
+	 * @param g2d graphic
+	 */
 	public void draw(Graphics2D g2d) {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
 				RenderingHints.VALUE_ANTIALIAS_ON);
@@ -105,6 +119,11 @@ public class Menu {
 		}
 	}
 
+	/**
+	 * Show menu to enter the name
+	 *
+	 * @param g2d graphic
+	 */
 	public void showNameMenu(Graphics2D g2d) {
 		g2d.drawString("Name ", menuX, 250);
 		g2d.drawString(playerName, menuX, 300);
@@ -119,6 +138,11 @@ public class Menu {
 				board);
 	}
 
+	/**
+	 * Select a menu
+	 *
+	 * @param selected
+	 */
 	public void select(int selected) {
 		switch (selected) {
 		case 1: // Spiel fortsetzen
@@ -139,6 +163,9 @@ public class Menu {
 		}
 	}
 
+	/**
+	 * Cursor up
+	 */
 	public void up() {
 		if (state == 1) {
 			if (context.getPoints() == 0) {
@@ -161,6 +188,9 @@ public class Menu {
 		}
 	}
 
+	/**
+	 * Cursor down
+	 */
 	public void down() {
 		if (state == 1) {
 			if (context.getPoints() == 0) {
@@ -183,6 +213,9 @@ public class Menu {
 		}
 	}
 
+	/**
+	 * Cursor left
+	 */
 	public void left() {
 		if (state == 2) {
 			if (levelX > menuX) {
@@ -192,6 +225,9 @@ public class Menu {
 		}
 	}
 
+	/**
+	 * Cursor right
+	 */
 	public void right() {
 		if (state == 2) {
 			if (levelX < menuX + 200) {
@@ -201,6 +237,9 @@ public class Menu {
 		}
 	}
 
+	/**
+	 * Select level
+	 */
 	public void setLevel() {
 		if (selectedLevel == 1) {
 			Config.setLevel(Level.LEVEL_SPACE);
@@ -214,43 +253,77 @@ public class Menu {
 		context.setBackground(ItemFactory.createBackground());
 	}
 
+	/**
+	 * Get the level
+	 *
+	 * @return
+	 */
 	public int getLevel() {
 		return level;
 	}
 
-	public void addCharToName(char a) {
+	/**
+	 * Add a character to the name
+	 *
+	 * @param c char
+	 */
+	public void addCharToName(char c) {
 		if (state == 4) {
 			if (playerName.length() < 16) {
-				playerName = playerName + a;
+				playerName = playerName + c;
 			}
 		}
 
 	}
 
+	/**
+	 * Delete a character from the name
+	 */
 	public void deleteCharFromName() {
 		if (playerName.length() > 0 && state == 4) {
 			playerName = playerName.substring(0, playerName.length() - 1);
 		}
 	}
 
+	/**
+	 * Get the state
+	 *
+	 * @return state
+	 */
 	public int getState() {
 		return state;
 	}
 
+	/**
+	 * Get the selected entry
+	 *
+	 * @return selected
+	 */
 	public int getSelected() {
 		return selected;
 	}
 
+	/**
+	 * Set the state
+	 *
+	 * @param i state
+	 */
 	public void setState(int i) {
 		state = i;
 	}
 
+	/**
+	 * Reset menu
+	 */
 	public void reset() {
 		cursorY = menuY + 25;
 		state = 1;
 		selected = 1;
 	}
 
+	/**
+	 * Commit selection
+	 */
 	public void enter() {
 		if (state == 1) {
 			select(selected);

@@ -11,17 +11,25 @@ import java.awt.event.*;
 import javax.swing.*;
 import com.leapmotion.leap.*;
 
+/**
+ * The front end
+ */
 public class Board extends JPanel implements ActionListener {
 
 	private static final long serialVersionUID = 6466804428038769553L;
-	private Game c;
-	private Controller leapController;
-	private Listener sensorListener;
-	private Listener shootListener;
-	private IControlable leapAdapter;
-	private Menu menu;
+	private final Game c;
+	private final Controller leapController;
+	private final Listener sensorListener;
+	private final Listener shootListener;
+	private final IControlable leapAdapter;
+	private final Menu menu;
 	private boolean showMenu = true;
 
+	/**
+	 * Create a new board
+	 *
+	 * @param c
+	 */
 	public Board(Game c) {
 		// add leap motion controller
 		leapAdapter = new SensorAdapter(c);
@@ -112,6 +120,9 @@ public class Board extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 	}
 
+	/**
+	 * Toggle the menu
+	 */
 	public void toggleMenu() {
 		if (c.getLifes() > 0) {
 			c.setPause(!c.isPaused());
@@ -119,10 +130,20 @@ public class Board extends JPanel implements ActionListener {
 		}
 	}
 
+	/**
+	 * Get the menu
+	 *
+	 * @return menu
+	 */
 	public Menu getMenu() {
 		return menu;
 	}
 
+	/**
+	 * Return true if the menu should be shown
+	 *
+	 * @return showMenu
+	 */
 	public boolean showMenu() {
 		return showMenu;
 	}
