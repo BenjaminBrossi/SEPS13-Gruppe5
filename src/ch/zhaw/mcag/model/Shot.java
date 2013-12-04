@@ -24,6 +24,8 @@ public class Shot extends Item implements Movable, Destroyable {
 		if (!good) {
 			this.direction = -1;
 			this.good = good;
+		} else {
+			this.good = true;
 		}
 	}
 
