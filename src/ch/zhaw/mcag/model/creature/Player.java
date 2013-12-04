@@ -1,136 +1,58 @@
 package ch.zhaw.mcag.model.creature;
 
-import ch.zhaw.mcag.model.Dimension;
-import ch.zhaw.mcag.model.Position;
-import ch.zhaw.mcag.model.Shot;
-import com.leapmotion.leap.Vector;
+import ch.zhaw.mcag.model.ItemFactory;
+import java.awt.Image;
 
-import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
+import ch.zhaw.mcag.*;
+import ch.zhaw.mcag.model.*;
 import java.util.Calendar;
+import java.util.List;
 
 public class Player extends Creature {
-    private ArrayList<Shot> shots;
-    protected String imagePath = "alien.gif";
-    private long nextShot;
 
-    public Player(int x, int y, int h, int l) {
-        super(x, y, h, l);
-        shots = new ArrayList<Shot>();
-        ImageIcon ii = new ImageIcon(this.getClass().getResource(this.imagePath));
-        this.setDimension(new Dimension(ii.getIconHeight(), ii.getIconWidth()));
-        this.setImage(ii.getImage());
-        this.nextShot = Calendar.getInstance().getTimeInMillis();
-    }
+	private long nextShot;
+	protected boolean good = true;
+	protected int flickerTime = Config.getFlickerTime() * 2;
 
-    public void shoot() {
-        long currentMils = Calendar.getInstance().getTimeInMillis();
-        System.out.println("delta: " + (currentMils - nextShot));
-        if (nextShot <= Calendar.getInstance().getTimeInMillis()) {
-            int posX = this.getPosition().getX() + this.getDimension().getHeight();
-            int posY = this.getPosition().getY() + this.getDimension().getLength();
-            shots.add(new Shot(posX, posY, 0, 0));
-            nextShot = Calendar.getInstance().getTimeInMillis() + 400;
-        }
-    }
+	public Player(Position position, Dimension dimension, Image image) {
+		super(position, dimension, image);
+		nextShot = Calendar.getInstance().getTimeInMillis();
+	}
 
-    public void PlacePlayer(Vector v, Dimension d) {
-        float currentX = v.getX();
-        float currentY = v.getY();
+	public void shoot(List<Shot> shots) {
+		if (canShoot()) {
+			shootInternal(shots);
+		}
+	}
 
-        // normalize
-        if (currentX < -100) {
-            currentX = -100;
-        } else if (currentX > 100) {
-            currentX = 100;
-        }
+	@Override
+	public boolean isGood() {
+		return this.good;
+	}
 
-        if (currentY < 100) {
-            currentY = 100;
-        } else if (currentY > 250) {
-            currentY = 250;
-        }
+	private boolean canShoot() {
+		return nextShot <= Calendar.getInstance().getTimeInMillis();
+	}
 
-        currentX += 100;
-        currentY -= 100;
+	private void shootInternal(List<Shot> shots) {
+		shots.add(ItemFactory.createShot(this));
+		// set next possible shoot time
+		nextShot = Calendar.getInstance().getTimeInMillis() + Config.getShotInterval();
+	}
 
-        int newX, newY;
-        int maxWidth = d.getLength() - this.getDimension().getLength();
-        int maxHeight = d.getHeight() - this.getDimension().getHeight();
-        newX = (int) (currentX / 2 * maxWidth / 100);
-        newY = maxHeight - (int) ((currentY / 1.50) * maxHeight / 100);
+	@Override
+	public boolean flicker() {
+		if (!flickerEnabled) {
+			return true;
+		}
+		if (flicker > this.flickerTime / Config.getGameSpeed()) {
+			this.flickerEnabled = false;
+			this.flickerTime = Config.getFlickerTime() * 2;
+		}
+		return ++flicker % 3 == 0;
+	}
 
-        System.out.println(d.getHeight() + " " + d.getLength());
-
-        this.setPosition(new Position(newX, newY));
-        this.dx = 0;
-        this.dy = 0;
-    }
-
-    public void moveUp() {
-        this.dy = 1;
-    }
-
-    public void moveDown() {
-        this.dy = -1;
-    }
-
-    public void moveForward() {
-        this.dx = 1;
-    }
-
-    public void moveBackward() {
-        this.dx = -1;
-    }
-
-    public void keyPressed(KeyEvent e) {
-
-        int key = e.getKeyCode();
-
-        if (key == KeyEvent.VK_SPACE) {
-            this.shoot();
-        }
-
-        if (key == KeyEvent.VK_LEFT) {
-            this.dx = -1;
-        }
-
-        if (key == KeyEvent.VK_RIGHT) {
-            this.dx = 1;
-        }
-
-        if (key == KeyEvent.VK_UP) {
-            this.dy = -1;
-        }
-
-        if (key == KeyEvent.VK_DOWN) {
-            this.dy = 1;
-        }
-    }
-
-    public void keyReleased(KeyEvent e) {
-        int key = e.getKeyCode();
-
-        if (key == KeyEvent.VK_LEFT) {
-            this.dx = 0;
-        }
-
-        if (key == KeyEvent.VK_RIGHT) {
-            this.dx = 0;
-        }
-
-        if (key == KeyEvent.VK_UP) {
-            this.dy = 0;
-        }
-
-        if (key == KeyEvent.VK_DOWN) {
-            this.dy = 0;
-        }
-    }
-
-    public ArrayList<Shot> getShots() {
-        return this.shots;
-    }
-
+	public void setFlickerTime(int flickerTime) {
+		this.flickerTime = flickerTime;
+	}
 }
