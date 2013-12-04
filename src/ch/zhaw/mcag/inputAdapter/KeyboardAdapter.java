@@ -5,14 +5,23 @@ import ch.zhaw.mcag.Config;
 import ch.zhaw.mcag.Game;
 import java.awt.event.*;
 
+/**
+ * Keyboard adapter Read the input of the keyboard, in case there is no motion control sensor, and for the menu navigation
+ */
 public class KeyboardAdapter extends KeyAdapter {
 
-	Game c;
-	Board board;
+	private final Game context;
+	private final Board board;
 
-	public KeyboardAdapter(Game c, Board board) {
+	/**
+	 * Create a new keyboard adapter
+	 *
+	 * @param context
+	 * @param board
+	 */
+	public KeyboardAdapter(Game context, Board board) {
 		super();
-		this.c = c;
+		this.context = context;
 		this.board = board;
 	}
 
@@ -23,11 +32,11 @@ public class KeyboardAdapter extends KeyAdapter {
 		switch (key) {
 			case KeyEvent.VK_LEFT:
 			case KeyEvent.VK_RIGHT:
-				c.getPlayer().setDx(0);
+				context.getPlayer().setDx(0);
 				break;
 			case KeyEvent.VK_DOWN:
 			case KeyEvent.VK_UP:
-				c.getPlayer().setDy(0);
+				context.getPlayer().setDy(0);
 				break;
 		}
 	}
@@ -39,19 +48,19 @@ public class KeyboardAdapter extends KeyAdapter {
 		if (!board.showMenu()) {
 			switch (key) {
 				case KeyEvent.VK_LEFT:
-					c.getPlayer().setDx(-Config.getMovePixels() * 2);
+					context.getPlayer().setDx(-Config.getMovePixels() * 2);
 					break;
 				case KeyEvent.VK_RIGHT:
-					c.getPlayer().setDx(Config.getMovePixels() * 2);
+					context.getPlayer().setDx(Config.getMovePixels() * 2);
 					break;
 				case KeyEvent.VK_DOWN:
-					c.getPlayer().setDy(Config.getMovePixels() * 2);
+					context.getPlayer().setDy(Config.getMovePixels() * 2);
 					break;
 				case KeyEvent.VK_UP:
-					c.getPlayer().setDy(-Config.getMovePixels() * 2);
+					context.getPlayer().setDy(-Config.getMovePixels() * 2);
 					break;
 				case KeyEvent.VK_SPACE:
-					c.getPlayer().shoot(c.getShots());
+					context.getPlayer().shoot(context.getShots());
 					break;
 				case KeyEvent.VK_ESCAPE:
 					board.getMenu().reset();

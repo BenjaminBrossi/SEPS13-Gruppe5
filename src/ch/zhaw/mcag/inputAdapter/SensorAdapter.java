@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.zhaw.mcag.inputAdapter;
 
 import ch.zhaw.mcag.Config;
@@ -12,17 +7,24 @@ import ch.zhaw.mcag.model.Position;
 import ch.zhaw.mcag.sensor.IControlable;
 
 /**
+ * Input adapter for the motion control sensor
  *
  * @author itz
  */
 public class SensorAdapter implements IControlable {
 
-	private Game gameContext;
+	private final Game gameContext;
 
+	/**
+	 * Create a new sensor adapter
+	 *
+	 * @param context
+	 */
 	public SensorAdapter(Game context) {
 		this.gameContext = context;
 	}
 
+	@Override
 	public void placePlayer(int currentX, int currentY) {
 		// placement logic
 		int dx, dy;
@@ -54,6 +56,7 @@ public class SensorAdapter implements IControlable {
 		this.gameContext.getPlayer().setPosition(position);
 	}
 
+	@Override
 	public void shoot() {
 		this.gameContext.getPlayer().shoot(gameContext.getShots());
 	}
