@@ -4,50 +4,50 @@ import ch.zhaw.mcag.level.Level;
 import ch.zhaw.mcag.model.Dimension;
 
 /**
- *
- * @author beni
+ * MCAG configuration
  */
 public class Config {
 
 	private static int level = Level.LEVEL_SPACE;
 	private static Dimension boardDimension;
 
-	private static int lifes = 5;
-	private static int extraPoint = 2000;
-	private static int obstaclePoint = 1000;
-	private static int creaturePoint = 5000;
-	private static int highscoreLimit = 5;
+	private final static int LIFES = 5;
+	private final static int EXTRA_POINTS = 2000;
+	private final static int OBSTACLE_POINTS = 1000;
+	private final static int CREATURE_POINTS = 5000;
+	private final static int HIGHSCORE_LIMIT = 5;
 
 	// Speed settings
 	private static int gameSpeed = 15;
-	private static int initialSpeed = 10;
-	private static int movePixels = 2;
+	private final static int INITIAL_SPEED = 10;
+	private final static int movePixels = 2;
 
 	// Speed factors
-	private static int enemyFactor = 150;
-	private static int obstacleFactor = 150;
-	private static int shotFactor = 50;
-	private static int extraFactor = 200;
+	private final static int ENEMY_FACTOR = 150;
+	private final static int OBSTACLE_FACTOR = 150;
+	private final static int SHOT_FACTOR = 50;
+	private final static int EXTRA_FACTOR = 200;
 
 	// interval in milliseconds
-	private static long shotInterval = 200;
-	private static int flickerTime = 500;
+	private final static long SHOT_INTERVAL = 200;
+	private final static int FLICKER_TIME = 500;
 
 	// Image path
-	private final static String imagePath = "/images/";
+	private final static String IMAGE_PATH = "/images/";
 
 	// Images
-	private final static String player = "Player.png";
-	private final static String friendlyShot = "Shot.png";
-	private final static String enemyShot = "Shot_Opponent.png";
-	private final static String background = "Background.png";
-	private final static String foreground = "Earth.png";
-	private final static String[] enemies = {"Alien.png", "Alien2.png"};
-	private final static String[] hardObstacles = {"HRTA.png", "HRTA2.png", "HRTA3.png", "HRTA4.png"};
-	private final static String[] softObstacles = {"Satelite.png"};
-	private final static String[] extras = {"alien.gif"};
+	private final static String PLAYER = "Player.png";
+	private final static String FRIENDLY_SHOT = "Shot.png";
+	private final static String ENEMY_SHOT = "Shot_Opponent.png";
+	private final static String BACKGROUND = "Background.png";
+	private final static String FOREGROUND = "Earth.png";
+	private final static String[] ENEMIES = {"Alien.png", "Alien2.png"};
+	private final static String[] HARD_OBSTACLES = {"HRTA.png", "HRTA2.png", "HRTA3.png", "HRTA4.png"};
+	private final static String[] SOFT_OBSTACLES = {"Satelite.png"};
+	private final static String[] EXTRAS = {"alien.gif"};
 
 	/**
+	 * Get the selected Level
 	 *
 	 * @return selected Level
 	 */
@@ -55,168 +55,256 @@ public class Config {
 		return level;
 	}
 
+	/**
+	 * Set a level
+	 *
+	 * @param aLevel
+	 */
 	public static void setLevel(int aLevel) {
 		level = aLevel;
 	}
 
+	/**
+	 * Get the dimension of the Board
+	 *
+	 * @return board dimension
+	 */
 	public static Dimension getBoardDimension() {
 		return boardDimension;
 	}
 
+	/**
+	 * Set the dimension of the Board
+	 *
+	 * @param aBoardDimension
+	 */
 	public static void setBoardDimension(Dimension aBoardDimension) {
 		boardDimension = aBoardDimension;
 	}
 
+	/**
+	 * Get initial LIFES
+	 *
+	 * @return initial LIFES
+	 */
 	public static int getLifes() {
-		return lifes;
+		return LIFES;
 	}
 
-	public static void setLifes(int aLifes) {
-		lifes = aLifes;
-	}
-
+	/**
+	 * Get the points which are given for an extra point
+	 *
+	 * @return points for EXTRAS
+	 */
 	public static int getExtraPoint() {
-		return extraPoint;
+		return EXTRA_POINTS;
 	}
 
-	public static void setExtraPoint(int aExtraPoint) {
-		extraPoint = aExtraPoint;
-	}
-
+	/**
+	 * Get the points which are given for an obstacle
+	 *
+	 * @return points for obstacles
+	 */
 	public static int getObstaclePoint() {
-		return obstaclePoint;
+		return OBSTACLE_POINTS;
 	}
 
-	public static void setObstaclePoint(int aObstaclePoint) {
-		obstaclePoint = aObstaclePoint;
-	}
-
+	/**
+	 * Get the points which are given for a creature
+	 *
+	 * @return points for creature
+	 */
 	public static int getCreaturePoint() {
-		return creaturePoint;
+		return CREATURE_POINTS;
 	}
 
-	public static void setCreaturePoint(int aCreaturePoint) {
-		creaturePoint = aCreaturePoint;
-	}
-
+	/**
+	 * Get the game speed
+	 *
+	 * @return game speed
+	 */
 	public static int getGameSpeed() {
 		return gameSpeed;
 	}
 
+	/**
+	 * Set the game Speed
+	 *
+	 * @param aGameSpeed
+	 */
 	public static void setGameSpeed(int aGameSpeed) {
 		gameSpeed = aGameSpeed;
 	}
 
+	/**
+	 * Get the initial speed
+	 *
+	 * @return initial speed
+	 */
 	public static int getInitialSpeed() {
-		return initialSpeed;
+		return INITIAL_SPEED;
 	}
 
-	public static void setInitialSpeed(int aInitialSpeed) {
-		initialSpeed = aInitialSpeed;
-	}
-
+	/**
+	 * Get the count of pixels to move
+	 *
+	 * @return pixel count
+	 */
 	public static int getMovePixels() {
 		return movePixels;
 	}
 
-	public static void setMovePixels(int aMovePixels) {
-		movePixels = aMovePixels;
-	}
-
+	/**
+	 * Get the moving factor of an enemy
+	 *
+	 * @return move factor
+	 */
 	public static int getEnemyFactor() {
-		return enemyFactor;
+		return ENEMY_FACTOR;
 	}
 
-	public static void setEnemyFactor(int aEnemyFactor) {
-		enemyFactor = aEnemyFactor;
-	}
-
+	/**
+	 * Get the moving factor of an obstacle
+	 *
+	 * @return move factor
+	 */
 	public static int getObstacleFactor() {
-		return obstacleFactor;
+		return OBSTACLE_FACTOR;
 	}
 
-	public static void setObstacleFactor(int aObstacleFactor) {
-		obstacleFactor = aObstacleFactor;
-	}
-
+	/**
+	 * Get the moving factor of a shot
+	 *
+	 * @return moving factor
+	 */
 	public static int getShotFactor() {
-		return shotFactor;
+		return SHOT_FACTOR;
 	}
 
-	public static void setShotFactor(int aShotFactor) {
-		shotFactor = aShotFactor;
-	}
-
+	/**
+	 * Get the moving factor of an extra
+	 *
+	 * @return moving factor
+	 */
 	public static int getExtraFactor() {
-		return extraFactor;
+		return EXTRA_FACTOR;
 	}
 
-	public static void setExtraFactor(int aExtraFactor) {
-		extraFactor = aExtraFactor;
-	}
-
+	/**
+	 * Get the interval between shots
+	 *
+	 * @return shot interval
+	 */
 	public static long getShotInterval() {
-		return shotInterval;
+		return SHOT_INTERVAL;
 	}
 
-	public static void setShotInterval(long aShotInterval) {
-		shotInterval = aShotInterval;
-	}
-
+	/**
+	 * Get the flicker time
+	 *
+	 * @return flicker time
+	 */
 	public static int getFlickerTime() {
-		return flickerTime;
+		return FLICKER_TIME;
 	}
 
-	public static void setFlickerTime(int aFlickerTime) {
-		flickerTime = aFlickerTime;
-	}
-
-	public static String getImagePath() {
-		return imagePath;
-	}
-
+	/**
+	 * Get the name of the PLAYER icon
+	 *
+	 * @return PLAYER icon
+	 */
 	public static String getPlayer() {
-		return player;
+		return PLAYER;
 	}
 
+	/**
+	 * Get the name of the friendly shot icon
+	 *
+	 * @return shot icon
+	 */
 	public static String getFriendlyShot() {
-		return friendlyShot;
+		return FRIENDLY_SHOT;
 	}
 
+	/**
+	 * Get the name of the enemy shot icon
+	 *
+	 * @return shot icon
+	 */
 	public static String getEnemyShot() {
-		return enemyShot;
+		return ENEMY_SHOT;
 	}
 
+	/**
+	 * Get the name of the BACKGROUND image
+	 *
+	 * @return BACKGROUND image
+	 */
 	public static String getBackground() {
-		return background;
+		return BACKGROUND;
 	}
 
+	/**
+	 * Get the name of the fore ground image
+	 *
+	 * @return fore ground image
+	 */
 	public static String getForeground() {
-		return foreground;
+		return FOREGROUND;
 	}
 
+	/**
+	 * Get the names of the enemy icons
+	 *
+	 * @return Array of enemy icons
+	 */
 	public static String[] getEnemies() {
-		return enemies;
+		return ENEMIES;
 	}
 
+	/**
+	 * Get the names of the hard obstacle icons
+	 *
+	 * @return Array of hard obstacle icons
+	 */
 	public static String[] getHardObstacles() {
-		return hardObstacles;
+		return HARD_OBSTACLES;
 	}
 
+	/**
+	 * Get the names of the hard obstacle icons
+	 *
+	 * @return Array of soft obstacle icons
+	 */
 	public static String[] getSoftObstacles() {
-		return softObstacles;
+		return SOFT_OBSTACLES;
 	}
 
+	/**
+	 * Get the names of the extra icons
+	 *
+	 * @return Array of extra icons
+	 */
 	public static String[] getExtras() {
-		return extras;
+		return EXTRAS;
 	}
 
+	/**
+	 * Get the highscore limit
+	 *
+	 * @return limit
+	 */
 	public static int getHighscoreLimit() {
-		return highscoreLimit;
+		return HIGHSCORE_LIMIT;
 	}
 
-	public static void setHighscoreLimit(int highscoreLimit) {
-		Config.highscoreLimit = highscoreLimit;
+	/**
+	 * Get the path to the image directory
+	 *
+	 * @return image path
+	 */
+	public static String getImagePath() {
+		return IMAGE_PATH;
 	}
 
 }

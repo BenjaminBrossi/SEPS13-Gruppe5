@@ -12,10 +12,19 @@ import javax.swing.JFrame;
 
 import ch.zhaw.mcag.model.Dimension;
 
+/**
+ *
+ * Game frame
+ *
+ * This class starts the game and initializes the context and starts the threads
+ */
 public class GameFrame extends JFrame {
 
 	private static final long serialVersionUID = -6941538058687003272L;
 
+	/**
+	 * Create new GameFrame
+	 */
 	public GameFrame() {
 	}
 
@@ -46,8 +55,7 @@ public class GameFrame extends JFrame {
 		this.setUndecorated(true);
 
 		if (gd.isFullScreenSupported()) {
-			//gd.setFullScreenWindow(this);
-			this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+			gd.setFullScreenWindow(this);
 		} else {
 			this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		}
@@ -55,6 +63,11 @@ public class GameFrame extends JFrame {
 		this.setVisible(true);
 	}
 
+	/**
+	 * Main method
+	 *
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		GameFrame game = new GameFrame();
 		game.start();
