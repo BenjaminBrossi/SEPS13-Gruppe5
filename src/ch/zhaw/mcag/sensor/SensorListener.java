@@ -1,19 +1,24 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.zhaw.mcag.sensor;
 
 import com.leapmotion.leap.*;
 
 /**
+ * Sensor listener
  *
  * @author sam
  */
 public class SensorListener extends Listener {
 
+	/**
+	 * Sensor adapter
+	 */
 	private IControlable adapter;
 
+	/**
+	 * Create a new sensor listener
+	 *
+	 * @param controller
+	 */
 	public SensorListener(IControlable controller) {
 		this.adapter = controller;
 	}

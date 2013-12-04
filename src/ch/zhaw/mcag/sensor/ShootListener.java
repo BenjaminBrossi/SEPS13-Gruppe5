@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ch.zhaw.mcag.sensor;
 
 import com.leapmotion.leap.Controller;
@@ -10,13 +6,22 @@ import com.leapmotion.leap.Hand;
 import com.leapmotion.leap.Listener;
 
 /**
+ * Shot listener
  *
  * @author sam
  */
 public class ShootListener extends Listener {
 
+	/**
+	 * Sensor adapter
+	 */
 	private IControlable adapter;
 
+	/**
+	 * Create a new shot listener
+	 *
+	 * @param controller
+	 */
 	public ShootListener(IControlable controller) {
 		this.adapter = controller;
 	}
