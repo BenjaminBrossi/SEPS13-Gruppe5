@@ -243,4 +243,5 @@ public class Item implements Drawable, Destroyable, Movable {
 	@Override
 	public void move() {
 	}
+
 }

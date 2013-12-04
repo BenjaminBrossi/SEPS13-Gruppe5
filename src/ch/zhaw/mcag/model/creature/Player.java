@@ -8,17 +8,32 @@ import ch.zhaw.mcag.model.*;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * The player item
+ */
 public class Player extends Creature {
 
 	private long nextShot;
-	protected boolean good = true;
-	protected int flickerTime = Config.getFlickerTime() * 2;
 
+	/**
+	 * Create a new player
+	 *
+	 * @param position
+	 * @param dimension
+	 * @param image
+	 */
 	public Player(Position position, Dimension dimension, Image image) {
 		super(position, dimension, image);
+		good = true;
+		flickerTime = Config.getFlickerTime() * 2;
 		nextShot = Calendar.getInstance().getTimeInMillis();
 	}
 
+	/**
+	 * Fire a shot
+	 *
+	 * @param shots
+	 */
 	public void shoot(List<Shot> shots) {
 		if (canShoot()) {
 			shootInternal(shots);
@@ -52,6 +67,11 @@ public class Player extends Creature {
 		return ++flicker % 3 == 0;
 	}
 
+	/**
+	 * Set the time to flicker
+	 *
+	 * @param flickerTime
+	 */
 	public void setFlickerTime(int flickerTime) {
 		this.flickerTime = flickerTime;
 	}

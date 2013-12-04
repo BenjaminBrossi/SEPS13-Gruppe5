@@ -5,15 +5,34 @@ import java.awt.Image;
 import ch.zhaw.mcag.Config;
 import ch.zhaw.mcag.model.*;
 
+/**
+ * Abstract class of a creature
+ *
+ */
 public abstract class Creature extends Item implements Movable {
 
+	/**
+	 * Delta x
+	 */
 	protected int dx = 0;
+
+	/**
+	 * Delta y
+	 */
 	protected int dy = 0;
 
+	/**
+	 * Create a new creature
+	 *
+	 * @param position
+	 * @param dimension
+	 * @param image
+	 */
 	public Creature(Position position, Dimension dimension, Image image) {
 		super(position, dimension, image);
 	}
 
+	@Override
 	public void move() {
 		int h = this.getDimension().getHeight();
 		int l = this.getDimension().getLength();
@@ -30,18 +49,38 @@ public abstract class Creature extends Item implements Movable {
 		}
 	}
 
+	/**
+	 * Get delta x
+	 *
+	 * @return delta x
+	 */
 	public int getDx() {
 		return dx;
 	}
 
+	/**
+	 * Set delta x
+	 *
+	 * @param dx
+	 */
 	public void setDx(int dx) {
 		this.dx = dx;
 	}
 
+	/**
+	 * Get delta y
+	 *
+	 * @return
+	 */
 	public int getDy() {
 		return dy;
 	}
 
+	/**
+	 * Set delta y
+	 *
+	 * @param dy
+	 */
 	public void setDy(int dy) {
 		this.dy = dy;
 	}
