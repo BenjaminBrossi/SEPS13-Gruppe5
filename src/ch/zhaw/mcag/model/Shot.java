@@ -7,7 +7,7 @@ import ch.zhaw.mcag.*;
 /**
  * Shot item
  */
-public class Shot extends Item implements Movable, Destroyable {
+public class Shot extends Item implements Destroyable {
 
 	private int direction = 1;
 

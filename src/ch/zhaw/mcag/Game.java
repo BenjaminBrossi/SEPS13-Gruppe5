@@ -19,7 +19,7 @@ public class Game {
 	private Player player;
 	private double points = 0;
 	private int lifes = Config.getLifes();
-	private final int MAX_LIFES = 10;
+	private static final int MAX_LIFES = 10;
 
 	// Background
 	private Background background;
@@ -31,7 +31,7 @@ public class Game {
 	private LinkedList<Shot> shots = new LinkedList<>();
 	private LinkedList<Extra> extras = new LinkedList<>();
 	private LinkedList<Explosion> explosions = new LinkedList<>();
-	private Highscore highscore = Highscore.getHighscore("Highscore.ser");
+	private final Highscore highscore = Highscore.getHighscore("Highscore.ser");
 
 	// State
 	private boolean pause = true;

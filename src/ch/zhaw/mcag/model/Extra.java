@@ -8,7 +8,7 @@ import ch.zhaw.mcag.Game;
 /**
  * Extra item
  */
-public class Extra extends Item implements Collectable, Movable {
+public class Extra extends Item implements Collectable {
 
 	private boolean collected = false;
 	private final ExtraEnum type;

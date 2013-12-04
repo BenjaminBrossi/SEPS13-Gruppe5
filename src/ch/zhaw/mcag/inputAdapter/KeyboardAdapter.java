@@ -38,6 +38,8 @@ public class KeyboardAdapter extends KeyAdapter {
 			case KeyEvent.VK_UP:
 				context.getPlayer().setDy(0);
 				break;
+			default:
+				break;
 		}
 	}
 
@@ -65,6 +67,8 @@ public class KeyboardAdapter extends KeyAdapter {
 				case KeyEvent.VK_ESCAPE:
 					board.getMenu().reset();
 					board.toggleMenu();
+					break;
+				default:
 					break;
 			}
 		} else {

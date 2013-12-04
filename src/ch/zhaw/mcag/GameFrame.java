@@ -6,7 +6,7 @@ import ch.zhaw.mcag.thread.ShotCreator;
 import ch.zhaw.mcag.thread.ExtraCreator;
 import ch.zhaw.mcag.thread.Engine;
 import ch.zhaw.mcag.thread.ObstacleCreator;
-import java.awt.*;
+//import java.awt.*;
 
 import javax.swing.JFrame;
 
@@ -32,7 +32,7 @@ public class GameFrame extends JFrame {
 
 		java.awt.Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
 		Config.setBoardDimension(new Dimension(dimension.height, dimension.width));
-		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		//GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
 
 		Game c = new Game();
 		Board board = new Board(c);
@@ -54,12 +54,12 @@ public class GameFrame extends JFrame {
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setUndecorated(true);
 
-		if (gd.isFullScreenSupported()) {
-			//gd.setFullScreenWindow(this);
+//		if (gd.isFullScreenSupported()) {
+//			//gd.setFullScreenWindow(this);
+//			this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+//		} else {
 			this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		} else {
-			this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		}
+//		}
 
 		this.setVisible(true);
 	}

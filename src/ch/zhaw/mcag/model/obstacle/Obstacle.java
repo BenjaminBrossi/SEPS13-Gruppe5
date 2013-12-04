@@ -10,7 +10,7 @@ import ch.zhaw.mcag.model.*;
  *
  * @author beni
  */
-public abstract class Obstacle extends Item implements Movable {
+public abstract class Obstacle extends Item {
 
 	/**
 	 * Create a new Obstacle

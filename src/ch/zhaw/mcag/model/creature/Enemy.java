@@ -8,7 +8,7 @@ import ch.zhaw.mcag.model.*;
 /**
  * Item enemy
  */
-public class Enemy extends Creature implements Destroyable {
+public class Enemy extends Creature{
 
 	/**
 	 * Direction of the item

@@ -9,7 +9,7 @@ import ch.zhaw.mcag.model.*;
  * Abstract class of a creature
  *
  */
-public abstract class Creature extends Item implements Movable {
+public abstract class Creature extends Item implements Destroyable {
 
 	/**
 	 * Delta x

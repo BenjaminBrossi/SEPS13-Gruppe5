@@ -8,7 +8,7 @@ import ch.zhaw.mcag.Config;
  * Basic class of a drawable item
  *
  */
-public class Item implements Drawable, Destroyable, Movable {
+public class Item implements Drawable, Movable {
 
 	/**
 	 * The dimension of the item
@@ -181,7 +181,9 @@ public class Item implements Drawable, Destroyable, Movable {
 		this.disposed = disposed;
 	}
 
-	@Override
+	/**
+	 * Destroy the item
+	 */
 	public void destroy() {
 
 	}

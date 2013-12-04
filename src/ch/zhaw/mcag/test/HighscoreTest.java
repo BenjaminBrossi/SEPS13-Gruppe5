@@ -20,7 +20,7 @@ import org.junit.Test;
 public class HighscoreTest extends TestCase {
 
 	private Highscore highscore;
-	private final String PATH = "testHighscore.ser";
+	private static final String PATH = "testHighscore.ser";
 	private File file;
 
 	@Override

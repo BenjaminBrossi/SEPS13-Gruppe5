@@ -5,16 +5,16 @@ package ch.zhaw.mcag.level;
  */
 public class Deepsea implements LevelInterface {
 
-	private final String PLAYER = "Submarine.png";
-	private final String FRIENDLY_SHOT = "Fish.png";
-	private final String ENEMY_SHOT = "Torpedo.png";
-	private final String BACKGROUND = "Deepsea.jpg";
-	private final String FOREGROUND = "";
-	private final String EXPLOSIONS = "Wirbel.gif";
-	private final String LIFE = "GreenHeart.png";
-	private final String[] ENEMIES = {"Fish1.png", "Octopus.gif"};
-	private final String[] HARD_OBSTACLES = {"HardCoral.png", "HardCoral2.png"};
-	private final String[] SOFT_OBSTACLES = {"SoftCoral.png"};
+	private static final String PLAYER = "Submarine.png";
+	private static final String FRIENDLY_SHOT = "Fish.png";
+	private static final String ENEMY_SHOT = "Torpedo.png";
+	private static final String BACKGROUND = "Deepsea.jpg";
+	private static final String FOREGROUND = "";
+	private static final String EXPLOSIONS = "Wirbel.gif";
+	private static final String LIFE = "GreenHeart.png";
+	private static final String[] ENEMIES = {"Fish1.png", "Octopus.gif"};
+	private static final String[] HARD_OBSTACLES = {"HardCoral.png", "HardCoral2.png"};
+	private static final String[] SOFT_OBSTACLES = {"SoftCoral.png"};
 
 	// Keep the order (Extra points, LIFE point, clean the field, invincible)
 	private final String[] EXTRAS = {"Coin.gif", "LifePoint.png", "Flash.png", "Shield.png"};
