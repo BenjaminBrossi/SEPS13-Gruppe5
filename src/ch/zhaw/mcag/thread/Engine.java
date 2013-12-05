@@ -36,7 +36,7 @@ public class Engine extends Thread {
 				disposeAll();
 				c.setPoints(c.getPoints() + 0.01);
 				board.repaint();
-				Config.setGameSpeed(Config.getInitialSpeed() - (int) (Math.log10(c.getPoints()) - 2));
+                                Config.setGameSpeed(Config.getInitialSpeed() - (int) (Math.log((7.5*c.getPoints()+1))));
 			}
 			try {
 				Thread.sleep(Config.getGameSpeed());

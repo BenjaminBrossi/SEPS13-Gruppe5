@@ -12,14 +12,14 @@ public class Config {
 	private static Dimension boardDimension;
 
 	private final static int LIFES = 5;
-	private final static int EXTRA_POINTS = 2000;
-	private final static int OBSTACLE_POINTS = 1000;
-	private final static int CREATURE_POINTS = 5000;
+	private final static int EXTRA_POINTS = 100;
+	private final static int OBSTACLE_POINTS = 50;
+	private final static int CREATURE_POINTS = 20;
 	private final static int HIGHSCORE_LIMIT = 5;
 
 	// Speed settings
 	private static int gameSpeed = 15;
-	private final static int INITIAL_SPEED = 10;
+	private final static int INITIAL_SPEED = 15;
 	private final static int movePixels = 2;
 
 	// Speed factors
@@ -133,7 +133,9 @@ public class Config {
 	 * @param aGameSpeed
 	 */
 	public static void setGameSpeed(int aGameSpeed) {
-		gameSpeed = aGameSpeed;
+            if(aGameSpeed > 0){
+                gameSpeed = aGameSpeed;
+            }
 	}
 
 	/**
