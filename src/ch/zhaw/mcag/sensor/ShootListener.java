@@ -59,7 +59,7 @@ public class ShootListener extends Listener {
 			// take the first hand
 			Hand hand = frame.hands().get(0);
 
-			if (hand.fingers().isEmpty()) {
+			if (hand.fingers().count() < 2) {
 				// shoot
 				// System.out.println("Shoot!");
 				this.adapter.shoot();
