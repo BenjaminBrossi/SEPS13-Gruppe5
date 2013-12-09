@@ -71,7 +71,7 @@ public class Board extends JPanel implements ActionListener {
 
 	private void paintMenu(Graphics2D g2d) {
 		if (showMenu == true) {
-			if (c.getPoints() > c.getHighscore().getLowestPointsInTable()) {
+			if (c.getPoints() > c.getHighscore().getLowestPointsInTable() && c.getLifes() == 0) {
 				menu.setState(4);
 			}
 			menu.draw(g2d);
