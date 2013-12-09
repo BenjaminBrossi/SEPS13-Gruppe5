@@ -86,7 +86,7 @@ public class Menu {
 	}
 
 	private void showMainMenu(Graphics2D g2d) {
-		if (context.getPoints() == 0) {
+		if (context.getPoints() < 1 || context.getLifes() < 1) {
 			g2d.drawString("Spiel beginnen", menuX + 20, menuY + 100);
 			g2d.drawString("Level wählen", menuX + 20, menuY + 150);
 			g2d.drawString("Highscore", menuX + 20, menuY + 200);
@@ -170,7 +170,7 @@ public class Menu {
 	 */
 	public void up() {
 		if (state == 1) {
-			if (context.getPoints() == 0) {
+			if (context.getPoints() < 1 || context.getLifes() < 1) {
 				if (cursorY > menuY + 75) {
 					cursorY -= 50;
 					selected--;
@@ -195,7 +195,7 @@ public class Menu {
 	 */
 	public void down() {
 		if (state == 1) {
-			if (context.getPoints() == 0) {
+			if (context.getPoints() < 1 || context.getLifes() < 1) {
 				if (cursorY < menuY + 225) {
 					cursorY += 50;
 					selected++;
@@ -345,9 +345,9 @@ public class Menu {
 			context.getHighscore().addEntry(context.getPoints(), playerName);
 			this.context.resetContext();
 			state = 3;
-		} else if(state == 3){
-                    this.reset();
-                } else if (state != 1) {
+		} else if (state == 3) {
+			this.reset();
+		} else if (state != 1) {
 			state = 1;
 		}
 	}
