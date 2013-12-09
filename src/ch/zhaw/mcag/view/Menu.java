@@ -37,7 +37,7 @@ public class Menu {
 
 	/**
 	 * Create a new menu
-	 *
+	 * 
 	 * @param board
 	 * @param context
 	 */
@@ -49,7 +49,7 @@ public class Menu {
 		level = 1;
 		this.board = board;
 		this.context = context;
-		this.playerName = "PLAYER";
+		this.playerName = "";
 		spaceLevelImage = new ImageIcon(this.getClass().getResource(
 				Config.getImagePath() + "Player.png"));
 		deepseaLevelImage = new ImageIcon(this.getClass().getResource(
@@ -59,8 +59,9 @@ public class Menu {
 
 	/**
 	 * Draw the menu
-	 *
-	 * @param g2d graphic
+	 * 
+	 * @param g2d
+	 *            graphic
 	 */
 	public void draw(Graphics2D g2d) {
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
@@ -121,12 +122,13 @@ public class Menu {
 
 	/**
 	 * Show menu to enter the name
-	 *
-	 * @param g2d graphic
+	 * 
+	 * @param g2d
+	 *            graphic
 	 */
 	public void showNameMenu(Graphics2D g2d) {
-		g2d.drawString("Name ", menuX, 250);
-		g2d.drawString(playerName, menuX, 300);
+		g2d.drawString("Name ", menuX, menuY + 50);
+		g2d.drawString(playerName, menuX, menuY + 100);
 	}
 
 	private void showLevelMenu(Graphics2D g2d) {
@@ -140,7 +142,7 @@ public class Menu {
 
 	/**
 	 * Select a menu
-	 *
+	 * 
 	 * @param selected
 	 */
 	public void select(int selected) {
@@ -255,7 +257,7 @@ public class Menu {
 
 	/**
 	 * Get the level
-	 *
+	 * 
 	 * @return
 	 */
 	public int getLevel() {
@@ -264,11 +266,15 @@ public class Menu {
 
 	/**
 	 * Add a character to the name
-	 *
-	 * @param c char
+	 * 
+	 * @param c
+	 *            char
 	 */
 	public void addCharToName(char c) {
 		if (state == 4) {
+			/*
+			 * if (playerName.equals("PLAYER")) { playerName = ""; }
+			 */
 			if (playerName.length() < 16) {
 				playerName = playerName + c;
 			}
@@ -287,7 +293,7 @@ public class Menu {
 
 	/**
 	 * Get the state
-	 *
+	 * 
 	 * @return state
 	 */
 	public int getState() {
@@ -296,7 +302,7 @@ public class Menu {
 
 	/**
 	 * Get the selected entry
-	 *
+	 * 
 	 * @return selected
 	 */
 	public int getSelected() {
@@ -305,8 +311,9 @@ public class Menu {
 
 	/**
 	 * Set the state
-	 *
-	 * @param i state
+	 * 
+	 * @param i
+	 *            state
 	 */
 	public void setState(int i) {
 		state = i;
@@ -316,9 +323,14 @@ public class Menu {
 	 * Reset menu
 	 */
 	public void reset() {
-		cursorY = menuY + 25;
+		if (context.getPoints() == 0) {
+			cursorY = menuY + 75;
+			selected = 2;
+		} else {
+			cursorY = menuY + 25;
+			selected = 1;
+		}
 		state = 1;
-		selected = 1;
 	}
 
 	/**
