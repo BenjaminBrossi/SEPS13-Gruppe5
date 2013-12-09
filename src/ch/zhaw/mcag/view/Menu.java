@@ -128,7 +128,7 @@ public class Menu {
 	 */
 	public void showNameMenu(Graphics2D g2d) {
 		g2d.drawString("Name ", menuX, menuY + 50);
-		g2d.drawString(playerName, menuX, menuY + 100);
+		g2d.drawString("["+playerName +"]", menuX, menuY + 100);
 	}
 
 	private void showLevelMenu(Graphics2D g2d) {

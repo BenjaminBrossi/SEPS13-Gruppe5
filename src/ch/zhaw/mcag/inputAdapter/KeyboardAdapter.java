@@ -89,9 +89,6 @@ public class KeyboardAdapter extends KeyAdapter {
 				case KeyEvent.VK_RIGHT:
 					board.getMenu().right();
 					break;
-				case KeyEvent.VK_SPACE:
-					board.getMenu().select(board.getMenu().getSelected());
-					break;
 				case KeyEvent.VK_ENTER:
 					board.getMenu().enter();
 					break;
