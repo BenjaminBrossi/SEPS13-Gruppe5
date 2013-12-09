@@ -137,7 +137,7 @@ public class Game {
 	 *
 	 * @return shots
 	 */
-	public LinkedList<Shot> getShots() {
+	public synchronized LinkedList<Shot> getShots() {
 		return shots;
 	}
 

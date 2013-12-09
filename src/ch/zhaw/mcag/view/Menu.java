@@ -323,7 +323,7 @@ public class Menu {
 	 * Reset menu
 	 */
 	public void reset() {
-		if (context.getPoints() == 0) {
+		if (context.getPoints() < 1) {
 			cursorY = menuY + 75;
 			selected = 2;
 		} else {
@@ -345,7 +345,9 @@ public class Menu {
 			context.getHighscore().addEntry(context.getPoints(), playerName);
 			this.context.resetContext();
 			state = 3;
-		} else if (state != 1) {
+		} else if(state == 3){
+                    this.reset();
+                } else if (state != 1) {
 			state = 1;
 		}
 	}
